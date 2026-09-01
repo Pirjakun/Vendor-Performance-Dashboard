@@ -98,7 +98,11 @@ export function useVendorData() {
 
   // Helper arrays for options
   const uniqueMonths = useMemo(() => {
-    const monthsOrder = ['Januari 2026', 'Februari 2026', 'Maret 2026', 'April 2026', 'Mei 2026', 'Juni 2026'];
+    const monthsOrder = [
+      'Januari 2026', 'Februari 2026', 'Maret 2026', 'April 2026', 'Mei 2026', 'Juni 2026',
+      'Juli 2026', 'Agustus 2026', 'September 2026', 'Oktober 2026', 'November 2026', 'Desember 2026',
+      'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+    ];
     const set = new Set(evaluations.map(d => d.bulan).filter(Boolean));
     return Array.from(set).sort((a, b) => {
       const idxA = monthsOrder.indexOf(a);

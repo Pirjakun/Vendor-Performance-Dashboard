@@ -11,7 +11,9 @@ export function Slicers({
   uniqueCategories,
   evaluations
 }) {
-  const months = ['Januari 2026', 'Februari 2026', 'Maret 2026', 'April 2026', 'Mei 2026', 'Juni 2026'];
+  const months = uniqueMonths && uniqueMonths.length > 0
+    ? uniqueMonths
+    : ['Januari 2026', 'Februari 2026', 'Maret 2026', 'April 2026', 'Mei 2026', 'Juni 2026', 'Juli 2026', 'Agustus 2026', 'September 2026', 'Oktober 2026', 'November 2026', 'Desember 2026'];
   const grades = ['A', 'B', 'C', 'D'];
   const rekomList = [
     'Sangat Direkomendasikan',

@@ -1,5 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const csvPath = path.join(__dirname, 'Artefak', 'Data Evaluasi Vendor(Data).csv');
 const content = fs.readFileSync(csvPath, 'utf8');
@@ -92,3 +96,7 @@ console.log('Total parsed evaluations:', evaluations.length);
 const jsContent = 'window.EVALUATION_DATA = ' + JSON.stringify(evaluations, null, 2) + ';\n';
 fs.writeFileSync(path.join(__dirname, 'data.js'), jsContent, 'utf8');
 console.log('Saved data.js successfully!');
+
+const initialDataJs = '// Initial dataset parsed from Data Evaluasi Vendor(Data).csv\nexport const initialData = ' + JSON.stringify(evaluations, null, 2) + ';\n';
+fs.writeFileSync(path.join(__dirname, 'src', 'data', 'initialData.js'), initialDataJs, 'utf8');
+console.log('Saved src/data/initialData.js successfully!');
