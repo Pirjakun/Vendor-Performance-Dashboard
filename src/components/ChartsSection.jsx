@@ -46,11 +46,13 @@ export function ChartsSection({
   selectedVendor,
   selectedCategory,
   overviewMode,
-  setOverviewMode,
   donutCalcMode,
   setDonutCalcMode,
   onVendorClick
 }) {
+  const [catViewMode, setCatViewMode] = React.useState('top');
+  const [locViewMode, setLocViewMode] = React.useState('top');
+
   // 1. OVERVIEW CHART DATA
   const overviewMap = {};
   filteredOverview.forEach(d => {
@@ -273,7 +275,7 @@ export function ChartsSection({
     }
   };
 
-  // 5. CATEGORY BAR CHART
+  // 5. CATEGORY BAR CHART (Horizontal layout)
   const catMap = {};
   filteredCategory.forEach(d => {
     if (!catMap[d.category]) catMap[d.category] = { sum: 0, count: 0 };
@@ -286,31 +288,41 @@ export function ChartsSection({
     score: parseFloat((catMap[c].sum / catMap[c].count).toFixed(1))
   })).sort((a, b) => b.score - a.score);
 
+  const isCatAll = catViewMode === 'all';
+  const displayCategories = isCatAll ? categories : categories.slice(0, 8);
+  const catChartHeight = isCatAll ? Math.max(260, displayCategories.length * 28 + 30) : 260;
+
   const categoryData = {
-    labels: categories.map(c => c.category),
+    labels: displayCategories.map(c => c.category),
     datasets: [{
-      data: categories.map(c => c.score),
-      backgroundColor: categories.map(c => {
-        if (selectedCategory) {
-          return c.category === selectedCategory ? NAVY : 'rgba(37, 99, 201, 0.25)';
-        }
-        return BLUE600;
+      data: displayCategories.map(c => c.score),
+      backgroundColor: displayCategories.map(c => {
+        if (selectedCategory && c.category === selectedCategory) return NAVY;
+        return c.score >= 85 ? BLUE600 : c.score >= 70 ? SKY400 : c.score >= 55 ? FAIR : POOR;
       }),
-      borderRadius: 6,
-      barThickness: 26
+      borderRadius: 4,
+      barThickness: isCatAll ? 14 : 18
     }]
   };
 
   const categoryOptions = {
+    indexAxis: 'y',
     maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` Rata-rata Skor: ${ctx.raw}`
+        }
+      }
+    },
     scales: {
-      y: { min: 0, max: 100, grid: { color: ICE100 } },
-      x: { grid: { display: false }, ticks: { font: { size: 11, weight: 600 } } }
+      x: { min: 0, max: 100, grid: { color: ICE100 } },
+      y: { grid: { display: false }, ticks: { font: { size: 11.5, weight: 600 } } }
     }
   };
 
-  // 6. LOCATION / CITY BAR CHART
+  // 6. LOCATION / CITY BAR CHART (Horizontal layout)
   const locMap = {};
   filteredGeneral.forEach(d => {
     const loc = d.alamat || 'Lainnya';
@@ -325,23 +337,37 @@ export function ChartsSection({
     count: locMap[l].count
   })).sort((a, b) => b.count - a.count);
 
+  const isLocAll = locViewMode === 'all';
+  const displayLocations = isLocAll ? locations : locations.slice(0, 8);
+  const locChartHeight = isLocAll ? Math.max(260, displayLocations.length * 28 + 30) : 260;
+
   const locationData = {
-    labels: locations.map(l => l.location),
+    labels: displayLocations.map(l => l.location),
     datasets: [{
       label: 'Rata-rata Skor',
-      data: locations.map(l => l.score),
-      backgroundColor: SKY400,
-      borderRadius: 6,
-      barThickness: 24
+      data: displayLocations.map(l => l.score),
+      backgroundColor: displayLocations.map(l => {
+        return l.score >= 85 ? BLUE600 : l.score >= 70 ? SKY400 : l.score >= 55 ? FAIR : POOR;
+      }),
+      borderRadius: 4,
+      barThickness: isLocAll ? 14 : 18
     }]
   };
 
   const locationOptions = {
+    indexAxis: 'y',
     maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` Rata-rata Skor: ${ctx.raw}`
+        }
+      }
+    },
     scales: {
-      y: { min: 0, max: 100, grid: { color: ICE100 } },
-      x: { grid: { display: false } }
+      x: { min: 0, max: 100, grid: { color: ICE100 } },
+      y: { grid: { display: false }, ticks: { font: { size: 11.5, weight: 600 } } }
     }
   };
 
@@ -470,9 +496,21 @@ export function ChartsSection({
               <h2>Performance by Vendor Category</h2>
               <p>Skor rata-rata dikelompokkan berdasarkan kategori jasa.</p>
             </div>
+            <button
+              className="btn-toggle"
+              onClick={() => setCatViewMode(catViewMode === 'top' ? 'all' : 'top')}
+            >
+              {catViewMode === 'top' ? `Lihat Semua (${categories.length})` : 'Top 8 Kategori'}
+            </button>
           </div>
-          <div className="chart-wrap chart-short">
-            <Bar data={categoryData} options={categoryOptions} redraw={true} />
+          <div style={{
+            maxHeight: isCatAll ? '360px' : 'none',
+            overflowY: isCatAll ? 'auto' : 'visible',
+            paddingRight: isCatAll ? '4px' : '0'
+          }}>
+            <div style={{ height: `${catChartHeight}px`, position: 'relative', width: '100%' }}>
+              <Bar data={categoryData} options={categoryOptions} redraw={true} />
+            </div>
           </div>
         </div>
 
@@ -482,9 +520,21 @@ export function ChartsSection({
               <h2>Performance by Location / City</h2>
               <p>Rata-rata skor evaluasi vendor berdasarkan wilayah kota.</p>
             </div>
+            <button
+              className="btn-toggle"
+              onClick={() => setLocViewMode(locViewMode === 'top' ? 'all' : 'top')}
+            >
+              {locViewMode === 'top' ? `Lihat Semua (${locations.length})` : 'Top 8 Lokasi'}
+            </button>
           </div>
-          <div className="chart-wrap chart-short">
-            <Bar data={locationData} options={locationOptions} redraw={true} />
+          <div style={{
+            maxHeight: isLocAll ? '360px' : 'none',
+            overflowY: isLocAll ? 'auto' : 'visible',
+            paddingRight: isLocAll ? '4px' : '0'
+          }}>
+            <div style={{ height: `${locChartHeight}px`, position: 'relative', width: '100%' }}>
+              <Bar data={locationData} options={locationOptions} redraw={true} />
+            </div>
           </div>
         </div>
       </div>
