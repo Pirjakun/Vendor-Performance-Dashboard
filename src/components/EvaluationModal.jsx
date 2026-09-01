@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, CheckCircle } from 'lucide-react';
+import { X, Save } from 'lucide-react';
 
 export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
   const isEdit = Boolean(initialRecord && initialRecord.id);
@@ -129,7 +129,7 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
               />
             </div>
             <div className="form-group">
-              <label>Bulan Evaluasi</label>
+              <label>Bulan Evaluasi *</label>
               <select
                 value={formData.bulan}
                 onChange={e => setFormData({ ...formData, bulan: e.target.value })}
@@ -152,16 +152,37 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
 
           <div className="form-row-2">
             <div className="form-group">
-              <label>Tanggal Pelaksanaan</label>
+              <label>Pilih Tanggal Pelaksanaan (Kalender)</label>
               <input
-                type="text"
-                placeholder="Contoh: 22 Januari 2026"
-                value={formData.tglEvent}
-                onChange={e => setFormData({ ...formData, tglEvent: e.target.value })}
+                type="date"
+                style={{
+                  padding: '9px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid var(--line)',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  color: 'var(--ink-900)',
+                  background: 'var(--sky-50)'
+                }}
+                onChange={(e) => {
+                  const isoVal = e.target.value;
+                  if (!isoVal) return;
+                  const [y, m, d] = isoVal.split('-');
+                  const monthsIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                  const monthIdx = parseInt(m, 10) - 1;
+                  const monthName = monthsIndo[monthIdx] || '';
+                  const formattedDate = `${parseInt(d, 10)} ${monthName} ${y}`;
+                  const formattedBulan = `${monthName} ${y}`;
+                  setFormData(prev => ({
+                    ...prev,
+                    tglEvent: formattedDate,
+                    bulan: formattedBulan
+                  }));
+                }}
               />
             </div>
             <div className="form-group">
-              <label>Kategori Jasa</label>
+              <label>Kategori Jasa *</label>
               <select
                 value={formData.category}
                 onChange={e => setFormData({ ...formData, category: e.target.value })}
@@ -171,7 +192,6 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
                 <option value="Dokumentasi">Dokumentasi</option>
                 <option value="Multimedia">Multimedia</option>
                 <option value="Show Management">Show Management</option>
-
                 <option value="Talent">Talent</option>
                 <option value="Transport">Transport</option>
                 <option value="Venue">Venue</option>
@@ -192,13 +212,21 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
 
           <div className="form-row-2">
             <div className="form-group">
-              <label>Lokasi / Kota</label>
-              <input
-                type="text"
-                placeholder="Contoh: Jakarta, Yogyakarta, Bali..."
+              <label>Lokasi / Kota *</label>
+              <select
                 value={formData.alamat}
                 onChange={e => setFormData({ ...formData, alamat: e.target.value })}
-              />
+              >
+                <option value="Yogyakarta">Yogyakarta</option>
+                <option value="Jakarta">Jakarta</option>
+                <option value="Bandung">Bandung</option>
+                <option value="Bali">Bali</option>
+                <option value="Surabaya">Surabaya</option>
+                <option value="Magelang">Magelang</option>
+                <option value="Salatiga">Salatiga</option>
+                <option value="Jawa Timur">Jawa Timur</option>
+                <option value="Medan">Medan</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Nilai / Skor (0 - 100) *</label>

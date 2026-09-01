@@ -35,16 +35,26 @@ export function RegionMap({ filteredData, onCityClick }) {
   // Surabaya -> East Java north-east coast (facing Madura)
   // Jawa Timur -> East Java interior
   // Bali -> Bali island (east of East Java)
+  // Exact geographic coordinates strictly aligned with 778x394 Indonesia reference map:
+  // Medan -> North Sumatra
+  // Jakarta -> DKI Jakarta / West Java northwest coast
+  // Bandung -> West Java interior
+  // Magelang -> Central Java interior (north of Yogyakarta)
+  // Yogyakarta -> DI Yogyakarta south coast
+  // Salatiga -> Central Java interior (northeast of Magelang)
+  // Surabaya -> East Java north coast (facing Madura)
+  // Jawa Timur -> East Java interior
+  // Bali -> Bali island
   const cities = [
-    { name: 'Medan', cx: 98, cy: 163, labelPos: 'top', textAnchor: 'middle' },
-    { name: 'Jakarta', cx: 265, cy: 326, labelPos: 'top', textAnchor: 'middle' },
-    { name: 'Bandung', cx: 285, cy: 353, labelPos: 'bottom', textAnchor: 'middle' },
-    { name: 'Magelang', cx: 355, cy: 338, labelPos: 'left', textAnchor: 'end' },
-    { name: 'Yogyakarta', cx: 362, cy: 367, labelPos: 'bottom', textAnchor: 'middle' },
-    { name: 'Salatiga', cx: 375, cy: 322, labelPos: 'top-right', textAnchor: 'start' },
-    { name: 'Surabaya', cx: 435, cy: 329, labelPos: 'top', textAnchor: 'middle' },
-    { name: 'Jawa Timur', cx: 452, cy: 358, labelPos: 'bottom-right', textAnchor: 'start' },
-    { name: 'Bali', cx: 528, cy: 365, labelPos: 'right', textAnchor: 'start' }
+    { name: 'Medan', cx: 76, cy: 108, labelPos: 'top', textAnchor: 'middle' },
+    { name: 'Jakarta', cx: 216, cy: 246, labelPos: 'top', textAnchor: 'middle' },
+    { name: 'Bandung', cx: 228, cy: 262, labelPos: 'bottom', textAnchor: 'middle' },
+    { name: 'Magelang', cx: 284, cy: 258, labelPos: 'left', textAnchor: 'end' },
+    { name: 'Yogyakarta', cx: 288, cy: 276, labelPos: 'bottom', textAnchor: 'middle' },
+    { name: 'Salatiga', cx: 298, cy: 250, labelPos: 'top-right', textAnchor: 'start' },
+    { name: 'Surabaya', cx: 344, cy: 248, labelPos: 'top', textAnchor: 'middle' },
+    { name: 'Jawa Timur', cx: 352, cy: 268, labelPos: 'bottom-right', textAnchor: 'start' },
+    { name: 'Bali', cx: 412, cy: 270, labelPos: 'right', textAnchor: 'start' }
   ];
 
   const getLabelY = (c, data) => {
@@ -77,7 +87,7 @@ export function RegionMap({ filteredData, onCityClick }) {
 
       <div className="map-wrap">
         <div style={{ position: 'relative', flex: 1, minWidth: 0, background: '#FFFFFF', borderRadius: '12px', padding: '12px', border: '1px solid var(--line)' }}>
-          <svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto', display: 'block' }}>
+          <svg viewBox="0 0 778 394" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto', display: 'block' }}>
             <defs>
               <filter id="glowShadow" x="-30%" y="-30%" width="160%" height="160%">
                 <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.2" floodColor="#0F2A57" />
@@ -85,7 +95,7 @@ export function RegionMap({ filteredData, onCityClick }) {
             </defs>
 
             {/* BACKGROUND MAP IMAGE EXACTLY MATCHING USER OUTLINE REFERENCE */}
-            <image href={mapImg} x="0" y="0" width="1000" height="480" preserveAspectRatio="none" />
+            <image href={mapImg} x="0" y="0" width="778" height="394" preserveAspectRatio="none" />
 
             {/* CITY DOT MARKERS */}
             {cities.map(c => {
