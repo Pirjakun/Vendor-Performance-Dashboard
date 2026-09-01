@@ -1,11 +1,14 @@
 import { useState, useEffect, useMemo } from 'react';
 import { initialData } from '../data/initialData';
 
-const LOCAL_STORAGE_KEY = 'vendor_evaluations_v1';
+const LOCAL_STORAGE_KEY = 'vendor_evaluations_v2';
 
 export function useVendorData() {
   const [evaluations, setEvaluations] = useState(() => {
     try {
+      if (localStorage.getItem('vendor_evaluations_v1')) {
+        localStorage.removeItem('vendor_evaluations_v1');
+      }
       const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -70,9 +73,14 @@ export function useVendorData() {
   };
 
   const resetToInitialData = () => {
-    if (window.confirm('Apakah Anda yakin ingin mereset seluruh data kembali ke data asli (151 evaluasi)? Transaksi baru akan terhapus.')) {
+    if (window.confirm('Apakah Anda yakin ingin mereset seluruh data kembali ke data terbaru? Data tersimpan lama di browser akan dihapus dan diganti.')) {
       setEvaluations(initialData);
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initialData));
+      try {
+        localStorage.removeItem('vendor_evaluations_v1');
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initialData));
+      } catch (e) {
+        console.error('Failed to reset localStorage:', e);
+      }
     }
   };
 
