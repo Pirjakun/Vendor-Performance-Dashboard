@@ -116,8 +116,12 @@ export function ChartsSection({
   };
 
   // 2. TREND CHART DATA
-  const months = ['Januari 2026', 'Februari 2026', 'Maret 2026', 'April 2026', 'Mei 2026', 'Juni 2026'];
-  const monthShorts = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'];
+  const months = [
+    'Januari 2026', 'Februari 2026', 'Maret 2026', 'April 2026',
+    'Mei 2026', 'Juni 2026', 'Juli 2026', 'Agustus 2026',
+    'September 2026', 'Oktober 2026', 'November 2026', 'Desember 2026'
+  ];
+  const monthShorts = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
   const trendScores = months.map(m => {
     const rows = filteredTrend.filter(d => d.bulan === m);
@@ -163,8 +167,8 @@ export function ChartsSection({
       else {
         const v = Number(d.nilai);
         if (v >= 85) excellent++;
-        else if (v >= 75) good++;
-        else if (v >= 65) fair++;
+        else if (v >= 70) good++;
+        else if (v >= 55) fair++;
         else poor++;
       }
     });
@@ -178,14 +182,18 @@ export function ChartsSection({
     Object.keys(map).forEach(v => {
       const avg = map[v].sum / map[v].count;
       if (avg >= 85) excellent++;
-      else if (avg >= 75) good++;
-      else if (avg >= 65) fair++;
+      else if (avg >= 70) good++;
+      else if (avg >= 55) fair++;
       else poor++;
     });
   }
 
+  const donutTotalCount = donutCalcMode === 'row' 
+    ? filteredGeneral.length 
+    : Object.keys(overviewMap).length;
+
   const donutData = {
-    labels: ['Grade A / Excellent (≥85)', 'Grade B / Good (75–84)', 'Grade C / Fair (65–74)', 'Grade D / Poor (<65)'],
+    labels: ['Grade A (≥85)', 'Grade B (70–84.99)', 'Grade C (55–69.99)', 'Grade D (<55)'],
     datasets: [{
       data: [excellent, good, fair, poor],
       backgroundColor: [NAVY, BLUE600, FAIR, POOR],
@@ -195,7 +203,7 @@ export function ChartsSection({
   };
 
   const donutOptions = {
-    cutout: '68%',
+    cutout: '72%',
     maintainAspectRatio: false,
     plugins: {
       legend: {
@@ -375,8 +383,23 @@ export function ChartsSection({
               {donutCalcMode === 'row' ? 'Per Evaluasi' : 'Per Vendor'}
             </button>
           </div>
-          <div className="chart-wrap chart-mid">
+          <div className="chart-wrap chart-mid" style={{ position: 'relative' }}>
             <Doughnut data={donutData} options={donutOptions} redraw={true} />
+            <div style={{
+              position: 'absolute',
+              top: '41%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              textAlign: 'center',
+              pointerEvents: 'none'
+            }}>
+              <div style={{ fontSize: '26px', fontWeight: '800', color: 'var(--navy-950)', lineHeight: 1 }}>
+                {donutTotalCount}
+              </div>
+              <div style={{ fontSize: '11px', fontWeight: '700', color: 'var(--ink-500)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                {donutCalcMode === 'row' ? 'Evaluasi' : 'Vendor'}
+              </div>
+            </div>
           </div>
         </div>
       </div>
