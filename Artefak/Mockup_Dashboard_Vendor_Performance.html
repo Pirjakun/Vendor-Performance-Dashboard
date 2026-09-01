@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Vendor Performance Monitoring — Werkudara Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<style>
+  :root{
+    --navy-950:#0B1D3A;
+    --navy-900:#0F2A57;
+    --navy-800:#153B76;
+    --blue-700:#1B4FA0;
+    --blue-600:#2563C9;
+    --blue-500:#3B82E0;
+    --sky-400:#6FB1F0;
+    --sky-200:#C9E2FA;
+    --ice-100:#EEF4FC;
+    --ice-50:#F6F9FE;
+    --paper:#FCFDFF;
+    --ink-900:#0E1C33;
+    --ink-600:#4C5C74;
+    --ink-400:#8496AD;
+    --line:#DCE6F3;
+    --good:#1E9E6B;
+    --fair:#D69A25;
+    --poor:#D0552F;
+    --r-card:14px;
+    --r-pill:999px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ice-50);
+    font-family:'Inter',sans-serif;
+    color:var(--ink-900);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Plus Jakarta Sans',sans-serif;}
+
+  .page{max-width:1240px;margin:0 auto;padding:28px 32px 64px;}
+
+  /* ===== HEADER ===== */
+  header.top{
+    background:linear-gradient(135deg,var(--navy-950) 0%,var(--navy-800) 62%,var(--blue-600) 100%);
+    border-radius:20px;
+    padding:30px 34px 26px;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+    margin-bottom:22px;
+  }
+  header.top::after{
+    content:"";
+    position:absolute; right:-60px; top:-80px;
+    width:260px; height:260px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.14), transparent 70%);
+  }
+  .top-row{display:flex; justify-content:space-between; align-items:flex-start; gap:24px; position:relative; z-index:1;}
+  .brand{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+  .brand-mark{
+    width:34px;height:34px;border-radius:9px;
+    background:linear-gradient(145deg,var(--sky-400),var(--blue-600));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Plus Jakarta Sans';font-weight:800;color:var(--navy-950);font-size:16px;
+  }
+  .brand-name{font-size:13px;letter-spacing:.02em;color:var(--sky-200);font-weight:600;}
+  header.top h1{font-size:26px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em;}
+  header.top p{margin:0;font-size:14px;color:var(--sky-200);max-width:480px;line-height:1.5;}
+  .period-chip{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.18);
+    padding:7px 14px;border-radius:var(--r-pill);
+    font-size:12.5px;color:#EAF3FF;white-space:nowrap;
+  }
+
+  /* filter bar */
+  .filters{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px; position:relative; z-index:1;
+  }
+  .filter{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:10px;
+    padding:9px 14px;
+    display:flex; align-items:center; gap:9px;
+    min-width:150px;
+  }
+  .filter label{font-size:10.5px;color:var(--sky-200);display:block;margin-bottom:1px;font-weight:500;}
+  .filter select{
+    appearance:none; background:transparent; border:none; color:#fff;
+    font-family:'Inter'; font-size:13.5px; font-weight:600; width:100%;
+    cursor:pointer;
+  }
+  .filter select option{color:#0E1C33;}
+  .filter svg{flex-shrink:0;}
+
+  /* ===== KPI ROW ===== */
+  .kpi-row{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:22px;}
+  .kpi{
+    background:var(--paper);
+    border-radius:12px;
+    border:1px solid var(--line);
+    padding:20px 22px;
+    position:relative;
+    border-left:3px solid var(--blue-600);
+  }
+  .kpi .kpi-label{font-size:12.5px;color:var(--ink-600);font-weight:600;margin-bottom:10px;}
+  .kpi .kpi-value{font-family:'Plus Jakarta Sans';font-size:32px;font-weight:800;color:var(--navy-950);line-height:1;}
+  .kpi .kpi-sub{font-size:12px;color:var(--ink-400);margin-top:8px;}
+  .kpi .kpi-delta{font-size:12px;font-weight:700;margin-top:8px;display:inline-flex;align-items:center;gap:4px;}
+  .kpi .kpi-delta.up{color:var(--good);}
+  .kpi .kpi-delta.down{color:var(--poor);}
+  .kpi:nth-child(3){border-left-color:var(--sky-400); background:linear-gradient(180deg,var(--ice-100),var(--paper));}
+
+  /* ===== SECTION CARD ===== */
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--r-card);
+    padding:22px 24px 20px;
+    margin-bottom:16px;
+  }
+  .card-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; gap:16px;}
+  .card-head h2{font-size:16px; font-weight:700; margin:0 0 4px; color:var(--navy-950);}
+  .card-head p{margin:0; font-size:12.5px; color:var(--ink-600); line-height:1.5; max-width:440px;}
+  .tag{
+    font-size:11px; font-weight:700; color:var(--blue-700);
+    background:var(--ice-100); border-radius:var(--r-pill);
+    padding:5px 11px; white-space:nowrap;
+  }
+
+  .two-col{display:grid; grid-template-columns:1.5fr 1fr; gap:16px;}
+
+  .hero-section{
+    background:linear-gradient(180deg,var(--navy-950) 0%, var(--navy-900) 100%);
+    border-radius:var(--r-card);
+    padding:24px 26px 20px;
+    margin-bottom:16px;
+    color:#fff;
+  }
+  .hero-section .card-head h2{color:#fff;}
+  .hero-section .card-head p{color:var(--sky-200);}
+  .hero-section .tag{background:rgba(255,255,255,0.12); color:var(--sky-200);}
+  .legend-row{display:flex; gap:16px; flex-wrap:wrap; margin-top:14px; font-size:12px; color:var(--sky-200);}
+  .legend-row span{display:inline-flex; align-items:center; gap:6px;}
+  .legend-dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+
+  .chart-wrap{position:relative;}
+  .chart-tall{height:300px;}
+  .chart-mid{height:260px;}
+  .chart-short{height:230px;}
+
+  footer.note{
+    text-align:center; font-size:11.5px; color:var(--ink-400);
+    margin-top:8px;
+  }
+
+  @media (max-width:860px){
+    .kpi-row{grid-template-columns:1fr;}
+    .two-col{grid-template-columns:1fr;}
+    .top-row{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div class="top-row">
+      <div>
+        <div class="brand">
+          <div class="brand-mark">W</div>
+          <div class="brand-name">WERKUDARA GROUP</div>
+        </div>
+        <h1>Vendor Performance Monitoring</h1>
+        <p>Memantau performa vendor dari waktu ke waktu — konsistensi, perbandingan, dan kualitas per kategori.</p>
+      </div>
+      <div class="period-chip">Januari — Juni 2026</div>
+    </div>
+
+    <div class="filters">
+      <div class="filter">
+        <div><label>Bulan</label><select><option>Semua Bulan</option><option>Januari</option><option>Februari</option></select></div>
+      </div>
+      <div class="filter">
+        <div><label>Vendor</label><select><option>Semua Vendor</option><option>Vendor A</option><option>Vendor B</option></select></div>
+      </div>
+      <div class="filter">
+        <div><label>Event</label><select><option>Semua Event</option><option>Rapat Kerja Nasional</option></select></div>
+      </div>
+      <div class="filter">
+        <div><label>Kategori</label><select><option>Semua Kategori</option><option>Catering</option><option>Dekorasi</option></select></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- KPI -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Total Vendor</div>
+      <div class="kpi-value">28</div>
+      <div class="kpi-sub">Vendor unik pada periode aktif</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Total Event</div>
+      <div class="kpi-value">42</div>
+      <div class="kpi-sub">Event yang menggunakan vendor</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Average Performance</div>
+      <div class="kpi-value">85.4</div>
+      <div class="kpi-delta up">▲ 2.1 dari bulan lalu</div>
+    </div>
+  </div>
+
+  <!-- Vendor Performance Overview -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>Vendor Performance Overview</h2>
+        <p>Perbandingan skor performa rata-rata seluruh vendor — 5 tertinggi dan 5 terendah pada periode aktif.</p>
+      </div>
+      <span class="tag">Top 5 · Bottom 5</span>
+    </div>
+    <div class="chart-wrap chart-tall"><canvas id="overviewChart"></canvas></div>
+  </div>
+
+  <!-- Trend + Distribution -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h2>Performance Trend</h2>
+          <p>Rata-rata skor performa seluruh vendor tiap bulan, Januari–Juni.</p>
+        </div>
+        <span class="tag">6 bulan</span>
+      </div>
+      <div class="chart-wrap chart-mid"><canvas id="trendChart"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h2>Performance Distribution</h2>
+          <p>Sebaran vendor berdasarkan rentang skor.</p>
+        </div>
+      </div>
+      <div class="chart-wrap chart-mid"><canvas id="donutChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Repeat Vendor Performance (hero) -->
+  <div class="hero-section">
+    <div class="card-head">
+      <div>
+        <h2>Repeat Vendor Performance</h2>
+        <p>Konsistensi skor vendor yang digunakan lebih dari satu kali, sepanjang histori pemakaian.</p>
+      </div>
+      <span class="tag">Histori penuh</span>
+    </div>
+    <div class="chart-wrap chart-tall"><canvas id="repeatChart"></canvas></div>
+    <div class="legend-row" id="repeatLegend"></div>
+  </div>
+
+  <!-- Category -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>Performance by Vendor Category</h2>
+        <p>Rata-rata skor performa dikelompokkan berdasarkan kategori vendor.</p>
+      </div>
+    </div>
+    <div class="chart-wrap chart-short"><canvas id="categoryChart"></canvas></div>
+  </div>
+
+  <footer class="note">Mockup visual — data bersifat ilustratif untuk kebutuhan desain dashboard.</footer>
+</div>
+
+<script>
+Chart.defaults.font.family = "'Inter',sans-serif";
+Chart.defaults.color = '#4C5C74';
+
+const navy='#0F2A57', blue700='#1B4FA0', blue600='#2563C9', blue500='#3B82E0', sky400='#6FB1F0', sky200='#C9E2FA';
+const good='#1E9E6B', fair='#D69A25', poor='#D0552F';
+
+// 1. Vendor Performance Overview
+new Chart(document.getElementById('overviewChart'), {
+  type:'bar',
+  data:{
+    labels:['Vendor A','Vendor F','Vendor C','Vendor K','Vendor B','—','Vendor Q','Vendor Z','Vendor X','Vendor M'],
+    datasets:[{
+      data:[94,91,89,87,85,null,68,65,61,58],
+      backgroundColor:(ctx)=>{
+        const v = ctx.raw;
+        if(v===null) return 'transparent';
+        return v>=80 ? blue600 : poor;
+      },
+      borderRadius:6,
+      barThickness:16
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    plugins:{legend:{display:false}, tooltip:{enabled:true}},
+    scales:{
+      x:{grid:{color:'#EEF4FC'}, max:100, ticks:{stepSize:20}},
+      y:{grid:{display:false}}
+    },
+    maintainAspectRatio:false
+  }
+});
+
+// 2. Trend
+new Chart(document.getElementById('trendChart'), {
+  type:'line',
+  data:{
+    labels:['Jan','Feb','Mar','Apr','Mei','Jun'],
+    datasets:[{
+      data:[79,81,83,82,86,88],
+      borderColor:blue600,
+      backgroundColor:'rgba(37,99,201,0.1)',
+      fill:true,
+      tension:0.35,
+      pointBackgroundColor:navy,
+      pointRadius:4,
+      borderWidth:2.5
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{min:60,max:100,grid:{color:'#EEF4FC'}},
+      x:{grid:{display:false}}
+    },
+    maintainAspectRatio:false
+  }
+});
+
+// 3. Donut
+new Chart(document.getElementById('donutChart'), {
+  type:'doughnut',
+  data:{
+    labels:['Excellent (90–100)','Good (80–89)','Fair (70–79)','Poor (<70)'],
+    datasets:[{
+      data:[8,13,5,2],
+      backgroundColor:[navy, blue600, fair, poor],
+      borderWidth:0,
+      spacing:2
+    }]
+  },
+  options:{
+    cutout:'68%',
+    plugins:{legend:{position:'bottom', labels:{boxWidth:9, boxHeight:9, padding:14, font:{size:11.5}}}},
+    maintainAspectRatio:false
+  }
+});
+
+// 4. Repeat Vendor
+const repeatData = {
+  labels:['Pemakaian 1','Pemakaian 2','Pemakaian 3','Pemakaian 4'],
+  datasets:[
+    {label:'Vendor A', data:[84,87,90,91], borderColor:navy, backgroundColor:navy, tension:.3, borderWidth:2.5, pointRadius:3},
+    {label:'Vendor B', data:[91,82,88,85], borderColor:sky400, backgroundColor:sky400, tension:.3, borderWidth:2.5, pointRadius:3},
+    {label:'Vendor C', data:[78,80,81,86], borderColor:fair, backgroundColor:fair, tension:.3, borderWidth:2.5, pointRadius:3}
+  ]
+};
+new Chart(document.getElementById('repeatChart'), {
+  type:'line',
+  data: repeatData,
+  options:{
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{min:60,max:100, grid:{color:'rgba(255,255,255,0.08)'}, ticks:{color:'#C9E2FA'}},
+      x:{grid:{display:false}, ticks:{color:'#C9E2FA'}}
+    },
+    maintainAspectRatio:false
+  }
+});
+document.getElementById('repeatLegend').innerHTML = repeatData.datasets.map(d=>
+  `<span><span class="legend-dot" style="background:${d.borderColor}"></span>${d.label}</span>`
+).join('');
+
+// 5. Category
+new Chart(document.getElementById('categoryChart'), {
+  type:'bar',
+  data:{
+    labels:['Catering','Dekorasi','Sound System','Dokumentasi','Akomodasi','EO'],
+    datasets:[{
+      data:[88,84,79,91,76,86],
+      backgroundColor:[blue600,blue600,blue600,blue600,blue600,blue600],
+      borderRadius:6,
+      barThickness:34
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{min:0,max:100, grid:{color:'#EEF4FC'}},
+      x:{grid:{display:false}}
+    },
+    maintainAspectRatio:false
+  }
+});
+</script>
+</body>
+</html>

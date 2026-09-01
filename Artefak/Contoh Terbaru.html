@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Vendor Performance Monitoring — Werkudara Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0B1D3A;
+    --navy-900:#0F2A57;
+    --navy-800:#153B76;
+    --blue-700:#1B4FA0;
+    --blue-600:#2563C9;
+    --blue-500:#3B82E0;
+    --sky-400:#6FB1F0;
+    --sky-200:#C9E2FA;
+    --ice-100:#EEF4FC;
+    --ice-50:#F6F9FE;
+    --paper:#FCFDFF;
+    --ink-900:#0E1C33;
+    --ink-600:#4C5C74;
+    --ink-400:#8496AD;
+    --line:#DCE6F3;
+    --good:#1E9E6B;
+    --fair:#D69A25;
+    --poor:#D0552F;
+    --r-card:14px;
+    --r-pill:999px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ice-50);
+    font-family:'Inter',sans-serif;
+    color:var(--ink-900);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Plus Jakarta Sans',sans-serif;}
+
+  .page{max-width:1240px;margin:0 auto;padding:28px 32px 64px;}
+
+  /* ===== HEADER ===== */
+  header.top{
+    background:linear-gradient(135deg,var(--navy-950) 0%,var(--navy-800) 62%,var(--blue-600) 100%);
+    border-radius:20px;
+    padding:30px 34px 26px;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+    margin-bottom:22px;
+  }
+  header.top::after{
+    content:"";
+    position:absolute; right:-60px; top:-80px;
+    width:260px; height:260px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.14), transparent 70%);
+  }
+  .top-row{display:flex; justify-content:space-between; align-items:flex-start; gap:24px; position:relative; z-index:1;}
+  .brand{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+  .brand-mark{
+    width:34px;height:34px;border-radius:9px;
+    background:linear-gradient(145deg,var(--sky-400),var(--blue-600));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Plus Jakarta Sans';font-weight:800;color:var(--navy-950);font-size:16px;
+  }
+  .brand-name{font-size:13px;letter-spacing:.02em;color:var(--sky-200);font-weight:600;}
+  header.top h1{font-size:26px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em;}
+  header.top p{margin:0;font-size:14px;color:var(--sky-200);max-width:480px;line-height:1.5;}
+  .period-chip{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.18);
+    padding:7px 14px;border-radius:var(--r-pill);
+    font-size:12.5px;color:#EAF3FF;white-space:nowrap;
+  }
+
+  /* filter bar */
+  .filters{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top:22px; position:relative; z-index:1;
+  }
+  .filter{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:10px;
+    padding:9px 14px;
+    display:flex; align-items:center; gap:9px;
+    min-width:150px;
+  }
+  .filter label{font-size:10.5px;color:var(--sky-200);display:block;margin-bottom:1px;font-weight:500;}
+  .filter select{
+    appearance:none; background:transparent; border:none; color:#fff;
+    font-family:'Inter'; font-size:13.5px; font-weight:600; width:100%;
+    cursor:pointer;
+  }
+  .filter select option{color:#0E1C33;}
+  .filter svg{flex-shrink:0;}
+
+  /* ===== KPI ROW ===== */
+  .kpi-row{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:22px;}
+  .kpi{
+    background:var(--paper);
+    border-radius:12px;
+    border:1px solid var(--line);
+    padding:20px 22px;
+    position:relative;
+    border-left:3px solid var(--blue-600);
+  }
+  .kpi .kpi-label{font-size:12.5px;color:var(--ink-600);font-weight:600;margin-bottom:10px;}
+  .kpi .kpi-value{font-family:'Plus Jakarta Sans';font-size:32px;font-weight:800;color:var(--navy-950);line-height:1;}
+  .kpi .kpi-sub{font-size:12px;color:var(--ink-400);margin-top:8px;}
+  .kpi .kpi-delta{font-size:12px;font-weight:700;margin-top:8px;display:inline-flex;align-items:center;gap:4px;}
+  .kpi .kpi-delta.up{color:var(--good);}
+  .kpi .kpi-delta.down{color:var(--poor);}
+  .kpi:nth-child(3){border-left-color:var(--sky-400); background:linear-gradient(180deg,var(--ice-100),var(--paper));}
+
+  /* ===== SECTION CARD ===== */
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--r-card);
+    padding:22px 24px 20px;
+    margin-bottom:16px;
+  }
+  .card-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; gap:16px;}
+  .card-head h2{font-size:16px; font-weight:700; margin:0 0 4px; color:var(--navy-950);}
+  .card-head p{margin:0; font-size:12.5px; color:var(--ink-600); line-height:1.5; max-width:440px;}
+  .tag{
+    font-size:11px; font-weight:700; color:var(--blue-700);
+    background:var(--ice-100); border-radius:var(--r-pill);
+    padding:5px 11px; white-space:nowrap;
+  }
+
+  .two-col{display:grid; grid-template-columns:1.5fr 1fr; gap:16px;}
+
+  .hero-section{
+    background:linear-gradient(180deg,var(--navy-950) 0%, var(--navy-900) 100%);
+    border-radius:var(--r-card);
+    padding:24px 26px 20px;
+    margin-bottom:16px;
+    color:#fff;
+  }
+  .hero-section .card-head h2{color:#fff;}
+  .hero-section .card-head p{color:var(--sky-200);}
+  .hero-section .tag{background:rgba(255,255,255,0.12); color:var(--sky-200);}
+  .legend-row{display:flex; gap:16px; flex-wrap:wrap; margin-top:14px; font-size:12px; color:var(--sky-200);}
+  .legend-row span{display:inline-flex; align-items:center; gap:6px;}
+  .legend-dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+
+  .chart-wrap{position:relative;}
+  .chart-tall{height:300px;}
+  .chart-mid{height:260px;}
+  .chart-short{height:230px;}
+
+  .map-wrap{display:flex; gap:20px; align-items:center;}
+  .id-map{flex:1; min-width:0;}
+  .island{fill:var(--ice-100); stroke:var(--sky-200); stroke-width:1;}
+  .dot{stroke:#fff; stroke-width:1.5; cursor:default;}
+  .dot-excellent{fill:var(--navy-900);}
+  .dot-good{fill:var(--blue-600);}
+  .dot-fair{fill:var(--fair);}
+  .dot-poor{fill:var(--poor);}
+  .city{transition:opacity .15s;}
+  .city:hover{opacity:.75;}
+  .map-legend{
+    width:190px; flex-shrink:0;
+    background:var(--ice-50); border:1px solid var(--line); border-radius:10px;
+    padding:14px 16px; font-size:12px; color:var(--ink-600);
+  }
+  .map-legend-title{font-size:11px; font-weight:700; color:var(--ink-900); margin-bottom:8px;}
+  .map-legend span{display:flex; align-items:center; gap:8px; margin-bottom:7px;}
+  .map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block; flex-shrink:0;}
+  .size-hint{flex-wrap:wrap; gap:6px !important;}
+  .size-dot{border-radius:50%; background:var(--blue-600); display:inline-block; flex-shrink:0;}
+  .size-dot.s1{width:6px;height:6px;}
+  .size-dot.s3{width:14px;height:14px; margin-left:6px;}
+
+  @media (max-width:700px){
+    .map-wrap{flex-direction:column;}
+    .map-legend{width:100%;}
+  }
+
+  /* ===== SVG charts (no external library) ===== */
+  .svg-chart{width:100%; height:100%; overflow:visible;}
+  .axis-line{stroke:var(--line); stroke-width:1;}
+  .axis-line-faint{stroke:var(--ice-100); stroke-width:1;}
+  .axis-label{font-size:10px; fill:var(--ink-400); font-family:'Inter',sans-serif;}
+  .bar-label{font-size:11.5px; fill:var(--ink-600); font-family:'Inter',sans-serif; font-weight:600;}
+  .bar-value{font-size:11px; fill:var(--navy-950); font-weight:700; font-family:'Inter',sans-serif;}
+  .bar-value-v{font-size:12px; fill:var(--navy-950); font-weight:700; font-family:'Inter',sans-serif;}
+  .bar-good{fill:var(--blue-600);}
+  .bar-poor{fill:var(--poor);}
+
+  .trend-line{fill:none; stroke:var(--blue-600); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;}
+  .trend-fill{fill:rgba(37,99,201,0.08); stroke:none;}
+  .trend-dot{fill:var(--navy-950); stroke:#fff; stroke-width:1.5;}
+
+  .donut-track{fill:none; stroke:var(--ice-100); stroke-width:22;}
+  .donut-seg{fill:none; stroke-width:22;}
+  .donut-excellent{stroke:var(--navy-900);}
+  .donut-good{stroke:var(--blue-600);}
+  .donut-fair{stroke:var(--fair);}
+  .donut-poor{stroke:var(--poor);}
+  .donut-center-num{font-size:24px; font-weight:800; fill:var(--navy-950); font-family:'Plus Jakarta Sans',sans-serif;}
+  .donut-center-label{font-size:11px; fill:var(--ink-400); font-family:'Inter',sans-serif;}
+  .legend-row-light{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:10px; font-size:11.5px; color:var(--ink-600);}
+  .legend-row-light span{display:inline-flex; align-items:center; gap:6px;}
+  .legend-row-light .dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+
+  .axis-line-dark{stroke:rgba(255,255,255,0.28); stroke-width:1;}
+  .axis-line-dark-faint{stroke:rgba(255,255,255,0.1); stroke-width:1;}
+  .axis-label-dark{font-size:10px; fill:var(--sky-200); font-family:'Inter',sans-serif;}
+  .repeat-line{fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;}
+  .repeat-dot{stroke:var(--navy-950); stroke-width:1.5;}
+  .repeat-a{stroke:var(--sky-400); fill:var(--sky-400);}
+  .repeat-b{stroke:#EAF3FF; fill:#EAF3FF;}
+  .repeat-c{stroke:var(--fair); fill:var(--fair);}
+  .legend-dot.repeat-a{background:var(--sky-400);}
+  .legend-dot.repeat-b{background:#EAF3FF;}
+  .legend-dot.repeat-c{background:var(--fair);}
+
+  footer.note{
+    text-align:center; font-size:11.5px; color:var(--ink-400);
+    margin-top:8px;
+  }
+
+  @media (max-width:860px){
+    .kpi-row{grid-template-columns:1fr;}
+    .two-col{grid-template-columns:1fr;}
+    .top-row{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div class="top-row">
+      <div>
+        <div class="brand">
+          <div class="brand-mark">W</div>
+          <div class="brand-name">WERKUDARA GROUP</div>
+        </div>
+        <h1>Vendor Performance Monitoring</h1>
+        <p>Memantau performa vendor dari waktu ke waktu — konsistensi, perbandingan, dan kualitas per kategori.</p>
+      </div>
+      <div class="period-chip">Januari — Juni 2026</div>
+    </div>
+
+    <div class="filters">
+      <div class="filter">
+        <div><label>Bulan</label><select><option>Semua Bulan</option><option>Januari</option><option>Februari</option></select></div>
+      </div>
+      <div class="filter">
+        <div><label>Vendor</label><select><option>Semua Vendor</option><option>Vendor A</option><option>Vendor B</option></select></div>
+      </div>
+      <div class="filter">
+        <div><label>Event</label><select><option>Semua Event</option><option>Rapat Kerja Nasional</option></select></div>
+      </div>
+      <div class="filter">
+        <div><label>Kategori</label><select><option>Semua Kategori</option><option>Catering</option><option>Dekorasi</option></select></div>
+      </div>
+      <div class="filter">
+        <div><label>Wilayah</label><select><option>Semua Wilayah</option><option>Surabaya</option><option>Sidoarjo</option></select></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- KPI -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Total Vendor</div>
+      <div class="kpi-value">28</div>
+      <div class="kpi-sub">Vendor unik pada periode aktif</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Total Event</div>
+      <div class="kpi-value">42</div>
+      <div class="kpi-sub">Event yang menggunakan vendor</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Average Performance</div>
+      <div class="kpi-value">85.4</div>
+      <div class="kpi-delta up">▲ 2.1 dari bulan lalu</div>
+    </div>
+  </div>
+
+  <!-- Vendor Performance Overview -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>Vendor Performance Overview</h2>
+        <p>Perbandingan skor performa rata-rata seluruh vendor — 5 tertinggi dan 5 terendah pada periode aktif.</p>
+      </div>
+      <span class="tag">Horizontal Bar · Top 5 · Bottom 5</span>
+    </div>
+    <div class="chart-wrap chart-tall">
+      <svg viewBox="0 0 640 270" class="svg-chart">
+        <!-- grid -->
+        <line x1="150" y1="8" x2="150" y2="262" class="axis-line"/>
+        <text x="150" y="270" class="axis-label" text-anchor="middle">0</text>
+        <text x="335" y="270" class="axis-label" text-anchor="middle">50</text>
+        <text x="520" y="270" class="axis-label" text-anchor="middle">100</text>
+        <line x1="335" y1="8" x2="335" y2="262" class="axis-line-faint"/>
+        <line x1="520" y1="8" x2="520" y2="262" class="axis-line-faint"/>
+
+        <!-- bars: value*3.7 width, x starts 150 -->
+        <!-- Vendor A 94 -->
+        <text x="140" y="24" class="bar-label" text-anchor="end">Vendor A</text>
+        <rect x="150" y="12" width="347.8" height="18" rx="4" class="bar-good"/>
+        <text x="503" y="24" class="bar-value">94</text>
+
+        <text x="140" y="52" class="bar-label" text-anchor="end">Vendor F</text>
+        <rect x="150" y="40" width="336.7" height="18" rx="4" class="bar-good"/>
+        <text x="492" y="52" class="bar-value">91</text>
+
+        <text x="140" y="80" class="bar-label" text-anchor="end">Vendor C</text>
+        <rect x="150" y="68" width="329.3" height="18" rx="4" class="bar-good"/>
+        <text x="485" y="80" class="bar-value">89</text>
+
+        <text x="140" y="108" class="bar-label" text-anchor="end">Vendor K</text>
+        <rect x="150" y="96" width="321.9" height="18" rx="4" class="bar-good"/>
+        <text x="477" y="108" class="bar-value">87</text>
+
+        <text x="140" y="136" class="bar-label" text-anchor="end">Vendor B</text>
+        <rect x="150" y="124" width="314.5" height="18" rx="4" class="bar-good"/>
+        <text x="470" y="136" class="bar-value">85</text>
+
+        <line x1="150" y1="152" x2="590" y2="152" class="axis-line-faint" stroke-dasharray="3,3"/>
+
+        <text x="140" y="176" class="bar-label" text-anchor="end">Vendor Q</text>
+        <rect x="150" y="164" width="251.6" height="18" rx="4" class="bar-poor"/>
+        <text x="407" y="176" class="bar-value">68</text>
+
+        <text x="140" y="204" class="bar-label" text-anchor="end">Vendor Z</text>
+        <rect x="150" y="192" width="240.5" height="18" rx="4" class="bar-poor"/>
+        <text x="396" y="204" class="bar-value">65</text>
+
+        <text x="140" y="232" class="bar-label" text-anchor="end">Vendor X</text>
+        <rect x="150" y="220" width="225.7" height="18" rx="4" class="bar-poor"/>
+        <text x="381" y="232" class="bar-value">61</text>
+
+        <text x="140" y="260" class="bar-label" text-anchor="end">Vendor M</text>
+        <rect x="150" y="248" width="214.6" height="18" rx="4" class="bar-poor"/>
+        <text x="370" y="260" class="bar-value">58</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Trend + Distribution -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h2>Performance Trend</h2>
+          <p>Rata-rata skor performa seluruh vendor tiap bulan, Januari–Juni.</p>
+        </div>
+        <span class="tag">Line Chart · 6 bulan</span>
+      </div>
+      <div class="chart-wrap chart-mid">
+        <svg viewBox="0 0 480 230" class="svg-chart">
+          <line x1="34" y1="10" x2="34" y2="190" class="axis-line"/>
+          <line x1="34" y1="190" x2="460" y2="190" class="axis-line"/>
+          <text x="24" y="18" class="axis-label" text-anchor="end">100</text>
+          <text x="24" y="98" class="axis-label" text-anchor="end">80</text>
+          <text x="24" y="194" class="axis-label" text-anchor="end">60</text>
+          <line x1="34" y1="14" x2="460" y2="14" class="axis-line-faint"/>
+          <line x1="34" y1="94" x2="460" y2="94" class="axis-line-faint"/>
+
+          <!-- data: Jan 79, Feb 81, Mar 83, Apr 82, Mei 86, Jun 88 | scale y: 60->190, 100->14 -->
+          <polygon points="55,152.6 130,140.8 205,129 280,134.9 355,105.8 430,93.9 430,190 55,190" class="trend-fill"/>
+          <polyline points="55,152.6 130,140.8 205,129 280,134.9 355,105.8 430,93.9" class="trend-line"/>
+          <circle cx="55" cy="152.6" r="4.5" class="trend-dot"/>
+          <circle cx="130" cy="140.8" r="4.5" class="trend-dot"/>
+          <circle cx="205" cy="129" r="4.5" class="trend-dot"/>
+          <circle cx="280" cy="134.9" r="4.5" class="trend-dot"/>
+          <circle cx="355" cy="105.8" r="4.5" class="trend-dot"/>
+          <circle cx="430" cy="93.9" r="4.5" class="trend-dot"/>
+
+          <text x="55" y="210" class="axis-label" text-anchor="middle">Jan</text>
+          <text x="130" y="210" class="axis-label" text-anchor="middle">Feb</text>
+          <text x="205" y="210" class="axis-label" text-anchor="middle">Mar</text>
+          <text x="280" y="210" class="axis-label" text-anchor="middle">Apr</text>
+          <text x="355" y="210" class="axis-label" text-anchor="middle">Mei</text>
+          <text x="430" y="210" class="axis-label" text-anchor="middle">Jun</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h2>Performance Distribution</h2>
+          <p>Sebaran vendor berdasarkan rentang skor.</p>
+        </div>
+        <span class="tag">Donut Chart</span>
+      </div>
+      <div class="chart-wrap chart-mid">
+        <svg viewBox="0 0 220 210" class="svg-chart">
+          <g transform="translate(110,95) rotate(-90)">
+            <circle r="70" class="donut-track"/>
+            <circle r="70" class="donut-seg donut-excellent" stroke-dasharray="125.8 439.8" stroke-dashoffset="0"/>
+            <circle r="70" class="donut-seg donut-good" stroke-dasharray="204.1 439.8" stroke-dashoffset="-125.8"/>
+            <circle r="70" class="donut-seg donut-fair" stroke-dasharray="78.7 439.8" stroke-dashoffset="-329.9"/>
+            <circle r="70" class="donut-seg donut-poor" stroke-dasharray="31.2 439.8" stroke-dashoffset="-408.6"/>
+          </g>
+          <text x="110" y="90" text-anchor="middle" class="donut-center-num">28</text>
+          <text x="110" y="108" text-anchor="middle" class="donut-center-label">vendor</text>
+        </svg>
+        <div class="legend-row-light">
+          <span><i class="dot dot-excellent"></i>Excellent · 8</span>
+          <span><i class="dot dot-good"></i>Good · 13</span>
+          <span><i class="dot dot-fair"></i>Fair · 5</span>
+          <span><i class="dot dot-poor"></i>Poor · 2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repeat Vendor Performance (hero) -->
+  <div class="hero-section">
+    <div class="card-head">
+      <div>
+        <h2>Repeat Vendor Performance</h2>
+        <p>Konsistensi skor vendor yang digunakan lebih dari satu kali, sepanjang histori pemakaian.</p>
+      </div>
+      <span class="tag">Line Chart · Histori penuh</span>
+    </div>
+    <div class="chart-wrap chart-tall">
+      <svg viewBox="0 0 560 260" class="svg-chart">
+        <line x1="60" y1="10" x2="60" y2="210" class="axis-line-dark"/>
+        <line x1="60" y1="210" x2="520" y2="210" class="axis-line-dark"/>
+        <text x="50" y="24" class="axis-label-dark" text-anchor="end">100</text>
+        <text x="50" y="115" class="axis-label-dark" text-anchor="end">80</text>
+        <text x="50" y="214" class="axis-label-dark" text-anchor="end">60</text>
+        <line x1="60" y1="20" x2="520" y2="20" class="axis-line-dark-faint"/>
+        <line x1="60" y1="115" x2="520" y2="115" class="axis-line-dark-faint"/>
+
+        <!-- Vendor A: naik konsisten -->
+        <polyline points="90,96 220,81.75 350,67.5 480,62.75" class="repeat-line repeat-a"/>
+        <circle cx="90" cy="96" r="4.5" class="repeat-dot repeat-a"/>
+        <circle cx="220" cy="81.75" r="4.5" class="repeat-dot repeat-a"/>
+        <circle cx="350" cy="67.5" r="4.5" class="repeat-dot repeat-a"/>
+        <circle cx="480" cy="62.75" r="4.5" class="repeat-dot repeat-a"/>
+
+        <!-- Vendor B: fluktuatif -->
+        <polyline points="90,62.75 220,105.5 350,77 480,91.25" class="repeat-line repeat-b"/>
+        <circle cx="90" cy="62.75" r="4.5" class="repeat-dot repeat-b"/>
+        <circle cx="220" cy="105.5" r="4.5" class="repeat-dot repeat-b"/>
+        <circle cx="350" cy="77" r="4.5" class="repeat-dot repeat-b"/>
+        <circle cx="480" cy="91.25" r="4.5" class="repeat-dot repeat-b"/>
+
+        <!-- Vendor C: perlahan meningkat -->
+        <polyline points="90,124.5 220,115 350,110.25 480,86.5" class="repeat-line repeat-c"/>
+        <circle cx="90" cy="124.5" r="4.5" class="repeat-dot repeat-c"/>
+        <circle cx="220" cy="115" r="4.5" class="repeat-dot repeat-c"/>
+        <circle cx="350" cy="110.25" r="4.5" class="repeat-dot repeat-c"/>
+        <circle cx="480" cy="86.5" r="4.5" class="repeat-dot repeat-c"/>
+
+        <text x="90" y="232" class="axis-label-dark" text-anchor="middle">Pemakaian 1</text>
+        <text x="220" y="232" class="axis-label-dark" text-anchor="middle">Pemakaian 2</text>
+        <text x="350" y="232" class="axis-label-dark" text-anchor="middle">Pemakaian 3</text>
+        <text x="480" y="232" class="axis-label-dark" text-anchor="middle">Pemakaian 4</text>
+      </svg>
+    </div>
+    <div class="legend-row">
+      <span><span class="legend-dot repeat-a"></span>Vendor A · meningkat</span>
+      <span><span class="legend-dot repeat-b"></span>Vendor B · fluktuatif</span>
+      <span><span class="legend-dot repeat-c"></span>Vendor C · perlahan naik</span>
+    </div>
+  </div>
+
+  <!-- Category -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>Performance by Vendor Category</h2>
+        <p>Rata-rata skor performa dikelompokkan berdasarkan kategori vendor.</p>
+      </div>
+      <span class="tag">Vertical Bar Chart</span>
+    </div>
+    <div class="chart-wrap chart-short">
+      <svg viewBox="0 0 600 220" class="svg-chart">
+        <line x1="20" y1="180" x2="580" y2="180" class="axis-line"/>
+
+        <rect x="45" y="48" width="50" height="132" rx="5" class="bar-good"/>
+        <text x="70" y="40" class="bar-value-v" text-anchor="middle">88</text>
+        <text x="70" y="198" class="axis-label" text-anchor="middle">Catering</text>
+
+        <rect x="145" y="54" width="50" height="126" rx="5" class="bar-good"/>
+        <text x="170" y="46" class="bar-value-v" text-anchor="middle">84</text>
+        <text x="170" y="198" class="axis-label" text-anchor="middle">Dekorasi</text>
+
+        <rect x="245" y="61.5" width="50" height="118.5" rx="5" class="bar-good"/>
+        <text x="270" y="53.5" class="bar-value-v" text-anchor="middle">79</text>
+        <text x="270" y="198" class="axis-label" text-anchor="middle">Sound</text>
+
+        <rect x="345" y="43.5" width="50" height="136.5" rx="5" class="bar-good"/>
+        <text x="370" y="35.5" class="bar-value-v" text-anchor="middle">91</text>
+        <text x="370" y="198" class="axis-label" text-anchor="middle">Dokumentasi</text>
+
+        <rect x="445" y="66" width="50" height="114" rx="5" class="bar-poor"/>
+        <text x="470" y="58" class="bar-value-v" text-anchor="middle">76</text>
+        <text x="470" y="198" class="axis-label" text-anchor="middle">Akomodasi</text>
+
+        <rect x="510" y="51" width="50" height="129" rx="5" class="bar-good"/>
+        <text x="535" y="43" class="bar-value-v" text-anchor="middle">86</text>
+        <text x="535" y="198" class="axis-label" text-anchor="middle">EO</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Region Map -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>Persebaran &amp; Performa Vendor per Wilayah</h2>
+        <p>Ukuran titik = jumlah vendor di kota/kabupaten tersebut. Warna titik = rata-rata skor performa.</p>
+      </div>
+      <span class="tag">Level: Kota/Kabupaten</span>
+    </div>
+    <div class="map-wrap">
+      <svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" class="id-map">
+        <!-- siluet pulau, disederhanakan untuk kebutuhan visual -->
+        <path d="M35,55 C70,20 140,15 190,45 C220,65 200,95 160,110 C110,130 55,110 35,55Z" class="island"/>
+        <path d="M215,150 C260,140 340,142 420,158 C440,163 430,178 390,180 C320,183 250,178 215,150Z" class="island"/>
+        <path d="M255,45 C310,25 400,30 425,70 C440,100 400,130 350,120 C290,108 240,80 255,45Z" class="island"/>
+        <path d="M445,65 C475,50 520,60 515,100 C512,135 475,150 455,120 C440,98 430,80 445,65Z" class="island"/>
+        <path d="M430,175 C450,168 480,170 495,182 C505,190 490,198 465,196 C445,194 420,184 430,175Z" class="island"/>
+        <path d="M660,60 C720,40 830,55 875,95 C895,120 850,165 780,160 C710,155 640,110 660,60Z" class="island"/>
+
+        <!-- kota (ilustratif) -->
+        <g class="city" data-name="Medan">
+          <circle cx="95" cy="45" r="9" class="dot dot-good"/>
+        </g>
+        <g class="city" data-name="Palembang">
+          <circle cx="168" cy="105" r="7" class="dot dot-good"/>
+        </g>
+        <g class="city" data-name="Jakarta">
+          <circle cx="252" cy="162" r="13" class="dot dot-excellent"/>
+        </g>
+        <g class="city" data-name="Bandung">
+          <circle cx="278" cy="170" r="10" class="dot dot-good"/>
+        </g>
+        <g class="city" data-name="Semarang">
+          <circle cx="325" cy="163" r="8" class="dot dot-fair"/>
+        </g>
+        <g class="city" data-name="Yogyakarta">
+          <circle cx="312" cy="173" r="7" class="dot dot-good"/>
+        </g>
+        <g class="city" data-name="Surabaya">
+          <circle cx="372" cy="166" r="15" class="dot dot-excellent"/>
+        </g>
+        <g class="city" data-name="Sidoarjo">
+          <circle cx="382" cy="172" r="9" class="dot dot-good"/>
+        </g>
+        <g class="city" data-name="Pontianak">
+          <circle cx="292" cy="82" r="7" class="dot dot-fair"/>
+        </g>
+        <g class="city" data-name="Balikpapan">
+          <circle cx="382" cy="102" r="8" class="dot dot-good"/>
+        </g>
+        <g class="city" data-name="Makassar">
+          <circle cx="472" cy="140" r="9" class="dot dot-good"/>
+        </g>
+        <g class="city" data-name="Denpasar">
+          <circle cx="440" cy="182" r="8" class="dot dot-excellent"/>
+        </g>
+      </svg>
+      <div class="map-legend">
+        <div class="map-legend-title">Rata-rata skor</div>
+        <span><i class="dot dot-excellent"></i> Excellent (90–100)</span>
+        <span><i class="dot dot-good"></i> Good (80–89)</span>
+        <span><i class="dot dot-fair"></i> Fair (70–79)</span>
+        <span><i class="dot dot-poor"></i> Poor (&lt;70)</span>
+        <div class="map-legend-title" style="margin-top:12px;">Ukuran titik</div>
+        <span class="size-hint"><i class="size-dot s1"></i>Sedikit vendor <i class="size-dot s3"></i>Banyak vendor</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="note">Mockup visual — data &amp; posisi peta bersifat ilustratif (skematik, bukan proyeksi geografis presisi) untuk kebutuhan desain dashboard.</footer>
+</div>
+
+</body>
+</html>
