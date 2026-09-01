@@ -18,8 +18,8 @@ export function RegionMap({ filteredData, onCityClick }) {
     const avg = parseFloat((stat.sum / stat.count).toFixed(1));
     let gradeClass = 'dot-poor';
     if (avg >= 85) gradeClass = 'dot-excellent';
-    else if (avg >= 75) gradeClass = 'dot-good';
-    else if (avg >= 65) gradeClass = 'dot-fair';
+    else if (avg >= 70) gradeClass = 'dot-good';
+    else if (avg >= 55) gradeClass = 'dot-fair';
 
     const radius = Math.min(15, Math.max(7, 5 + Math.sqrt(stat.count) * 1.8));
     return { count: stat.count, avg, gradeClass, radius };
@@ -160,10 +160,10 @@ export function RegionMap({ filteredData, onCityClick }) {
 
         <div className="map-legend">
           <div className="map-legend-title">Rata-rata Skor</div>
-          <span><i className="dot dot-excellent"></i> Grade A / Excellent (&ge;85)</span>
-          <span><i className="dot dot-good"></i> Grade B / Good (75–84)</span>
-          <span><i className="dot dot-fair"></i> Grade C / Fair (65–74)</span>
-          <span><i className="dot dot-poor"></i> Grade D / Poor (&lt;65)</span>
+          <span><i className="dot dot-excellent"></i> Grade A (&ge;85)</span>
+          <span><i className="dot dot-good"></i> Grade B (70–84.99)</span>
+          <span><i className="dot dot-fair"></i> Grade C (55–69.99)</span>
+          <span><i className="dot dot-poor"></i> Grade D (&lt;55)</span>
 
           <div className="map-legend-title" style={{ marginTop: '12px' }}>Ukuran Titik</div>
           <span className="size-hint">

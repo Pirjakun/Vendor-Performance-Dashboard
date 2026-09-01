@@ -1,13 +1,14 @@
 import { useState, useEffect, useMemo } from 'react';
 import { initialData } from '../data/initialData';
 
-const LOCAL_STORAGE_KEY = 'vendor_evaluations_v3';
+const LOCAL_STORAGE_KEY = 'vendor_evaluations_v4';
 
 export function useVendorData() {
   const [evaluations, setEvaluations] = useState(() => {
     try {
       if (localStorage.getItem('vendor_evaluations_v1')) localStorage.removeItem('vendor_evaluations_v1');
       if (localStorage.getItem('vendor_evaluations_v2')) localStorage.removeItem('vendor_evaluations_v2');
+      if (localStorage.getItem('vendor_evaluations_v3')) localStorage.removeItem('vendor_evaluations_v3');
       const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);

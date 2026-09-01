@@ -11,7 +11,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 2,
@@ -25,7 +25,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 3,
@@ -39,7 +39,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 78,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 4,
@@ -53,7 +53,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 5,
@@ -67,7 +67,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 6,
@@ -81,7 +81,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 7,
@@ -95,7 +95,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 8,
@@ -109,7 +109,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 9,
@@ -123,7 +123,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 10,
@@ -137,7 +137,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 11,
@@ -151,7 +151,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 12,
@@ -165,7 +165,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 13,
@@ -179,7 +179,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 14,
@@ -193,7 +193,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 66,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 15,
@@ -207,7 +207,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 16,
@@ -221,7 +221,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 17,
@@ -235,7 +235,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 18,
@@ -249,7 +249,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 19,
@@ -263,7 +263,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 20,
@@ -277,7 +277,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 83,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 21,
@@ -291,7 +291,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 22,
@@ -305,7 +305,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 88,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 23,
@@ -319,7 +319,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 24,
@@ -333,7 +333,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 25,
@@ -347,7 +347,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 26,
@@ -361,7 +361,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 27,
@@ -375,7 +375,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 28,
@@ -389,7 +389,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 69,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 29,
@@ -403,7 +403,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 30,
@@ -417,7 +417,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 31,
@@ -431,7 +431,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 32,
@@ -445,7 +445,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 33,
@@ -459,7 +459,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 34,
@@ -473,7 +473,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 35,
@@ -487,7 +487,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 36,
@@ -501,7 +501,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 82,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 37,
@@ -515,7 +515,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 38,
@@ -529,7 +529,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 39,
@@ -543,7 +543,7 @@ window.EVALUATION_DATA = [
     "alamat": "Magelang",
     "nilai": 78,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 40,
@@ -557,7 +557,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 41,
@@ -571,7 +571,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 42,
@@ -585,7 +585,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 82,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 43,
@@ -599,7 +599,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 82,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 44,
@@ -613,7 +613,7 @@ window.EVALUATION_DATA = [
     "alamat": "Magelang",
     "nilai": 71,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 45,
@@ -627,7 +627,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 46,
@@ -641,7 +641,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 47,
@@ -655,7 +655,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 71,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 48,
@@ -669,7 +669,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 49,
@@ -683,7 +683,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 50,
@@ -697,7 +697,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 72,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 51,
@@ -711,7 +711,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 52,
@@ -725,7 +725,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 53,
@@ -739,7 +739,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 54,
@@ -753,7 +753,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 55,
@@ -767,7 +767,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 56,
@@ -781,7 +781,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 57,
@@ -795,7 +795,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 58,
@@ -809,7 +809,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 59,
@@ -823,7 +823,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 60,
@@ -837,7 +837,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 61,
@@ -851,7 +851,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 62,
@@ -865,7 +865,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 63,
@@ -879,7 +879,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 64,
@@ -893,7 +893,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 65,
@@ -907,7 +907,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 66,
@@ -921,7 +921,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 67,
@@ -935,7 +935,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 68,
@@ -949,7 +949,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 69,
@@ -963,7 +963,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 66,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 70,
@@ -977,7 +977,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 62,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 71,
@@ -991,7 +991,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 59,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 72,
@@ -1005,7 +1005,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 73,
@@ -1019,7 +1019,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 71,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 74,
@@ -1033,7 +1033,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 75,
@@ -1047,7 +1047,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 65,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 76,
@@ -1061,7 +1061,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 67,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 77,
@@ -1075,7 +1075,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 78,
@@ -1089,7 +1089,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bandung",
     "nilai": 69,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 79,
@@ -1103,7 +1103,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bandung",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 80,
@@ -1117,7 +1117,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 67,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 81,
@@ -1131,7 +1131,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 82,
@@ -1145,7 +1145,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 83,
@@ -1159,7 +1159,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 60,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 84,
@@ -1173,7 +1173,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogayakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 85,
@@ -1187,7 +1187,7 @@ window.EVALUATION_DATA = [
     "alamat": "Surabaya",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 86,
@@ -1201,7 +1201,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 82,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 87,
@@ -1215,7 +1215,7 @@ window.EVALUATION_DATA = [
     "alamat": "Surabaya",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 88,
@@ -1229,7 +1229,7 @@ window.EVALUATION_DATA = [
     "alamat": "Surabaya",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 89,
@@ -1243,7 +1243,7 @@ window.EVALUATION_DATA = [
     "alamat": "Surabaya",
     "nilai": 61,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 90,
@@ -1257,7 +1257,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 91,
@@ -1271,7 +1271,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 92,
@@ -1285,7 +1285,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 93,
@@ -1299,7 +1299,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 94,
@@ -1313,7 +1313,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 95,
@@ -1327,7 +1327,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 96,
@@ -1341,7 +1341,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 97,
@@ -1355,7 +1355,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 98,
@@ -1369,7 +1369,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 85,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 99,
@@ -1383,7 +1383,7 @@ window.EVALUATION_DATA = [
     "alamat": "Magelang",
     "nilai": 70,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 100,
@@ -1397,7 +1397,7 @@ window.EVALUATION_DATA = [
     "alamat": "Magelang",
     "nilai": 59,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 101,
@@ -1411,7 +1411,7 @@ window.EVALUATION_DATA = [
     "alamat": "Magelang",
     "nilai": 58,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 102,
@@ -1425,7 +1425,7 @@ window.EVALUATION_DATA = [
     "alamat": "Magelang",
     "nilai": 58,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 103,
@@ -1439,7 +1439,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 104,
@@ -1453,7 +1453,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 105,
@@ -1467,7 +1467,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 106,
@@ -1481,7 +1481,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 107,
@@ -1495,7 +1495,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 47,
     "huruf": "D",
-    "rekomendasi": "Pertimbangkan Alternatif"
+    "rekomendasi": "Perlu perbaikan serius / pertimbangkan alternatif"
   },
   {
     "id": 108,
@@ -1509,7 +1509,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 109,
@@ -1523,7 +1523,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 110,
@@ -1537,7 +1537,7 @@ window.EVALUATION_DATA = [
     "alamat": "Magelang",
     "nilai": 58,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 111,
@@ -1551,7 +1551,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 112,
@@ -1565,7 +1565,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 85,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 113,
@@ -1579,7 +1579,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 114,
@@ -1593,7 +1593,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 68,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 115,
@@ -1607,7 +1607,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 116,
@@ -1621,7 +1621,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 117,
@@ -1635,7 +1635,7 @@ window.EVALUATION_DATA = [
     "alamat": "Magelang",
     "nilai": 68,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 118,
@@ -1649,7 +1649,7 @@ window.EVALUATION_DATA = [
     "alamat": "Salatiga",
     "nilai": 78,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 119,
@@ -1663,7 +1663,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 120,
@@ -1677,7 +1677,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 121,
@@ -1691,7 +1691,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 122,
@@ -1705,7 +1705,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 123,
@@ -1719,7 +1719,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 85,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 124,
@@ -1733,7 +1733,7 @@ window.EVALUATION_DATA = [
     "alamat": "Medan",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 125,
@@ -1747,7 +1747,7 @@ window.EVALUATION_DATA = [
     "alamat": "Medan",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 126,
@@ -1761,7 +1761,7 @@ window.EVALUATION_DATA = [
     "alamat": "Medan",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 127,
@@ -1775,7 +1775,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 128,
@@ -1789,7 +1789,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 129,
@@ -1803,7 +1803,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 130,
@@ -1817,7 +1817,7 @@ window.EVALUATION_DATA = [
     "alamat": "Surabaya",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 131,
@@ -1831,7 +1831,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 132,
@@ -1845,7 +1845,7 @@ window.EVALUATION_DATA = [
     "alamat": "Surabaya",
     "nilai": 77,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 133,
@@ -1859,7 +1859,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 134,
@@ -1873,7 +1873,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 135,
@@ -1887,7 +1887,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 136,
@@ -1901,7 +1901,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 93,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 137,
@@ -1915,7 +1915,7 @@ window.EVALUATION_DATA = [
     "alamat": "Surabaya",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 138,
@@ -1929,7 +1929,7 @@ window.EVALUATION_DATA = [
     "alamat": "Surabaya",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 139,
@@ -1943,7 +1943,7 @@ window.EVALUATION_DATA = [
     "alamat": "Surabaya",
     "nilai": 67,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 140,
@@ -1957,7 +1957,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jawa Timur",
     "nilai": 69,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 141,
@@ -1971,7 +1971,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 142,
@@ -1985,7 +1985,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 143,
@@ -1999,7 +1999,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 78,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 144,
@@ -2013,7 +2013,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 145,
@@ -2027,7 +2027,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 146,
@@ -2041,7 +2041,7 @@ window.EVALUATION_DATA = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 147,
@@ -2055,7 +2055,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 70,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 148,
@@ -2069,7 +2069,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 87,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 149,
@@ -2083,7 +2083,7 @@ window.EVALUATION_DATA = [
     "alamat": "Jakarta",
     "nilai": 87,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 150,
@@ -2097,7 +2097,7 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 151,
@@ -2111,6 +2111,6 @@ window.EVALUATION_DATA = [
     "alamat": "Bali",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   }
 ];

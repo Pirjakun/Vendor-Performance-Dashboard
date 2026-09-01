@@ -12,7 +12,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 2,
@@ -26,7 +26,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 3,
@@ -40,7 +40,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 78,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 4,
@@ -54,7 +54,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 5,
@@ -68,7 +68,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 6,
@@ -82,7 +82,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 7,
@@ -96,7 +96,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 8,
@@ -110,7 +110,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 9,
@@ -124,7 +124,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 10,
@@ -138,7 +138,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 11,
@@ -152,7 +152,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 12,
@@ -166,7 +166,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 13,
@@ -180,7 +180,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 14,
@@ -194,7 +194,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 66,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 15,
@@ -208,7 +208,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 16,
@@ -222,7 +222,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 17,
@@ -236,7 +236,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 18,
@@ -250,7 +250,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 19,
@@ -264,7 +264,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 20,
@@ -278,7 +278,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 83,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 21,
@@ -292,7 +292,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 22,
@@ -306,7 +306,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 88,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 23,
@@ -320,7 +320,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 24,
@@ -334,7 +334,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 25,
@@ -348,7 +348,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 26,
@@ -362,7 +362,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 27,
@@ -376,7 +376,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 28,
@@ -390,7 +390,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 69,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 29,
@@ -404,7 +404,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 30,
@@ -418,7 +418,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 31,
@@ -432,7 +432,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 32,
@@ -446,7 +446,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 33,
@@ -460,7 +460,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 34,
@@ -474,7 +474,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 35,
@@ -488,7 +488,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 36,
@@ -502,7 +502,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 82,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 37,
@@ -516,7 +516,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 38,
@@ -530,7 +530,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 39,
@@ -544,7 +544,7 @@ export const initialData = [
     "alamat": "Magelang",
     "nilai": 78,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 40,
@@ -558,7 +558,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 41,
@@ -572,7 +572,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 42,
@@ -586,7 +586,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 82,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 43,
@@ -600,7 +600,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 82,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 44,
@@ -614,7 +614,7 @@ export const initialData = [
     "alamat": "Magelang",
     "nilai": 71,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 45,
@@ -628,7 +628,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 46,
@@ -642,7 +642,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 47,
@@ -656,7 +656,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 71,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 48,
@@ -670,7 +670,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 49,
@@ -684,7 +684,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 50,
@@ -698,7 +698,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 72,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 51,
@@ -712,7 +712,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 52,
@@ -726,7 +726,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 53,
@@ -740,7 +740,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 54,
@@ -754,7 +754,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 55,
@@ -768,7 +768,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 56,
@@ -782,7 +782,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 57,
@@ -796,7 +796,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 58,
@@ -810,7 +810,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 59,
@@ -824,7 +824,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 60,
@@ -838,7 +838,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 61,
@@ -852,7 +852,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 62,
@@ -866,7 +866,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 63,
@@ -880,7 +880,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 64,
@@ -894,7 +894,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 65,
@@ -908,7 +908,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 66,
@@ -922,7 +922,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 67,
@@ -936,7 +936,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 68,
@@ -950,7 +950,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 69,
@@ -964,7 +964,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 66,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 70,
@@ -978,7 +978,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 62,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 71,
@@ -992,7 +992,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 59,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 72,
@@ -1006,7 +1006,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 73,
@@ -1020,7 +1020,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 71,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 74,
@@ -1034,7 +1034,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 75,
@@ -1048,7 +1048,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 65,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 76,
@@ -1062,7 +1062,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 67,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 77,
@@ -1076,7 +1076,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 78,
@@ -1090,7 +1090,7 @@ export const initialData = [
     "alamat": "Bandung",
     "nilai": 69,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 79,
@@ -1104,7 +1104,7 @@ export const initialData = [
     "alamat": "Bandung",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 80,
@@ -1118,7 +1118,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 67,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 81,
@@ -1132,7 +1132,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 82,
@@ -1146,7 +1146,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 83,
@@ -1160,7 +1160,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 60,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 84,
@@ -1174,7 +1174,7 @@ export const initialData = [
     "alamat": "Yogayakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 85,
@@ -1188,7 +1188,7 @@ export const initialData = [
     "alamat": "Surabaya",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 86,
@@ -1202,7 +1202,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 82,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 87,
@@ -1216,7 +1216,7 @@ export const initialData = [
     "alamat": "Surabaya",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 88,
@@ -1230,7 +1230,7 @@ export const initialData = [
     "alamat": "Surabaya",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 89,
@@ -1244,7 +1244,7 @@ export const initialData = [
     "alamat": "Surabaya",
     "nilai": 61,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 90,
@@ -1258,7 +1258,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 91,
@@ -1272,7 +1272,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 92,
@@ -1286,7 +1286,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 93,
@@ -1300,7 +1300,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 94,
@@ -1314,7 +1314,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 95,
@@ -1328,7 +1328,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 96,
@@ -1342,7 +1342,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 74,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 97,
@@ -1356,7 +1356,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 73,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 98,
@@ -1370,7 +1370,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 85,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 99,
@@ -1384,7 +1384,7 @@ export const initialData = [
     "alamat": "Magelang",
     "nilai": 70,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 100,
@@ -1398,7 +1398,7 @@ export const initialData = [
     "alamat": "Magelang",
     "nilai": 59,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 101,
@@ -1412,7 +1412,7 @@ export const initialData = [
     "alamat": "Magelang",
     "nilai": 58,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 102,
@@ -1426,7 +1426,7 @@ export const initialData = [
     "alamat": "Magelang",
     "nilai": 58,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 103,
@@ -1440,7 +1440,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 104,
@@ -1454,7 +1454,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 105,
@@ -1468,7 +1468,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 106,
@@ -1482,7 +1482,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 107,
@@ -1496,7 +1496,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 47,
     "huruf": "D",
-    "rekomendasi": "Pertimbangkan Alternatif"
+    "rekomendasi": "Perlu perbaikan serius / pertimbangkan alternatif"
   },
   {
     "id": 108,
@@ -1510,7 +1510,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 109,
@@ -1524,7 +1524,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 110,
@@ -1538,7 +1538,7 @@ export const initialData = [
     "alamat": "Magelang",
     "nilai": 58,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 111,
@@ -1552,7 +1552,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 112,
@@ -1566,7 +1566,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 85,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 113,
@@ -1580,7 +1580,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 114,
@@ -1594,7 +1594,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 68,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 115,
@@ -1608,7 +1608,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 116,
@@ -1622,7 +1622,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 117,
@@ -1636,7 +1636,7 @@ export const initialData = [
     "alamat": "Magelang",
     "nilai": 68,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 118,
@@ -1650,7 +1650,7 @@ export const initialData = [
     "alamat": "Salatiga",
     "nilai": 78,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 119,
@@ -1664,7 +1664,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 120,
@@ -1678,7 +1678,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 121,
@@ -1692,7 +1692,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 122,
@@ -1706,7 +1706,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 123,
@@ -1720,7 +1720,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 85,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 124,
@@ -1734,7 +1734,7 @@ export const initialData = [
     "alamat": "Medan",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 125,
@@ -1748,7 +1748,7 @@ export const initialData = [
     "alamat": "Medan",
     "nilai": 76,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 126,
@@ -1762,7 +1762,7 @@ export const initialData = [
     "alamat": "Medan",
     "nilai": 81,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 127,
@@ -1776,7 +1776,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 128,
@@ -1790,7 +1790,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 129,
@@ -1804,7 +1804,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 130,
@@ -1818,7 +1818,7 @@ export const initialData = [
     "alamat": "Surabaya",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 131,
@@ -1832,7 +1832,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 132,
@@ -1846,7 +1846,7 @@ export const initialData = [
     "alamat": "Surabaya",
     "nilai": 77,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 133,
@@ -1860,7 +1860,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 134,
@@ -1874,7 +1874,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 135,
@@ -1888,7 +1888,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 136,
@@ -1902,7 +1902,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 93,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 137,
@@ -1916,7 +1916,7 @@ export const initialData = [
     "alamat": "Surabaya",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 138,
@@ -1930,7 +1930,7 @@ export const initialData = [
     "alamat": "Surabaya",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 139,
@@ -1944,7 +1944,7 @@ export const initialData = [
     "alamat": "Surabaya",
     "nilai": 67,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 140,
@@ -1958,7 +1958,7 @@ export const initialData = [
     "alamat": "Jawa Timur",
     "nilai": 69,
     "huruf": "C",
-    "rekomendasi": "Perlu Evaluasi"
+    "rekomendasi": "Perlu evaluasi dan catatan perbaikan"
   },
   {
     "id": 141,
@@ -1972,7 +1972,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 91,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 142,
@@ -1986,7 +1986,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 80,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 143,
@@ -2000,7 +2000,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 78,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 144,
@@ -2014,7 +2014,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 145,
@@ -2028,7 +2028,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 84,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 146,
@@ -2042,7 +2042,7 @@ export const initialData = [
     "alamat": "Yogyakarta",
     "nilai": 90,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 147,
@@ -2056,7 +2056,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 70,
     "huruf": "B",
-    "rekomendasi": "Direkomendasikan"
+    "rekomendasi": "Direkomendasikan dengan monitoring normal"
   },
   {
     "id": 148,
@@ -2070,7 +2070,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 87,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 149,
@@ -2084,7 +2084,7 @@ export const initialData = [
     "alamat": "Jakarta",
     "nilai": 87,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 150,
@@ -2098,7 +2098,7 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 89,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   },
   {
     "id": 151,
@@ -2112,6 +2112,6 @@ export const initialData = [
     "alamat": "Bali",
     "nilai": 86,
     "huruf": "A",
-    "rekomendasi": "Sangat Direkomendasikan"
+    "rekomendasi": "Sangat direkomendasikan / prioritas repeat order"
   }
 ];

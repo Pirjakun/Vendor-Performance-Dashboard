@@ -39,17 +39,16 @@ function parseCsvRows(csvText) {
 const slicerPath = path.join(__dirname, 'Artefak', 'Data Evaluasi Vendor(Slicer).csv');
 const slicerRows = parseCsvRows(fs.readFileSync(slicerPath, 'utf8'));
 
-const canonicalVendorMap = new Map(); // lowercase -> exact canonical string
+const canonicalVendorMap = new Map();
 
 for (let i = 1; i < slicerRows.length; i++) {
-  const v = slicerRows[i][2]; // Vendor column
+  const v = slicerRows[i][2];
   if (v) {
     const cleanV = v.trim();
     canonicalVendorMap.set(cleanV.toLowerCase(), cleanV);
   }
 }
 
-// Custom aliases for typos / abbreviations
 const vendorAliases = {
   'o2 show mangement': 'O2 Show Management',
   'pt tekno event asia': 'Tekno Event Asia',
@@ -92,6 +91,24 @@ function normalizeCategory(cat) {
   if (/production|produksian/i.test(c)) return 'Production';
   if (/equipment/i.test(c)) return 'Equipment';
   return c;
+}
+
+// Rule Skor Official:
+// Grade A: >= 85 (Sangat direkomendasikan / prioritas repeat order)
+// Grade B: 70 - 84.99 (Direkomendasikan dengan monitoring normal)
+// Grade C: 55 - 69.99 (Perlu evaluasi dan catatan perbaikan)
+// Grade D: < 55 (Perlu perbaikan serius / pertimbangkan alternatif)
+function getGradeAndRekom(nilai) {
+  const score = Number(nilai) || 0;
+  if (score >= 85) {
+    return { huruf: 'A', rekomendasi: 'Sangat direkomendasikan / prioritas repeat order' };
+  } else if (score >= 70) {
+    return { huruf: 'B', rekomendasi: 'Direkomendasikan dengan monitoring normal' };
+  } else if (score >= 55) {
+    return { huruf: 'C', rekomendasi: 'Perlu evaluasi dan catatan perbaikan' };
+  } else {
+    return { huruf: 'D', rekomendasi: 'Perlu perbaikan serius / pertimbangkan alternatif' };
+  }
 }
 
 // 2. Parse Data Evaluasi Vendor(Data).csv
@@ -138,8 +155,8 @@ for (let i = 2; i < dataLines.length; i++) {
   const category = normalizeCategory(categoryRaw);
   const alamat = parts[6].replace(/^"|"$/g, '');
   const nilai = parseFloat(parts[7]);
-  const huruf = parts[8].replace(/^"|"$/g, '');
-  const rekomendasi = parts[9].replace(/^"|"$/g, '');
+
+  const { huruf, rekomendasi } = getGradeAndRekom(nilai);
 
   if (vendor && !isNaN(nilai)) {
     evaluations.push({

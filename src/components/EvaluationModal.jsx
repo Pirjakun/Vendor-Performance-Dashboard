@@ -47,27 +47,27 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
     }
   }, [initialRecord, isOpen]);
 
-  // Auto calculate Huruf (Grade) based on score
+  // Auto calculate Huruf (Grade) based on score rules
   const handleScoreChange = (scoreVal) => {
     const num = Math.min(100, Math.max(0, Number(scoreVal) || 0));
     let h = 'D';
-    let r = 'Pertimbangkan Alternatif';
+    let r = 'Perlu perbaikan serius / pertimbangkan alternatif';
     if (num >= 85) {
       h = 'A';
-      r = 'Sangat Direkomendasikan';
-    } else if (num >= 75) {
+      r = 'Sangat direkomendasikan / prioritas repeat order';
+    } else if (num >= 70) {
       h = 'B';
-      r = 'Direkomendasikan';
-    } else if (num >= 65) {
+      r = 'Direkomendasikan dengan monitoring normal';
+    } else if (num >= 55) {
       h = 'C';
-      r = 'Perlu Evaluasi';
+      r = 'Perlu evaluasi dan catatan perbaikan';
     }
 
     setFormData(prev => ({
       ...prev,
       nilai: num,
       huruf: h,
-      rekomendasi: prev.rekomendasi || r
+      rekomendasi: r
     }));
   };
 
@@ -257,10 +257,10 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
                 value={formData.rekomendasi}
                 onChange={e => setFormData({ ...formData, rekomendasi: e.target.value })}
               >
-                <option value="Sangat Direkomendasikan">Sangat Direkomendasikan</option>
-                <option value="Direkomendasikan">Direkomendasikan</option>
-                <option value="Perlu Evaluasi">Perlu Evaluasi</option>
-                <option value="Pertimbangkan Alternatif">Pertimbangkan Alternatif</option>
+                <option value="Sangat direkomendasikan / prioritas repeat order">Sangat direkomendasikan / prioritas repeat order</option>
+                <option value="Direkomendasikan dengan monitoring normal">Direkomendasikan dengan monitoring normal</option>
+                <option value="Perlu evaluasi dan catatan perbaikan">Perlu evaluasi dan catatan perbaikan</option>
+                <option value="Perlu perbaikan serius / pertimbangkan alternatif">Perlu perbaikan serius / pertimbangkan alternatif</option>
               </select>
             </div>
           </div>
