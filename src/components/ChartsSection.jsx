@@ -65,13 +65,25 @@ export function ChartsSection({
   })).sort((a, b) => b.score - a.score);
 
   let overviewDisplay = [];
-  if (overviewMode === 'topbottom' && overviewItems.length > 10) {
-    const top5 = overviewItems.slice(0, 5);
-    const bottom5 = overviewItems.slice(-5);
-    overviewDisplay = [...top5, { vendor: '— (Top vs Bottom) —', score: null }, ...bottom5];
-  } else {
+  if (overviewMode === 'top10') {
+    overviewDisplay = overviewItems.slice(0, 10);
+  } else if (overviewMode === 'bottom10') {
+    overviewDisplay = overviewItems.slice(-10);
+  } else if (overviewMode === 'all') {
     overviewDisplay = overviewItems;
+  } else {
+    // Default: 'topbottom'
+    if (overviewItems.length > 10) {
+      const top5 = overviewItems.slice(0, 5);
+      const bottom5 = overviewItems.slice(-5);
+      overviewDisplay = [...top5, { vendor: '— (Top vs Bottom) —', score: null }, ...bottom5];
+    } else {
+      overviewDisplay = overviewItems;
+    }
   }
+
+  const isAllMode = overviewMode === 'all';
+  const dynamicOverviewHeight = isAllMode ? Math.max(380, overviewDisplay.length * 28 + 30) : 340;
 
   const overviewData = {
     labels: overviewDisplay.map(i => i.vendor),
@@ -82,10 +94,10 @@ export function ChartsSection({
         if (selectedVendor) {
           return i.vendor === selectedVendor ? NAVY : 'rgba(37, 99, 201, 0.25)';
         }
-        return i.score >= 80 ? BLUE600 : POOR;
+        return i.score >= 85 ? BLUE600 : i.score >= 70 ? SKY400 : i.score >= 55 ? FAIR : POOR;
       }),
-      borderRadius: 6,
-      barThickness: 16
+      borderRadius: 4,
+      barThickness: isAllMode ? 14 : 18
     }]
   };
 
@@ -102,7 +114,7 @@ export function ChartsSection({
     },
     scales: {
       x: { grid: { color: ICE100 }, max: 100, ticks: { stepSize: 20 } },
-      y: { grid: { display: false }, ticks: { font: { size: 11.5, weight: 600 } } }
+      y: { grid: { display: false }, ticks: { font: { size: isAllMode ? 11 : 11.5, weight: 600 } } }
     },
     onClick: (evt, activeEls) => {
       if (activeEls.length > 0) {
@@ -342,17 +354,41 @@ export function ChartsSection({
             <h2>Vendor Performance Overview</h2>
             <p>Perbandingan skor rata-rata vendor pada periode/filter aktif. (Klik bar untuk melihat profil vendor)</p>
           </div>
-          <div className="card-controls">
+          <div className="card-controls" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             <button
               className={`btn-toggle ${overviewMode === 'topbottom' ? 'active' : ''}`}
-              onClick={() => setOverviewMode(overviewMode === 'topbottom' ? 'all' : 'topbottom')}
+              onClick={() => setOverviewMode('topbottom')}
             >
-              {overviewMode === 'topbottom' ? 'Top 5 & Bottom 5' : 'Lihat Semua Vendor'}
+              Top 5 &amp; Bottom 5
+            </button>
+            <button
+              className={`btn-toggle ${overviewMode === 'top10' ? 'active' : ''}`}
+              onClick={() => setOverviewMode('top10')}
+            >
+              Top 10 Vendor
+            </button>
+            <button
+              className={`btn-toggle ${overviewMode === 'bottom10' ? 'active' : ''}`}
+              onClick={() => setOverviewMode('bottom10')}
+            >
+              Bottom 10 Vendor
+            </button>
+            <button
+              className={`btn-toggle ${overviewMode === 'all' ? 'active' : ''}`}
+              onClick={() => setOverviewMode('all')}
+            >
+              Semua Vendor ({overviewItems.length})
             </button>
           </div>
         </div>
-        <div className="chart-wrap chart-tall">
-          <Bar data={overviewData} options={overviewOptions} redraw={true} />
+        <div style={{
+          maxHeight: isAllMode ? '520px' : 'none',
+          overflowY: isAllMode ? 'auto' : 'visible',
+          paddingRight: isAllMode ? '6px' : '0'
+        }}>
+          <div style={{ height: `${dynamicOverviewHeight}px`, position: 'relative', width: '100%' }}>
+            <Bar data={overviewData} options={overviewOptions} redraw={true} />
+          </div>
         </div>
       </div>
 
