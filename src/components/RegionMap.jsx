@@ -45,16 +45,26 @@ export function RegionMap({ filteredData, onCityClick }) {
   // Surabaya -> East Java north coast (facing Madura)
   // Jawa Timur -> East Java interior
   // Bali -> Bali island
+  // Exact geographic coordinates strictly aligned with 778x394 Indonesia reference map:
+  // Medan -> North Sumatra land mass
+  // Jakarta -> DKI Jakarta north coast on Java island
+  // Bandung -> West Java interior south of Jakarta
+  // Magelang -> Central Java interior
+  // Yogyakarta -> DI Yogyakarta south coast
+  // Salatiga -> Central Java interior (northeast of Magelang)
+  // Surabaya -> East Java north coast (facing Madura)
+  // Jawa Timur -> East Java interior
+  // Bali -> Bali island (immediately east of East Java)
   const cities = [
-    { name: 'Medan', cx: 76, cy: 108, labelPos: 'top', textAnchor: 'middle' },
-    { name: 'Jakarta', cx: 216, cy: 246, labelPos: 'top', textAnchor: 'middle' },
-    { name: 'Bandung', cx: 228, cy: 262, labelPos: 'bottom', textAnchor: 'middle' },
-    { name: 'Magelang', cx: 284, cy: 258, labelPos: 'left', textAnchor: 'end' },
-    { name: 'Yogyakarta', cx: 288, cy: 276, labelPos: 'bottom', textAnchor: 'middle' },
-    { name: 'Salatiga', cx: 298, cy: 250, labelPos: 'top-right', textAnchor: 'start' },
-    { name: 'Surabaya', cx: 344, cy: 248, labelPos: 'top', textAnchor: 'middle' },
-    { name: 'Jawa Timur', cx: 352, cy: 268, labelPos: 'bottom-right', textAnchor: 'start' },
-    { name: 'Bali', cx: 412, cy: 270, labelPos: 'right', textAnchor: 'start' }
+    { name: 'Medan', cx: 102, cy: 118, labelPos: 'top', textAnchor: 'middle' },
+    { name: 'Jakarta', cx: 232, cy: 258, labelPos: 'top', textAnchor: 'middle' },
+    { name: 'Bandung', cx: 246, cy: 267, labelPos: 'bottom', textAnchor: 'middle' },
+    { name: 'Magelang', cx: 288, cy: 267, labelPos: 'left', textAnchor: 'end' },
+    { name: 'Yogyakarta', cx: 292, cy: 272, labelPos: 'bottom', textAnchor: 'middle' },
+    { name: 'Salatiga', cx: 298, cy: 263, labelPos: 'top-right', textAnchor: 'start' },
+    { name: 'Surabaya', cx: 345, cy: 261, labelPos: 'top', textAnchor: 'middle' },
+    { name: 'Jawa Timur', cx: 354, cy: 268, labelPos: 'bottom-right', textAnchor: 'start' },
+    { name: 'Bali', cx: 388, cy: 267, labelPos: 'right', textAnchor: 'start' }
   ];
 
   const getLabelY = (c, data) => {
