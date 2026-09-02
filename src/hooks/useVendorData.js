@@ -195,12 +195,16 @@ export function useVendorData() {
     });
   }, [evaluations, filters]);
 
-  // Repeat IGNORES Bulan and Event filter (calculated from FULL DB)
+  // Repeat dataset responding to all active filters
   const filteredRepeat = useMemo(() => {
     return evaluations.filter(d => {
+      if (filters.bulan && !matchBulan(d.bulan, filters.bulan)) return false;
       if (filters.vendor && d.vendor !== filters.vendor) return false;
+      if (filters.event && d.event !== filters.event) return false;
       if (filters.category && d.category !== filters.category) return false;
+      if (filters.grade && d.huruf !== filters.grade) return false;
       if (filters.location && d.alamat !== filters.location) return false;
+      if (filters.rekomendasi && d.rekomendasi !== filters.rekomendasi) return false;
       return true;
     });
   }, [evaluations, filters]);

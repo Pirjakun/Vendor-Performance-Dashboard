@@ -422,15 +422,24 @@ export function ChartsSection({
   };
 
   // 4. REPEAT VENDOR HERO CHART
+  const repeatSourceData = selectedGradeModal 
+    ? filteredRepeat.filter(d => d.huruf === selectedGradeModal) 
+    : filteredRepeat;
+
   const repeatMap = {};
-  allEvaluations.forEach(d => {
+  repeatSourceData.forEach(d => {
     if (!repeatMap[d.vendor]) repeatMap[d.vendor] = [];
     repeatMap[d.vendor].push(d);
   });
 
-  const allRepeatVendors = Object.keys(repeatMap)
+  let allRepeatVendors = Object.keys(repeatMap)
     .filter(v => repeatMap[v].length > 1)
     .sort((a, b) => repeatMap[b].length - repeatMap[a].length);
+
+  if (allRepeatVendors.length === 0) {
+    allRepeatVendors = Object.keys(repeatMap)
+      .sort((a, b) => repeatMap[b].length - repeatMap[a].length);
+  }
 
   let activeRepeatVendors = [...allRepeatVendors];
 
@@ -446,7 +455,9 @@ export function ChartsSection({
     }
   }
 
-  const maxUsageLength = Math.max(...activeRepeatVendors.map(v => repeatMap[v].length), 2);
+  const maxUsageLength = activeRepeatVendors.length > 0 
+    ? Math.max(...activeRepeatVendors.map(v => repeatMap[v].length), 2)
+    : 2;
   const xRepeatLabels = Array.from({ length: maxUsageLength }, (_, i) => `Pemakaian ${i + 1}`);
 
   const lineColors = [
