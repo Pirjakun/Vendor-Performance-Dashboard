@@ -15,7 +15,7 @@ export function KpiCards({ filteredData }) {
   const isUp = avgScore >= 80;
 
   return (
-    <div className="kpi-row">
+    <div className="kpi-row" id="kpi-cards-row">
       <div className="kpi">
         <div className="kpi-label">Total Vendor</div>
         <div className="kpi-value">{vendorSet.size}</div>

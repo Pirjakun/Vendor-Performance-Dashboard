@@ -588,7 +588,7 @@ export function ChartsSection({
   return (
     <div className="charts-section-grid">
       {/* 1. OVERVIEW */}
-      <div className="card">
+      <div className="card" id="chart-card-overview">
         <div className="card-head">
           <div>
             <h2>Ringkasan Performa Vendor</h2>
@@ -634,7 +634,7 @@ export function ChartsSection({
 
       {/* 2 COLUMN GRID */}
       <div className="two-col">
-        <div className="card">
+        <div className="card" id="chart-card-trend">
           <div className="card-head">
             <div>
               <h2>Tren Performa Bulanan</h2>
@@ -646,7 +646,7 @@ export function ChartsSection({
           </div>
         </div>
 
-        <div className="card">
+        <div className="card" id="chart-card-donut">
           <div className="card-head">
             <div>
               <h2>Distribusi Predikat Evaluasi</h2>
@@ -695,7 +695,7 @@ export function ChartsSection({
       />
 
       {/* 4. HERO REPEAT VENDOR */}
-      <div className="hero-section">
+      <div className="hero-section" id="chart-card-repeat">
         <div className="card-head">
           <div>
             <h2>Performa Vendor Berulang (Repeat Order) ⭐</h2>
@@ -751,7 +751,7 @@ export function ChartsSection({
 
       {/* 2 COLUMN GRID FOR CATEGORY & LOCATION */}
       <div className="two-col">
-        <div className="card">
+        <div className="card" id="chart-card-category">
           <div className="card-head">
             <div>
               <h2>Performa Berdasarkan Kategori Vendor</h2>
@@ -775,7 +775,7 @@ export function ChartsSection({
           </div>
         </div>
 
-        <div className="card">
+        <div className="card" id="chart-card-location">
           <div className="card-head">
             <div>
               <h2>Performa Berdasarkan Wilayah / Kota</h2>
