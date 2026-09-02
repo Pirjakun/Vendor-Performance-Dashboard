@@ -493,3 +493,203 @@ header.top p {
   stroke-width: 1.2px !important;
 }
 
+/* ==========================================
+   MOBILE & TABLET RESPONSIVE DESIGN (RWD)
+   ========================================== */
+
+/* Tablet & Mobile Landscape (< 992px) */
+@media (max-width: 992px) {
+  .page {
+    padding: 16px 16px 48px;
+    gap: 16px;
+  }
+
+  header.top {
+    padding: 22px 20px 18px;
+    border-radius: 16px;
+  }
+
+  .top-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .header-badges {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .btn-crud-add, .btn-reset-data {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .map-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .map-legend {
+    width: 100%;
+  }
+}
+
+/* Mobile Devices (< 768px) */
+@media (max-width: 768px) {
+  header.top h1 {
+    font-size: 20px;
+  }
+
+  header.top p {
+    font-size: 12.5px;
+  }
+
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .filter {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .kpi-row {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi {
+    padding: 16px 18px;
+  }
+
+  .kpi .kpi-value {
+    font-size: 28px;
+  }
+
+  .card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .card-controls {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .chart-tall { height: 260px; }
+  .chart-mid  { height: 220px; }
+  .chart-short{ height: 190px; }
+
+  .table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .btn-export {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .slicers-container {
+    padding: 14px;
+  }
+
+  .slicers-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .slicers-flex-row {
+    flex-direction: column;
+  }
+
+  .slicer-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .slicer-btn {
+    font-size: 11.5px;
+    padding: 6px 10px;
+  }
+
+  /* Modals on Mobile */
+  .modal-backdrop {
+    padding: 10px;
+  }
+
+  .modal-content {
+    border-radius: 12px;
+    max-height: 92vh;
+  }
+
+  .modal-header {
+    padding: 14px 16px;
+  }
+
+  .modal-body {
+    padding: 16px;
+  }
+
+  .form-row-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small Mobile Screens (< 480px) */
+@media (max-width: 480px) {
+  .brand-name {
+    font-size: 11px;
+  }
+
+  header.top h1 {
+    font-size: 18px;
+  }
+
+  .period-chip {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+
+  .btn-crud-add, .btn-reset-data {
+    font-size: 11.5px;
+    padding: 7px 10px;
+  }
+
+  .data-table th, .data-table td {
+    padding: 8px 8px;
+    font-size: 11.5px;
+  }
+}
+
