@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useVendorData } from './hooks/useVendorData';
 import { Header } from './components/Header';
 import { KpiCards } from './components/KpiCards';
@@ -7,8 +7,8 @@ import { RegionMap } from './components/RegionMap';
 import { DataTable } from './components/DataTable';
 import { EvaluationModal } from './components/EvaluationModal';
 import { VendorDetailModal } from './components/VendorDetailModal';
-import { GradeVendorsModal } from './components/GradeVendorsModal';
 import { ExcelUploadModal } from './components/ExcelUploadModal';
+import { LoginScreen } from './components/LoginScreen';
 import { generatePdfReport, generateFullReport } from './utils/exportPdf';
 
 export default function App() {
@@ -37,6 +37,43 @@ export default function App() {
     filteredRepeat,
     filteredCategory
   } = useVendorData();
+
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const isLocalAuth = localStorage.getItem('werkudara_auth') === 'true';
+    const isSessionAuth = sessionStorage.getItem('werkudara_auth') === 'true';
+    
+    if (isLocalAuth || isSessionAuth) {
+      const userStr = localStorage.getItem('werkudara_user') || sessionStorage.getItem('werkudara_user');
+      setIsAuthenticated(true);
+      if (userStr) {
+        try {
+          setCurrentUser(JSON.parse(userStr));
+        } catch (e) {
+          setCurrentUser({ email: 'ss@werkudara.com', name: 'Eksekutif Werkudara' });
+        }
+      } else {
+        setCurrentUser({ email: 'ss@werkudara.com', name: 'Eksekutif Werkudara' });
+      }
+    }
+  }, []);
+
+  const handleLoginSuccess = (user) => {
+    setIsAuthenticated(true);
+    setCurrentUser(user);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('werkudara_auth');
+    localStorage.removeItem('werkudara_user');
+    sessionStorage.removeItem('werkudara_auth');
+    sessionStorage.removeItem('werkudara_user');
+    setIsAuthenticated(false);
+    setCurrentUser(null);
+  };
 
   // State for CRUD Add / Edit Modal
   const [isEvaluationModalOpen, setIsEvaluationModalOpen] = useState(false);
@@ -77,6 +114,11 @@ export default function App() {
     setFilter('location', cityName);
   };
 
+  // Render Login Gate if not authenticated
+  if (!isAuthenticated) {
+    return <LoginScreen onLoginSuccess={handleLoginSuccess} />;
+  }
+
   return (
     <div className="page">
       {/* 1. Header with integrated sleek compact filter bar */}
@@ -86,6 +128,8 @@ export default function App() {
         onExportPdf={() => generatePdfReport(filteredGeneral, filters)}
         onFullReport={() => generateFullReport(filteredGeneral, filters)}
         onResetData={resetToInitialData}
+        currentUser={currentUser}
+        onLogout={handleLogout}
         filters={filters}
         setFilter={setFilter}
         resetFilters={resetFilters}
