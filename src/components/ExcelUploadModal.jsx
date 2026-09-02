@@ -55,12 +55,13 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
     const reader = new FileReader();
     reader.onload = (evt) => {
       try {
-        const bstr = evt.target.result;
-        const workbook = XLSX.read(bstr, { type: 'binary' });
+        const arrayBuffer = evt.target.result;
+        const data = new Uint8Array(arrayBuffer);
+        const workbook = XLSX.read(data, { type: 'array' });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
 
-        // Convert sheet to 2D Array to handle title lines above the table
+        // Convert sheet to 2D Array
         const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: '' });
 
         if (rows.length === 0) {
@@ -70,13 +71,26 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           return;
         }
 
-        // Find header row index by looking for key words: Vendor, Event, Barang, Nilai, Alamat, etc.
+        // Target keywords that indicate table headers
+        const headerKeywords = ['vendor', 'event', 'bulan', 'tgl', 'tanggal', 'barang', 'jasa', 'kategori', 'alamat', 'nilai', 'skor', 'huruf', 'rekomendasi'];
+
         let headerRowIdx = -1;
-        for (let i = 0; i < Math.min(15, rows.length); i++) {
-          const lineStr = rows[i].map(c => String(c).toLowerCase().trim()).join(' ');
-          if (lineStr.includes('vendor') || lineStr.includes('barang') || lineStr.includes('nilai')) {
+        let maxMatches = 0;
+
+        // Scan first 20 rows to find the row with the MOST header keyword matches (must match at least 2 distinct headers)
+        for (let i = 0; i < Math.min(20, rows.length); i++) {
+          const rowCells = rows[i].map(c => String(c).toLowerCase().trim().replace(/\s+/g, ' '));
+          let matches = 0;
+
+          rowCells.forEach(cell => {
+            if (cell && headerKeywords.some(kw => cell === kw || cell.includes(kw))) {
+              matches++;
+            }
+          });
+
+          if (matches > maxMatches && matches >= 2) {
+            maxMatches = matches;
             headerRowIdx = i;
-            break;
           }
         }
 
@@ -90,10 +104,20 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
         const headerRow = rows[headerRowIdx].map(c => String(c).trim());
 
         const findColIdx = (possibleNames) => {
-          return headerRow.findIndex(h => {
+          // 1. Try exact match first
+          let idx = headerRow.findIndex(h => {
             const clean = h.toLowerCase().replace(/\s+/g, ' ');
-            return possibleNames.some(p => clean === p.toLowerCase() || clean.includes(p.toLowerCase()));
+            return possibleNames.some(p => clean === p.toLowerCase());
           });
+
+          // 2. Fallback to substring match
+          if (idx === -1) {
+            idx = headerRow.findIndex(h => {
+              const clean = h.toLowerCase().replace(/\s+/g, ' ');
+              return possibleNames.some(p => clean.includes(p.toLowerCase()));
+            });
+          }
+          return idx;
         };
 
         const colEventNo = findColIdx(['no', 'no event', 'id']);
@@ -180,7 +204,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
         setIsProcessing(false);
       }
     };
-    reader.readAsBinaryString(selectedFile);
+    reader.readAsArrayBuffer(selectedFile);
   };
 
   const handleFileChange = (e) => {
