@@ -150,7 +150,13 @@ export function useVendorData() {
   }, [evaluations]);
 
   const uniqueEvents = useMemo(() => {
-    return Array.from(new Set(evaluations.map(d => d.event).filter(Boolean))).sort();
+    return Array.from(
+      new Set(
+        evaluations
+          .map(d => d.event)
+          .filter(e => e && !/^\d+$/.test(String(e).trim()))
+      )
+    ).sort();
   }, [evaluations]);
 
   const uniqueCategories = useMemo(() => {

@@ -159,10 +159,11 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
 
         const headerRow = rows[headerRowIdx].map(c => String(c).trim());
 
-        const findColIdx = (possibleNames) => {
+        const findColIdx = (possibleNames, excludePrefixes = []) => {
           // 1. Try exact match first
           let idx = headerRow.findIndex(h => {
             const clean = h.toLowerCase().replace(/\s+/g, ' ');
+            if (excludePrefixes.some(ex => clean === ex.toLowerCase() || clean.startsWith(ex.toLowerCase() + ' '))) return false;
             return possibleNames.some(p => clean === p.toLowerCase());
           });
 
@@ -170,6 +171,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           if (idx === -1) {
             idx = headerRow.findIndex(h => {
               const clean = h.toLowerCase().replace(/\s+/g, ' ');
+              if (excludePrefixes.some(ex => clean === ex.toLowerCase() || clean.startsWith(ex.toLowerCase() + ' '))) return false;
               return possibleNames.some(p => clean.includes(p.toLowerCase()));
             });
           }
@@ -177,7 +179,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
         };
 
         const colEventNo = findColIdx(['no', 'no event', 'id']);
-        const colEvent = findColIdx(['event', 'nama event', 'kegiatan']);
+        const colEvent = findColIdx(['nama event', 'event', 'kegiatan'], ['no', 'id', '#']);
         const colBulan = findColIdx(['bulan', 'month']);
         const colTgl = findColIdx(['tgl event', 'tanggal event', 'tgl', 'tanggal', 'date']);
         const colVendor = findColIdx(['vendor', 'nama vendor', 'penyedia']);
@@ -208,8 +210,14 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           const rawVendor = colVendor !== -1 ? String(rowData[colVendor] || '').trim() : '';
           if (!rawVendor) continue; // Skip rows without vendor
 
-          const rawEvtNo = colEventNo !== -1 ? String(rowData[colEventNo] || '').trim() : '';
-          const rawEvt = colEvent !== -1 ? String(rowData[colEvent] || '').trim() : '';
+          const rawEvtNo = colEventNo !== -1 && colEventNo !== colEvent ? String(rowData[colEventNo] || '').trim() : '';
+          let rawEvt = colEvent !== -1 ? String(rowData[colEvent] || '').trim() : '';
+
+          // If rawEvt is purely numeric (like "1", "2"), ignore it as an event name
+          if (rawEvt && /^\d+$/.test(rawEvt)) {
+            rawEvt = '';
+          }
+
           const rawBulan = colBulan !== -1 ? String(rowData[colBulan] || '').trim() : '';
           const rawTgl = colTgl !== -1 ? String(rowData[colTgl] || '').trim() : '';
 
@@ -297,7 +305,6 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
   const handleDownloadTemplate = () => {
     const templateData = [
       {
-        'No': '1',
         'Event': 'INUS CONGRESS 2026',
         'BULAN': 'Januari 2026',
         'Tgl Event': '21-24 Januari 2026',
@@ -309,7 +316,6 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
         'REKOMENDASI': 'Sangat Direkomendasikan'
       },
       {
-        'No': '',
         'Event': 'INUS CONGRESS 2026',
         'BULAN': 'Januari 2026',
         'Tgl Event': '21-24 Januari 2026',
@@ -321,7 +327,6 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
         'REKOMENDASI': 'Sangat Direkomendasikan'
       },
       {
-        'No': '2',
         'Event': 'WB HEALTHY FUTURE LAUNCH',
         'BULAN': 'Januari 2026',
         'Tgl Event': '22 Januari 2026',
@@ -353,7 +358,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           <div>
             <h3>Upload Data Evaluasi Vendor (.xlsx / .csv)</h3>
             <p className="modal-subtitle">
-              Format Kolom Resmi: <strong>No | Event | BULAN | Tgl Event | Vendor | Barang / Jasa | Alamat | NILAI | HURUF | REKOMENDASI</strong>
+              Format Kolom Resmi: <strong>Event | BULAN | Tgl Event | Vendor | Barang / Jasa | Alamat | NILAI | HURUF | REKOMENDASI</strong>
             </p>
           </div>
           <button className="btn-close" onClick={onClose}>
