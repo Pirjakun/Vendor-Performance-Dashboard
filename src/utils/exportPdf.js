@@ -56,7 +56,6 @@ export function generatePdfReport(data, filters = {}) {
 
   // Table Columns & Rows
   const tableHeaders = [
-    'No',
     'Nama Event',
     'Bulan',
     'Tgl Event',
@@ -68,8 +67,7 @@ export function generatePdfReport(data, filters = {}) {
     'Rekomendasi'
   ];
 
-  const tableRows = data.map((item, index) => [
-    item.eventNo || index + 1,
+  const tableRows = data.map((item) => [
     item.event || '-',
     item.bulan || '-',
     item.tglEvent || '-',
@@ -98,19 +96,18 @@ export function generatePdfReport(data, filters = {}) {
       textColor: [30, 41, 59]
     },
     columnStyles: {
-      0: { cellWidth: 10, halign: 'center' }, // No
-      1: { cellWidth: 44 }, // Event
-      2: { cellWidth: 22 }, // Bulan
-      3: { cellWidth: 26 }, // Tgl
-      4: { cellWidth: 34, fontStyle: 'bold' }, // Vendor
-      5: { cellWidth: 26 }, // Category
-      6: { cellWidth: 20 }, // Alamat
-      7: { cellWidth: 14, halign: 'center', fontStyle: 'bold' }, // Nilai
-      8: { cellWidth: 14, halign: 'center', fontStyle: 'bold' }, // Grade
-      9: { cellWidth: 59 }  // Rekomendasi
+      0: { cellWidth: 50 }, // Event
+      1: { cellWidth: 22 }, // Bulan
+      2: { cellWidth: 26 }, // Tgl
+      3: { cellWidth: 34, fontStyle: 'bold' }, // Vendor
+      4: { cellWidth: 26 }, // Category
+      5: { cellWidth: 20 }, // Alamat
+      6: { cellWidth: 14, halign: 'center', fontStyle: 'bold' }, // Nilai
+      7: { cellWidth: 14, halign: 'center', fontStyle: 'bold' }, // Grade
+      8: { cellWidth: 65 }  // Rekomendasi
     },
     didParseCell: (dataCell) => {
-      if (dataCell.section === 'body' && dataCell.column.index === 8) {
+      if (dataCell.section === 'body' && dataCell.column.index === 7) {
         const val = String(dataCell.cell.raw);
         if (val === 'A') {
           dataCell.cell.styles.textColor = [22, 163, 74];

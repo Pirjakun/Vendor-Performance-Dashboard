@@ -5,7 +5,6 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
   const isEdit = Boolean(initialRecord && initialRecord.id);
 
   const [formData, setFormData] = useState({
-    eventNo: '1',
     event: '',
     bulan: 'Januari 2026',
     tglEvent: '',
@@ -20,7 +19,6 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
   useEffect(() => {
     if (initialRecord) {
       setFormData({
-        eventNo: initialRecord.eventNo || '1',
         event: initialRecord.event || '',
         bulan: initialRecord.bulan || 'Januari 2026',
         tglEvent: initialRecord.tglEvent || '',
@@ -33,7 +31,6 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
       });
     } else {
       setFormData({
-        eventNo: '1',
         event: '',
         bulan: 'Januari 2026',
         tglEvent: '',
@@ -119,35 +116,25 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
             />
           </div>
 
-          <div className="form-row-2">
-            <div className="form-group">
-              <label>Nomor Event</label>
-              <input
-                type="text"
-                value={formData.eventNo}
-                onChange={e => setFormData({ ...formData, eventNo: e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <label>Bulan Evaluasi *</label>
-              <select
-                value={formData.bulan}
-                onChange={e => setFormData({ ...formData, bulan: e.target.value })}
-              >
-                <option value="Januari 2026">Januari 2026</option>
-                <option value="Februari 2026">Februari 2026</option>
-                <option value="Maret 2026">Maret 2026</option>
-                <option value="April 2026">April 2026</option>
-                <option value="Mei 2026">Mei 2026</option>
-                <option value="Juni 2026">Juni 2026</option>
-                <option value="Juli 2026">Juli 2026</option>
-                <option value="Agustus 2026">Agustus 2026</option>
-                <option value="September 2026">September 2026</option>
-                <option value="Oktober 2026">Oktober 2026</option>
-                <option value="November 2026">November 2026</option>
-                <option value="Desember 2026">Desember 2026</option>
-              </select>
-            </div>
+          <div className="form-group">
+            <label>Bulan Evaluasi *</label>
+            <select
+              value={formData.bulan}
+              onChange={e => setFormData({ ...formData, bulan: e.target.value })}
+            >
+              <option value="Januari 2026">Januari 2026</option>
+              <option value="Februari 2026">Februari 2026</option>
+              <option value="Maret 2026">Maret 2026</option>
+              <option value="April 2026">April 2026</option>
+              <option value="Mei 2026">Mei 2026</option>
+              <option value="Juni 2026">Juni 2026</option>
+              <option value="Juli 2026">Juli 2026</option>
+              <option value="Agustus 2026">Agustus 2026</option>
+              <option value="September 2026">September 2026</option>
+              <option value="Oktober 2026">Oktober 2026</option>
+              <option value="November 2026">November 2026</option>
+              <option value="Desember 2026">Desember 2026</option>
+            </select>
           </div>
 
           <div className="form-row-2">

@@ -244,7 +244,6 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           }
 
           normalizedRows.push({
-            eventNo: rawEvtNo || currentEventNo || `${normalizedRows.length + 1}`,
             event: rawEvt || currentEvent || 'Event Tanpa Nama',
             bulan: normalizeMonth(rawBulan || currentBulan),
             tglEvent: rawTgl || currentTgl || '-',
@@ -489,7 +488,6 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
                   <thead>
                     <tr style={{ background: 'var(--ice-100)', textTransform: 'uppercase', fontSize: '10.5px', color: 'var(--navy-950)' }}>
-                      <th style={{ padding: '8px', textAlign: 'left' }}>No</th>
                       <th style={{ padding: '8px', textAlign: 'left' }}>Nama Event</th>
                       <th style={{ padding: '8px', textAlign: 'left' }}>Bulan</th>
                       <th style={{ padding: '8px', textAlign: 'left' }}>Tgl Event</th>
@@ -503,7 +501,6 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
                   <tbody>
                     {parsedData.slice(0, 15).map((row, i) => (
                       <tr key={i} style={{ borderBottom: '1px solid var(--line)' }}>
-                        <td style={{ padding: '8px' }}>{row.eventNo}</td>
                         <td style={{ padding: '8px', fontWeight: 600 }}>{row.event}</td>
                         <td style={{ padding: '8px' }}>{row.bulan}</td>
                         <td style={{ padding: '8px' }}>{row.tglEvent}</td>
