@@ -105,12 +105,7 @@ export function Header({
               </button>
 
               {exportOpen && (
-                <div style={{
-                  position: 'absolute', top: 'calc(100% + 6px)', right: 0,
-                  background: '#fff', border: '1px solid #E2E8F0',
-                  borderRadius: '10px', boxShadow: '0 8px 24px rgba(15,23,42,0.15)',
-                  minWidth: '220px', zIndex: 100, overflow: 'hidden'
-                }}>
+                <div className="dropdown-menu-responsive">
                   {onExportPdf && (
                     <button
                       onClick={() => { onExportPdf(); setExportOpen(false); }}
