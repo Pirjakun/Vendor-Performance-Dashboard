@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save } from 'lucide-react';
 
+const parseToIsoDate = (dateStr) => {
+  if (!dateStr) return '';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
+  const parts = dateStr.trim().split(' ');
+  if (parts.length === 3) {
+    const day = parts[0].padStart(2, '0');
+    const monthsIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const monthIdx = monthsIndo.findIndex(m => m.toLowerCase() === parts[1].toLowerCase());
+    if (monthIdx !== -1) {
+      const month = String(monthIdx + 1).padStart(2, '0');
+      const year = parts[2];
+      return `${year}-${month}-${day}`;
+    }
+  }
+  return '';
+};
+
 export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
   const isEdit = Boolean(initialRecord && initialRecord.id);
 
@@ -116,32 +133,13 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
             />
           </div>
 
-          <div className="form-group">
-            <label>Bulan Event *</label>
-            <select
-              value={formData.bulan}
-              onChange={e => setFormData({ ...formData, bulan: e.target.value })}
-            >
-              <option value="Januari 2026">Januari 2026</option>
-              <option value="Februari 2026">Februari 2026</option>
-              <option value="Maret 2026">Maret 2026</option>
-              <option value="April 2026">April 2026</option>
-              <option value="Mei 2026">Mei 2026</option>
-              <option value="Juni 2026">Juni 2026</option>
-              <option value="Juli 2026">Juli 2026</option>
-              <option value="Agustus 2026">Agustus 2026</option>
-              <option value="September 2026">September 2026</option>
-              <option value="Oktober 2026">Oktober 2026</option>
-              <option value="November 2026">November 2026</option>
-              <option value="Desember 2026">Desember 2026</option>
-            </select>
-          </div>
-
           <div className="form-row-2">
             <div className="form-group">
-              <label>Pilih Tanggal Pelaksanaan (Kalender)</label>
+              <label>Tanggal Pelaksanaan (Kalender) *</label>
               <input
                 type="date"
+                required
+                value={parseToIsoDate(formData.tglEvent)}
                 style={{
                   padding: '9px 12px',
                   borderRadius: '8px',
