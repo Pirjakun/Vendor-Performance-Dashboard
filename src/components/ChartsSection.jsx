@@ -681,21 +681,6 @@ export function ChartsSection({
               </div>
             </div>
 
-            {/* Quick Action Badges for direct Grade Modal access */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
-              <button className="badge grade-a" onClick={() => onGradeClick && onGradeClick('A')} style={{ cursor: 'pointer', border: 'none', padding: '4px 8px', fontSize: '11px' }} title="Klik rincian Grade A">
-                Grade A: {excellent}
-              </button>
-              <button className="badge grade-b" onClick={() => onGradeClick && onGradeClick('B')} style={{ cursor: 'pointer', border: 'none', padding: '4px 8px', fontSize: '11px' }} title="Klik rincian Grade B">
-                Grade B: {good}
-              </button>
-              <button className="badge grade-c" onClick={() => onGradeClick && onGradeClick('C')} style={{ cursor: 'pointer', border: 'none', padding: '4px 8px', fontSize: '11px' }} title="Klik rincian Grade C">
-                Grade C: {fair}
-              </button>
-              <button className="badge grade-d" onClick={() => onGradeClick && onGradeClick('D')} style={{ cursor: 'pointer', border: 'none', padding: '4px 8px', fontSize: '11px' }} title="Klik rincian Grade D">
-                Grade D: {poor}
-              </button>
-            </div>
           </div>
         </div>
       </div>
