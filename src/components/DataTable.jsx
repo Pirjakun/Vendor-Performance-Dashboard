@@ -128,12 +128,12 @@ export function DataTable({
                   onClick={() => { handleExportCSV(); setExportOpen(false); }}
                   style={{
                     width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
-                    padding: '11px 16px', background: 'none', border: 'none',
+                    padding: '11px 16px', background: '#FFFFFF', border: 'none',
                     cursor: 'pointer', fontSize: '13px', fontWeight: 600,
                     color: '#1E293B', textAlign: 'left', transition: 'background 0.15s'
                   }}
                   onMouseEnter={e => e.currentTarget.style.background = '#F1F5F9'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                  onMouseLeave={e => e.currentTarget.style.background = '#FFFFFF'}
                 >
                   <Download size={15} style={{ color: '#0D9488' }} />
                   <div>
@@ -150,12 +150,12 @@ export function DataTable({
                     onClick={() => { onExportPdf(); setExportOpen(false); }}
                     style={{
                       width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
-                      padding: '11px 16px', background: 'none', border: 'none',
+                      padding: '11px 16px', background: '#FFFFFF', border: 'none',
                       cursor: 'pointer', fontSize: '13px', fontWeight: 600,
                       color: '#1E293B', textAlign: 'left', transition: 'background 0.15s'
                     }}
                     onMouseEnter={e => e.currentTarget.style.background = '#F1F5F9'}
-                    onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                    onMouseLeave={e => e.currentTarget.style.background = '#FFFFFF'}
                   >
                     <FileText size={15} style={{ color: '#DC2626' }} />
                     <div>
@@ -173,12 +173,12 @@ export function DataTable({
                     onClick={() => { onFullReport(); setExportOpen(false); }}
                     style={{
                       width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
-                      padding: '11px 16px', background: 'none', border: 'none',
+                      padding: '11px 16px', background: '#FFFFFF', border: 'none',
                       cursor: 'pointer', fontSize: '13px', fontWeight: 600,
                       color: '#1E293B', textAlign: 'left', transition: 'background 0.15s'
                     }}
                     onMouseEnter={e => e.currentTarget.style.background = '#EEF4FF'}
-                    onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                    onMouseLeave={e => e.currentTarget.style.background = '#FFFFFF'}
                   >
                     <FileText size={15} style={{ color: '#7C3AED' }} />
                     <div>
