@@ -199,7 +199,7 @@ export function RegionMap({ filteredData, onCityClick }) {
   const transformStr = `translate(${transform.x}, ${transform.y}) scale(${transform.scale})`;
 
   return (
-    <div className="card">
+    <div className="card" id="region-map-card">
       <div className="card-head">
         <div>
           <h2>Persebaran &amp; Performa Vendor per Wilayah</h2>

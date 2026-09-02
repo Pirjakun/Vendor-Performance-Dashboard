@@ -87,7 +87,7 @@ export function DataTable({
   };
 
   return (
-    <div className="card table-card">
+    <div className="card table-card" id="data-table-card">
       <DeleteConfirmModal
         isOpen={Boolean(deletingRecord)}
         onClose={() => setDeletingRecord(null)}
