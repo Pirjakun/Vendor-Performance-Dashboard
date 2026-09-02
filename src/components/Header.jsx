@@ -33,7 +33,7 @@ export function Header({
         <div className="header-badges">
           <div className="period-chip">
             <ShieldCheck size={14} style={{ color: 'var(--sky-200)' }} />
-            Januari — Desember 2026
+            2026
           </div>
           <div className="header-actions">
             <button className="btn-crud-add" onClick={onOpenAddModal}>

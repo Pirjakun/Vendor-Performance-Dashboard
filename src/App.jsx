@@ -7,6 +7,7 @@ import { RegionMap } from './components/RegionMap';
 import { DataTable } from './components/DataTable';
 import { EvaluationModal } from './components/EvaluationModal';
 import { VendorDetailModal } from './components/VendorDetailModal';
+import { GradeVendorsModal } from './components/GradeVendorsModal';
 
 export default function App() {
   const {
@@ -40,6 +41,9 @@ export default function App() {
 
   // State for Vendor Inspector Profile Modal
   const [selectedVendorProfile, setSelectedVendorProfile] = useState(null);
+
+  // State for Interactive Donut Slice Grade Modal
+  const [selectedGradeModal, setSelectedGradeModal] = useState(null);
 
   const handleOpenAddModal = () => {
     setEditingRecord(null);
@@ -101,6 +105,8 @@ export default function App() {
         donutCalcMode={donutCalcMode}
         setDonutCalcMode={setDonutCalcMode}
         onVendorClick={handleVendorClick}
+        selectedGradeModal={selectedGradeModal}
+        onGradeClick={(grade) => setSelectedGradeModal(grade)}
       />
 
       {/* 4. Region Map (Persebaran & Performa Vendor per Wilayah) */}

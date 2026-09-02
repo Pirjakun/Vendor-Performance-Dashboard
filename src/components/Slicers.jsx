@@ -32,12 +32,12 @@ export function Slicers({
       <div className="slicers-top-bar">
         <div className="slicers-title">
           <Filter size={15} />
-          Interactive Dashboard Slicers (PowerBI Style)
+          Filter &amp; Slicer Data Interaktif
         </div>
         {activeCount > 0 && (
           <button className="btn-reset-slicers" onClick={resetFilters}>
             <RotateCcw size={12} />
-            Reset Semua Slicer ({activeCount})
+            Reset Semua Filter ({activeCount})
           </button>
         )}
       </div>
@@ -71,7 +71,7 @@ export function Slicers({
       {/* 2. GRADE & REKOMENDASI SLICER */}
       <div className="slicers-flex-row">
         <div className="slicer-subgroup">
-          <div className="slicer-label">Grade Slicer:</div>
+          <div className="slicer-label">Filter Grade Predikat:</div>
           <div className="slicer-buttons">
             {grades.map(g => {
               const count = countBy('huruf', g);
@@ -89,7 +89,7 @@ export function Slicers({
         </div>
 
         <div className="slicer-subgroup">
-          <div className="slicer-label">Rekomendasi Slicer:</div>
+          <div className="slicer-label">Filter Status Rekomendasi:</div>
           <div className="slicer-buttons">
             {rekomList.map(r => {
               const count = countBy('rekomendasi', r);

@@ -344,14 +344,13 @@ header.top p {
 .map-wrap { display: flex; gap: 20px; align-items: center; }
 .id-map { flex: 1; min-width: 0; }
 .island { fill: var(--ice-100); stroke: var(--sky-200); stroke-width: 1; }
-.dot { stroke: #fff; stroke-width: 1.5; cursor: pointer; transition: all 0.2s; }
-.dot:hover { transform: scale(1.2); }
+.dot { stroke: #ffffff; stroke-width: 1.5px; cursor: pointer; transition: stroke-width 0.2s ease, stroke 0.2s ease, filter 0.2s ease; }
+.dot:hover, .city:hover .dot { stroke: #0F2A57; stroke-width: 3px; filter: drop-shadow(0 0 6px rgba(15, 42, 87, 0.5)); }
 .dot-excellent { fill: var(--navy-900); }
 .dot-good { fill: var(--blue-600); }
 .dot-fair { fill: var(--fair); }
 .dot-poor { fill: var(--poor); }
 .city { transition: opacity .15s; }
-.city:hover { opacity: .75; }
 
 .map-legend {
   width: 190px; flex-shrink: 0;
@@ -483,3 +482,14 @@ header.top p {
 .stat-num { font-size: 24px; font-weight: 800; color: var(--navy-950); }
 .stat-lbl { font-size: 11px; color: var(--ink-600); }
 .profile-info-grid { display: flex; gap: 20px; font-size: 13px; color: var(--ink-600); }
+
+/* PROVINCE HOVER EFFECT */
+.province-path {
+  cursor: pointer;
+}
+.province-path:hover {
+  fill: #B5D2F5 !important;
+  stroke: #0F2A57 !important;
+  stroke-width: 1.2px !important;
+}
+

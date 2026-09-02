@@ -187,25 +187,37 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
                 value={formData.category}
                 onChange={e => setFormData({ ...formData, category: e.target.value })}
               >
-                <option value="F&B & Resto">F&B & Resto</option>
-                <option value="Production">Production</option>
-                <option value="Dokumentasi">Dokumentasi</option>
+                <option value="Activity">Activity</option>
+                <option value="Akomodasi">Akomodasi</option>
+                <option value="Bali Dance">Bali Dance</option>
+                <option value="Beverage">Beverage</option>
+                <option value="Catering">Catering</option>
+                <option value="Decoration">Decoration</option>
+                <option value="Documentation">Documentation</option>
+                <option value="Equipment">Equipment</option>
+                <option value="Equipment & Production">Equipment &amp; Production</option>
+                <option value="Event Support">Event Support</option>
+                <option value="F&B">F&amp;B</option>
+                <option value="Game Master">Game Master</option>
+                <option value="Gimmick">Gimmick</option>
+                <option value="Intepreter">Intepreter</option>
+                <option value="Logistik">Logistik</option>
+                <option value="MC">MC</option>
+                <option value="Manpower">Manpower</option>
                 <option value="Multimedia">Multimedia</option>
+                <option value="Pengharum Ruangan">Pengharum Ruangan</option>
+                <option value="Photobooth">Photobooth</option>
+                <option value="Production">Production</option>
+                <option value="Registration">Registration</option>
+                <option value="Resto">Resto</option>
                 <option value="Show Management">Show Management</option>
                 <option value="Talent">Talent</option>
+                <option value="Talent & Decoration">Talent &amp; Decoration</option>
+                <option value="Transfer Handling">Transfer Handling</option>
                 <option value="Transport">Transport</option>
-                <option value="Venue">Venue</option>
-                <option value="Interpreter">Interpreter</option>
-                <option value="Equipment">Equipment</option>
-                <option value="Manpower & Support">Manpower & Support</option>
-                <option value="Activity">Activity</option>
-                <option value="Gimmick & Souvenir">Gimmick & Souvenir</option>
-                <option value="Dekorasi">Dekorasi</option>
-                <option value="Usher">Usher</option>
                 <option value="Travel Agent">Travel Agent</option>
-                <option value="Talent & Decoration">Talent & Decoration</option>
-                <option value="Logistik">Logistik</option>
-                <option value="Lainnya">Lainnya</option>
+                <option value="Usher">Usher</option>
+                <option value="Venue">Venue</option>
               </select>
             </div>
           </div>

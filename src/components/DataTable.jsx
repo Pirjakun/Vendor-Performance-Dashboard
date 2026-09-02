@@ -84,8 +84,8 @@ export function DataTable({
 
       <div className="card-head">
         <div>
-          <h2>Data Evaluasi Detail (CRUD Table)</h2>
-          <p>Daftar seluruh penilaian vendor. Anda dapat menambah, mengedit, atau menghapus data langsung.</p>
+          <h2>Daftar Evaluasi Vendor Detail</h2>
+          <p>Daftar seluruh penilaian vendor. Anda dapat menambah, mengedit, atau menghapus data secara langsung.</p>
         </div>
         <div className="table-actions">
           <button className="btn-export" onClick={handleExportCSV}>
@@ -105,7 +105,7 @@ export function DataTable({
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="tag">{sortedData.length} record ditemukan</div>
+        <div className="tag">{sortedData.length} data ditemukan</div>
       </div>
 
       <div className="table-responsive">
@@ -121,7 +121,7 @@ export function DataTable({
               <th onClick={() => handleSort('nilai')}>Skor</th>
               <th onClick={() => handleSort('huruf')}>Grade</th>
               <th onClick={() => handleSort('rekomendasi')}>Rekomendasi</th>
-              <th style={{ textAlign: 'center' }}>Aksi (CRUD)</th>
+              <th style={{ textAlign: 'center' }}>Aksi</th>
             </tr>
           </thead>
           <tbody>

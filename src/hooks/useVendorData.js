@@ -1,18 +1,28 @@
 import { useState, useEffect, useMemo } from 'react';
 import { initialData } from '../data/initialData';
 
-const LOCAL_STORAGE_KEY = 'vendor_evaluations_v4';
+const LOCAL_STORAGE_KEY = 'vendor_evaluations_v31_cat';
 
 export function useVendorData() {
   const [evaluations, setEvaluations] = useState(() => {
     try {
-      if (localStorage.getItem('vendor_evaluations_v1')) localStorage.removeItem('vendor_evaluations_v1');
-      if (localStorage.getItem('vendor_evaluations_v2')) localStorage.removeItem('vendor_evaluations_v2');
-      if (localStorage.getItem('vendor_evaluations_v3')) localStorage.removeItem('vendor_evaluations_v3');
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('vendor_evaluations_') && key !== LOCAL_STORAGE_KEY) {
+          localStorage.removeItem(key);
+        }
+      });
       const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const catSet = new Set(parsed.map(e => e.category));
+          if (catSet.size >= 30) {
+            return parsed;
+          } else {
+            console.log('Stale cache detected (categories count < 30), resetting to initialData...');
+            localStorage.removeItem(LOCAL_STORAGE_KEY);
+          }
+        }
       }
     } catch (e) {
       console.error('Failed to load evaluations from localStorage:', e);
@@ -106,18 +116,19 @@ export function useVendorData() {
 
   // Helper arrays for options
   const uniqueMonths = useMemo(() => {
-    const monthsOrder = [
-      'Januari 2026', 'Februari 2026', 'Maret 2026', 'April 2026', 'Mei 2026', 'Juni 2026',
-      'Juli 2026', 'Agustus 2026', 'September 2026', 'Oktober 2026', 'November 2026', 'Desember 2026',
-      'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+    return [
+      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
     ];
-    const set = new Set(evaluations.map(d => d.bulan).filter(Boolean));
-    return Array.from(set).sort((a, b) => {
-      const idxA = monthsOrder.indexOf(a);
-      const idxB = monthsOrder.indexOf(b);
-      return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
-    });
-  }, [evaluations]);
+  }, []);
+
+  const matchBulan = (dBulan, selectedBulan) => {
+    if (!selectedBulan) return true;
+    if (!dBulan) return false;
+    const b1 = dBulan.toLowerCase();
+    const b2 = selectedBulan.toLowerCase();
+    return b1.includes(b2) || b2.includes(b1);
+  };
 
   const uniqueVendors = useMemo(() => {
     return Array.from(new Set(evaluations.map(d => d.vendor).filter(Boolean))).sort();
@@ -138,7 +149,7 @@ export function useVendorData() {
   // Filtered Datasets according to Brief Rules
   const filteredGeneral = useMemo(() => {
     return evaluations.filter(d => {
-      if (filters.bulan && d.bulan !== filters.bulan) return false;
+      if (filters.bulan && !matchBulan(d.bulan, filters.bulan)) return false;
       if (filters.vendor && d.vendor !== filters.vendor) return false;
       if (filters.event && d.event !== filters.event) return false;
       if (filters.category && d.category !== filters.category) return false;
@@ -161,7 +172,7 @@ export function useVendorData() {
   // Overview ignores Vendor filter for filtering out rows
   const filteredOverview = useMemo(() => {
     return evaluations.filter(d => {
-      if (filters.bulan && d.bulan !== filters.bulan) return false;
+      if (filters.bulan && !matchBulan(d.bulan, filters.bulan)) return false;
       if (filters.event && d.event !== filters.event) return false;
       if (filters.category && d.category !== filters.category) return false;
       if (filters.grade && d.huruf !== filters.grade) return false;
@@ -197,7 +208,7 @@ export function useVendorData() {
   // Category IGNORES Category filter for filtering out rows
   const filteredCategory = useMemo(() => {
     return evaluations.filter(d => {
-      if (filters.bulan && d.bulan !== filters.bulan) return false;
+      if (filters.bulan && !matchBulan(d.bulan, filters.bulan)) return false;
       if (filters.vendor && d.vendor !== filters.vendor) return false;
       if (filters.event && d.event !== filters.event) return false;
       if (filters.grade && d.huruf !== filters.grade) return false;

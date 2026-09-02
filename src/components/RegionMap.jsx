@@ -1,5 +1,7 @@
-import React from 'react';
-import mapImg from '../assets/indonesia-map-reference.png';
+import React, { useMemo } from 'react';
+import { geoMercator, geoPath } from 'd3-geo';
+import * as topojson from 'topojson-client';
+import indonesiaTopoJson from '../assets/indonesia-provinces.json';
 
 export function RegionMap({ filteredData, onCityClick }) {
   // Aggregate city stats from filteredData
@@ -25,47 +27,35 @@ export function RegionMap({ filteredData, onCityClick }) {
     return { count: stat.count, avg, gradeClass, radius };
   };
 
-  // Exact geographic coordinates strictly aligned with the Indonesia Province Map reference:
-  // Medan -> North Sumatra (purple area)
-  // Jakarta -> West Java / Banten border coastal tip
-  // Bandung -> West Java interior
-  // Magelang -> Central Java interior (north of Yogyakarta)
-  // Yogyakarta -> DI Yogyakarta south coast
-  // Salatiga -> Central Java interior (north-east of Magelang)
-  // Surabaya -> East Java north-east coast (facing Madura)
-  // Jawa Timur -> East Java interior
-  // Bali -> Bali island (east of East Java)
-  // Exact geographic coordinates strictly aligned with 778x394 Indonesia reference map:
-  // Medan -> North Sumatra
-  // Jakarta -> DKI Jakarta / West Java northwest coast
-  // Bandung -> West Java interior
-  // Magelang -> Central Java interior (north of Yogyakarta)
-  // Yogyakarta -> DI Yogyakarta south coast
-  // Salatiga -> Central Java interior (northeast of Magelang)
-  // Surabaya -> East Java north coast (facing Madura)
-  // Jawa Timur -> East Java interior
-  // Bali -> Bali island
-  // Exact geographic coordinates strictly aligned with 778x394 Indonesia reference map:
-  // Medan -> North Sumatra land mass
-  // Jakarta -> DKI Jakarta north coast on Java island
-  // Bandung -> West Java interior south of Jakarta
-  // Magelang -> Central Java interior
-  // Yogyakarta -> DI Yogyakarta south coast
-  // Salatiga -> Central Java interior (northeast of Magelang)
-  // Surabaya -> East Java north coast (facing Madura)
-  // Jawa Timur -> East Java interior
-  // Bali -> Bali island (immediately east of East Java)
-  const cities = [
-    { name: 'Medan', cx: 102, cy: 118, labelPos: 'top', textAnchor: 'middle' },
-    { name: 'Jakarta', cx: 232, cy: 258, labelPos: 'top', textAnchor: 'middle' },
-    { name: 'Bandung', cx: 246, cy: 267, labelPos: 'bottom', textAnchor: 'middle' },
-    { name: 'Magelang', cx: 288, cy: 267, labelPos: 'left', textAnchor: 'end' },
-    { name: 'Yogyakarta', cx: 292, cy: 272, labelPos: 'bottom', textAnchor: 'middle' },
-    { name: 'Salatiga', cx: 298, cy: 263, labelPos: 'top-right', textAnchor: 'start' },
-    { name: 'Surabaya', cx: 345, cy: 261, labelPos: 'top', textAnchor: 'middle' },
-    { name: 'Jawa Timur', cx: 354, cy: 268, labelPos: 'bottom-right', textAnchor: 'start' },
-    { name: 'Bali', cx: 388, cy: 267, labelPos: 'right', textAnchor: 'start' }
-  ];
+  // Convert TopoJSON to GeoJSON features & project to SVG viewBox 778 x 394
+  const { provinceFeatures, pathGenerator, cities } = useMemo(() => {
+    const geoData = topojson.feature(indonesiaTopoJson, indonesiaTopoJson.objects.gadm36_IDN_1);
+    const projection = geoMercator().fitSize([778, 394], geoData);
+    const pathGen = geoPath().projection(projection);
+
+    const cityCoords = [
+      { name: 'Medan', lon: 98.6722, lat: 3.5952, labelPos: 'top', textAnchor: 'middle' },
+      { name: 'Jakarta', lon: 106.8456, lat: -6.2088, labelPos: 'top', textAnchor: 'middle' },
+      { name: 'Bandung', lon: 107.6191, lat: -6.9175, labelPos: 'bottom', textAnchor: 'middle' },
+      { name: 'Magelang', lon: 110.2177, lat: -7.4706, labelPos: 'left', textAnchor: 'end' },
+      { name: 'Yogyakarta', lon: 110.3695, lat: -7.7956, labelPos: 'bottom', textAnchor: 'middle' },
+      { name: 'Salatiga', lon: 110.5084, lat: -7.3305, labelPos: 'top-right', textAnchor: 'start' },
+      { name: 'Surabaya', lon: 112.7521, lat: -7.2575, labelPos: 'top', textAnchor: 'middle' },
+      { name: 'Jawa Timur', lon: 112.3, lat: -7.6, labelPos: 'bottom-right', textAnchor: 'start' },
+      { name: 'Bali', lon: 115.2167, lat: -8.6500, labelPos: 'right', textAnchor: 'start' }
+    ];
+
+    const projectedCities = cityCoords.map(c => {
+      const [cx, cy] = projection([c.lon, c.lat]);
+      return { ...c, cx, cy };
+    });
+
+    return {
+      provinceFeatures: geoData.features,
+      pathGenerator: pathGen,
+      cities: projectedCities
+    };
+  }, []);
 
   const getLabelY = (c, data) => {
     if (c.labelPos === 'top') return c.cy - data.radius - 6;
@@ -87,25 +77,42 @@ export function RegionMap({ filteredData, onCityClick }) {
     <div className="card">
       <div className="card-head">
         <div>
-          <h2>Persebaran &amp; Performa Vendor per Wilayah (Peta Indonesia)</h2>
+          <h2>Persebaran &amp; Performa Vendor per Wilayah</h2>
           <p>
-            Ukuran titik = jumlah evaluasi vendor di wilayah tersebut. Warna titik = rata-rata skor performa (Grade A ≥85, Grade B 75–84, Grade C 65–74, Grade D &lt;65).
+            Ukuran titik = jumlah evaluasi vendor di wilayah tersebut. Warna titik = rata-rata skor performa (Grade A ≥85, Grade B 70–84.99, Grade C 55–69.99, Grade D &lt;55).
           </p>
         </div>
-        <span className="tag">Peta Provinsi Negara Kesatuan Republik Indonesia</span>
+        <span className="tag">Peta Wilayah Indonesia</span>
       </div>
 
       <div className="map-wrap">
-        <div style={{ position: 'relative', flex: 1, minWidth: 0, background: '#FFFFFF', borderRadius: '12px', padding: '12px', border: '1px solid var(--line)' }}>
+        <div style={{ position: 'relative', flex: 1, minWidth: 0, background: '#F4F8FD', borderRadius: '12px', padding: '12px', border: '1px solid var(--line)', boxShadow: 'inset 0 1px 4px rgba(15,42,87,0.05)' }}>
           <svg viewBox="0 0 778 394" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto', display: 'block' }}>
             <defs>
               <filter id="glowShadow" x="-30%" y="-30%" width="160%" height="160%">
                 <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.2" floodColor="#0F2A57" />
               </filter>
+              <pattern id="gridPattern" width="30" height="30" patternUnits="userSpaceOnUse">
+                <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(15,42,87,0.03)" strokeWidth="1" />
+              </pattern>
             </defs>
 
-            {/* BACKGROUND MAP IMAGE EXACTLY MATCHING USER OUTLINE REFERENCE */}
-            <image href={mapImg} x="0" y="0" width="778" height="394" preserveAspectRatio="none" />
+            {/* Subtle Map Ocean Background with Grid */}
+            <rect width="778" height="394" fill="url(#gridPattern)" rx="8" />
+
+            {/* PROVINCE PATHS FROM OFFICIAL TOPOJSON (GADM IDN PROVINCES) */}
+            <g className="indonesia-provinces-map" fill="#D6E5F7" stroke="#7BA4D5" strokeWidth="0.8" strokeLinejoin="round" strokeLinecap="round">
+              {provinceFeatures.map((feat, idx) => (
+                <path
+                  key={feat.properties.GID_1 || idx}
+                  d={pathGenerator(feat)}
+                  className="province-path"
+                  style={{ transition: 'fill 0.2s, stroke 0.2s' }}
+                >
+                  <title>{feat.properties.NAME_1}</title>
+                </path>
+              ))}
+            </g>
 
             {/* CITY DOT MARKERS */}
             {cities.map(c => {
@@ -130,6 +137,7 @@ export function RegionMap({ filteredData, onCityClick }) {
                       stroke={data.gradeClass === 'dot-excellent' ? '#0F2A57' : data.gradeClass === 'dot-good' ? '#2563C9' : '#D69A25'}
                       strokeWidth="2"
                       opacity="0.35"
+                      style={{ pointerEvents: 'none' }}
                     />
                   )}
 
@@ -157,7 +165,8 @@ export function RegionMap({ filteredData, onCityClick }) {
                       paintOrder: 'stroke',
                       stroke: '#ffffff',
                       strokeWidth: '4px',
-                      strokeLinejoin: 'round'
+                      strokeLinejoin: 'round',
+                      pointerEvents: 'none'
                     }}
                   >
                     {c.name} {data.count > 0 ? `(${data.count})` : ''}

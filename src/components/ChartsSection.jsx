@@ -36,6 +36,170 @@ const ICE100 = '#EEF4FC';
 const FAIR = '#D69A25';
 const POOR = '#D0552F';
 
+function InlineGradeVendorDetails({ grade, evaluations, calcMode, onClose, onVendorClick }) {
+  if (!grade) return null;
+
+  const gradeTitles = {
+    A: { title: 'Grade A (Sangat Direkomendasikan)', badgeClass: 'grade-a', desc: 'Prioritas utama repeat order' },
+    B: { title: 'Grade B (Direkomendasikan)', badgeClass: 'grade-b', desc: 'Dapat digunakan kembali dengan pemantauan' },
+    C: { title: 'Grade C (Perlu Evaluasi)', badgeClass: 'grade-c', desc: 'Memerlukan catatan perbaikan' },
+    D: { title: 'Grade D (Perlu Perbaikan Serius)', badgeClass: 'grade-d', desc: 'Dipertimbangkan evaluasi total' }
+  };
+
+  const currentGradeInfo = gradeTitles[grade] || gradeTitles.A;
+
+  let items = [];
+  if (calcMode === 'vendor') {
+    const vendorMap = {};
+    evaluations.forEach(e => {
+      if (!vendorMap[e.vendor]) {
+        vendorMap[e.vendor] = { vendor: e.vendor, category: e.category, alamat: e.alamat, sum: 0, count: 0 };
+      }
+      vendorMap[e.vendor].sum += Number(e.nilai);
+      vendorMap[e.vendor].count += 1;
+    });
+
+    items = Object.values(vendorMap).map(v => {
+      const avg = parseFloat((v.sum / v.count).toFixed(1));
+      let huruf = 'D';
+      if (avg >= 85) huruf = 'A';
+      else if (avg >= 70) huruf = 'B';
+      else if (avg >= 55) huruf = 'C';
+      return {
+        vendor: v.vendor,
+        category: v.category,
+        alamat: v.alamat,
+        score: avg,
+        count: v.count,
+        huruf
+      };
+    }).filter(v => v.huruf === grade).sort((a, b) => b.score - a.score);
+  } else {
+    const map = {};
+    evaluations.filter(e => e.huruf === grade).forEach(e => {
+      if (!map[e.vendor]) {
+        map[e.vendor] = { vendor: e.vendor, category: e.category, alamat: e.alamat, sum: 0, count: 0 };
+      }
+      map[e.vendor].sum += Number(e.nilai);
+      map[e.vendor].count += 1;
+    });
+
+    items = Object.values(map).map(v => ({
+      vendor: v.vendor,
+      category: v.category,
+      alamat: v.alamat,
+      score: parseFloat((v.sum / v.count).toFixed(1)),
+      count: v.count,
+      huruf: grade
+    })).sort((a, b) => b.score - a.score);
+  }
+
+  return (
+    <div className="card" style={{
+      marginTop: '16px',
+      borderLeft: '4px solid var(--blue-600)',
+      boxShadow: '0 4px 14px rgba(15,42,87,0.08)'
+    }}>
+      <div className="card-head" style={{ marginBottom: '12px', paddingBottom: '10px', borderBottom: '1px solid var(--line)' }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className={`badge ${currentGradeInfo.badgeClass}`} style={{ fontWeight: 800, fontSize: '12px', padding: '4px 10px' }}>
+              Grade {grade}
+            </span>
+            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, color: 'var(--navy-950)' }}>
+              Rincian Vendor {currentGradeInfo.title}
+            </h3>
+          </div>
+          <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: 'var(--ink-600)' }}>
+            {currentGradeInfo.desc} ({items.length} Vendor Ditemukan — Mode: {calcMode === 'vendor' ? 'Rata-Rata Per Vendor' : 'Per Evaluasi Event'})
+          </p>
+        </div>
+        <button
+          onClick={onClose}
+          style={{
+            background: 'var(--ice-100)',
+            border: '1px solid var(--line)',
+            borderRadius: '50%',
+            width: '28px',
+            height: '28px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            color: 'var(--ink-600)',
+            fontWeight: 800,
+            fontSize: '13px'
+          }}
+          title="Tutup Rincian"
+        >
+          ✕
+        </button>
+      </div>
+
+      {items.length === 0 ? (
+        <div style={{ textAlign: 'center', padding: '20px', color: 'var(--ink-500)', fontSize: '13px' }}>
+          Tidak ada vendor dalam <strong>Grade {grade}</strong> untuk filter saat ini.
+        </div>
+      ) : (
+        <div style={{ maxHeight: '280px', overflowY: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px' }}>
+            <thead>
+              <tr style={{ background: 'var(--surface-50)', textAlign: 'left', borderBottom: '1px solid var(--line)' }}>
+                <th style={{ padding: '10px 12px', fontWeight: 700 }}>Nama Vendor</th>
+                <th style={{ padding: '10px 12px', fontWeight: 700 }}>Kategori Jasa</th>
+                <th style={{ padding: '10px 12px', fontWeight: 700 }}>Wilayah</th>
+                <th style={{ padding: '10px 12px', fontWeight: 700, textAlign: 'center' }}>Total Evaluasi</th>
+                <th style={{ padding: '10px 12px', fontWeight: 700, textAlign: 'center' }}>Skor Rata-Rata</th>
+                <th style={{ padding: '10px 12px', fontWeight: 700, textAlign: 'right' }}>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item, idx) => (
+                <tr key={idx} style={{ borderBottom: '1px solid var(--line)' }}>
+                  <td style={{ padding: '10px 12px', fontWeight: 700, color: 'var(--navy-950)' }}>
+                    {item.vendor}
+                  </td>
+                  <td style={{ padding: '10px 12px', color: 'var(--ink-700)', fontSize: '13px' }}>
+                    {item.category}
+                  </td>
+                  <td style={{ padding: '10px 12px', color: 'var(--ink-700)', fontSize: '13px' }}>
+                    {item.alamat}
+                  </td>
+                  <td style={{ padding: '10px 12px', textAlign: 'center', fontWeight: 600, fontSize: '13px' }}>
+                    {item.count} Event
+                  </td>
+                  <td style={{ padding: '10px 12px', textAlign: 'center' }}>
+                    <span className={`badge ${currentGradeInfo.badgeClass}`} style={{ fontWeight: 800, fontSize: '12px' }}>
+                      {item.score}
+                    </span>
+                  </td>
+                  <td style={{ padding: '10px 12px', textAlign: 'right' }}>
+                    <button
+                      onClick={() => onVendorClick && onVendorClick(item.vendor)}
+                      style={{
+                        padding: '4px 10px',
+                        fontSize: '11.5px',
+                        fontWeight: 700,
+                        borderRadius: '6px',
+                        border: '1px solid var(--navy-300)',
+                        background: '#fff',
+                        color: 'var(--navy-900)',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Lihat Profil ↗
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ChartsSection({
   filteredOverview,
   filteredTrend,
@@ -46,12 +210,16 @@ export function ChartsSection({
   selectedVendor,
   selectedCategory,
   overviewMode,
+  setOverviewMode,
   donutCalcMode,
   setDonutCalcMode,
-  onVendorClick
+  onVendorClick,
+  selectedGradeModal,
+  onGradeClick
 }) {
   const [catViewMode, setCatViewMode] = React.useState('top');
   const [locViewMode, setLocViewMode] = React.useState('top');
+  const [repeatViewMode, setRepeatViewMode] = React.useState('top5');
 
   // 1. OVERVIEW CHART DATA
   const overviewMap = {};
@@ -122,9 +290,14 @@ export function ChartsSection({
       if (activeEls.length > 0) {
         const idx = activeEls[0].index;
         const v = overviewDisplay[idx]?.vendor;
-        if (v && !v.includes('Top vs Bottom')) {
+        if (v && !v.includes('Top vs Bottom') && onVendorClick) {
           onVendorClick(v);
         }
+      }
+    },
+    onHover: (evt, activeEls) => {
+      if (evt.native && evt.native.target) {
+        evt.native.target.style.cursor = activeEls.length > 0 ? 'pointer' : 'default';
       }
     }
   };
@@ -224,6 +397,27 @@ export function ChartsSection({
         position: 'bottom',
         labels: { boxWidth: 10, boxHeight: 10, padding: 12, font: { size: 11 } }
       }
+    },
+    onClick: (evt, activeEls, chart) => {
+      let idx = -1;
+      if (activeEls && activeEls.length > 0) {
+        idx = activeEls[0].index;
+      } else if (chart) {
+        const elements = chart.getElementsAtEventForMode(evt.native || evt, 'nearest', { intersect: true }, true);
+        if (elements.length > 0) idx = elements[0].index;
+      }
+      if (idx >= 0) {
+        const grades = ['A', 'B', 'C', 'D'];
+        const clickedGrade = grades[idx];
+        if (clickedGrade && onGradeClick) {
+          onGradeClick(clickedGrade);
+        }
+      }
+    },
+    onHover: (evt, activeEls) => {
+      if (evt.native && evt.native.target) {
+        evt.native.target.style.cursor = activeEls.length > 0 ? 'pointer' : 'default';
+      }
     }
   };
 
@@ -234,24 +428,33 @@ export function ChartsSection({
     repeatMap[d.vendor].push(d);
   });
 
-  let repeatVendors = Object.keys(repeatMap).filter(v => repeatMap[v].length > 1);
+  const allRepeatVendors = Object.keys(repeatMap)
+    .filter(v => repeatMap[v].length > 1)
+    .sort((a, b) => repeatMap[b].length - repeatMap[a].length);
+
+  let activeRepeatVendors = [...allRepeatVendors];
 
   if (selectedVendor && repeatMap[selectedVendor]) {
-    repeatVendors = [selectedVendor];
+    activeRepeatVendors = [selectedVendor];
   } else if (selectedCategory) {
-    repeatVendors = repeatVendors.filter(v => repeatMap[v].some(d => d.category === selectedCategory));
+    activeRepeatVendors = activeRepeatVendors.filter(v => repeatMap[v].some(d => d.category === selectedCategory));
+  } else {
+    if (repeatViewMode === 'top5') {
+      activeRepeatVendors = activeRepeatVendors.slice(0, 5);
+    } else if (repeatViewMode === 'top10') {
+      activeRepeatVendors = activeRepeatVendors.slice(0, 10);
+    }
   }
 
-  if (!selectedVendor && repeatVendors.length > 6) {
-    repeatVendors = repeatVendors.slice(0, 6);
-  }
-
-  const maxUsageLength = Math.max(...repeatVendors.map(v => repeatMap[v].length), 2);
+  const maxUsageLength = Math.max(...activeRepeatVendors.map(v => repeatMap[v].length), 2);
   const xRepeatLabels = Array.from({ length: maxUsageLength }, (_, i) => `Pemakaian ${i + 1}`);
 
-  const lineColors = [NAVY, SKY400, FAIR, '#2563C9', '#E056FD', '#10AC84', '#FF9F43'];
+  const lineColors = [
+    '#6FB1F0', '#2563C9', '#D69A25', '#E056FD', '#10AC84', '#FF9F43',
+    '#54a0ff', '#5f27cd', '#ff6b6b', '#1dd1a1', '#fabca1', '#48dbfb'
+  ];
 
-  const repeatDatasets = repeatVendors.map((v, idx) => ({
+  const repeatDatasets = activeRepeatVendors.map((v, idx) => ({
     label: v,
     data: repeatMap[v].map(e => Number(e.nilai)),
     borderColor: lineColors[idx % lineColors.length],
@@ -377,8 +580,8 @@ export function ChartsSection({
       <div className="card">
         <div className="card-head">
           <div>
-            <h2>Vendor Performance Overview</h2>
-            <p>Perbandingan skor rata-rata vendor pada periode/filter aktif. (Klik bar untuk melihat profil vendor)</p>
+            <h2>Ringkasan Performa Vendor</h2>
+            <p>Perbandingan skor rata-rata vendor pada periode/filter aktif. (Klik batang grafik untuk melihat profil vendor)</p>
           </div>
           <div className="card-controls" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             <button
@@ -423,8 +626,8 @@ export function ChartsSection({
         <div className="card">
           <div className="card-head">
             <div>
-              <h2>Performance Trend</h2>
-              <p>Tren rata-rata skor bulanan (Januari – Juni). Selalu konsisten 6 bulan.</p>
+              <h2>Tren Performa Bulanan</h2>
+              <p>Grafik perkembangan rata-rata skor evaluasi vendor per bulan.</p>
             </div>
           </div>
           <div className="chart-wrap chart-mid">
@@ -435,8 +638,8 @@ export function ChartsSection({
         <div className="card">
           <div className="card-head">
             <div>
-              <h2>Performance Distribution</h2>
-              <p>Sebaran skor evaluasi ke dalam kelompok predikat kualitas.</p>
+              <h2>Distribusi Predikat Evaluasi</h2>
+              <p>Sebaran skor evaluasi ke dalam kelompok predikat kualitas (Grade A, B, C, D).</p>
             </div>
             <button
               className="btn-toggle"
@@ -447,14 +650,18 @@ export function ChartsSection({
           </div>
           <div className="chart-wrap chart-mid" style={{ position: 'relative' }}>
             <Doughnut data={donutData} options={donutOptions} redraw={true} />
-            <div style={{
-              position: 'absolute',
-              top: '41%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              textAlign: 'center',
-              pointerEvents: 'none'
-            }}>
+            <div
+              onClick={() => onGradeClick && onGradeClick('A')}
+              style={{
+                position: 'absolute',
+                top: '38%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                textAlign: 'center',
+                cursor: 'pointer'
+              }}
+              title="Klik untuk melihat rincian Grade vendor"
+            >
               <div style={{ fontSize: '26px', fontWeight: '800', color: 'var(--navy-950)', lineHeight: 1 }}>
                 {donutTotalCount}
               </div>
@@ -462,27 +669,85 @@ export function ChartsSection({
                 {donutCalcMode === 'row' ? 'Evaluasi' : 'Vendor'}
               </div>
             </div>
+
+            {/* Quick Action Badges for direct Grade Modal access */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
+              <button className="badge grade-a" onClick={() => onGradeClick && onGradeClick('A')} style={{ cursor: 'pointer', border: 'none', padding: '4px 8px', fontSize: '11px' }} title="Klik rincian Grade A">
+                Grade A: {excellent}
+              </button>
+              <button className="badge grade-b" onClick={() => onGradeClick && onGradeClick('B')} style={{ cursor: 'pointer', border: 'none', padding: '4px 8px', fontSize: '11px' }} title="Klik rincian Grade B">
+                Grade B: {good}
+              </button>
+              <button className="badge grade-c" onClick={() => onGradeClick && onGradeClick('C')} style={{ cursor: 'pointer', border: 'none', padding: '4px 8px', fontSize: '11px' }} title="Klik rincian Grade C">
+                Grade C: {fair}
+              </button>
+              <button className="badge grade-d" onClick={() => onGradeClick && onGradeClick('D')} style={{ cursor: 'pointer', border: 'none', padding: '4px 8px', fontSize: '11px' }} title="Klik rincian Grade D">
+                Grade D: {poor}
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Full Width Inline Vendor Details Panel Directly Under Donut & Trend Row */}
+      <InlineGradeVendorDetails
+        grade={selectedGradeModal}
+        evaluations={filteredGeneral}
+        calcMode={donutCalcMode}
+        onClose={() => onGradeClick && onGradeClick(null)}
+        onVendorClick={onVendorClick}
+      />
 
       {/* 4. HERO REPEAT VENDOR */}
       <div className="hero-section">
         <div className="card-head">
           <div>
-            <h2>Repeat Vendor Performance ⭐</h2>
-            <p>Konsistensi skor vendor yang digunakan lebih dari 1 kali sepanjang histori database.</p>
+            <h2>Performa Vendor Berulang (Repeat Order) ⭐</h2>
+            <p>Konsistensi skor vendor yang digunakan lebih dari 1 kali ({allRepeatVendors.length} Repeat Vendor Terdeteksi).</p>
           </div>
-          <span className="tag">Histori Penuh</span>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            <button
+              className={`btn-toggle ${repeatViewMode === 'top5' ? 'active' : ''}`}
+              onClick={() => setRepeatViewMode('top5')}
+            >
+              Top 5 Sering
+            </button>
+            <button
+              className={`btn-toggle ${repeatViewMode === 'top10' ? 'active' : ''}`}
+              onClick={() => setRepeatViewMode('top10')}
+            >
+              Top 10 Sering
+            </button>
+            <button
+              className={`btn-toggle ${repeatViewMode === 'all' ? 'active' : ''}`}
+              onClick={() => setRepeatViewMode('all')}
+            >
+              Semua ({allRepeatVendors.length})
+            </button>
+          </div>
         </div>
         <div className="chart-wrap chart-tall">
           <Line data={repeatData} options={repeatOptions} redraw={true} />
         </div>
-        <div className="legend-row">
+        <div className="legend-row" style={{ flexWrap: 'wrap', gap: '8px' }}>
           {repeatDatasets.map((d, i) => (
-            <span key={i}>
+            <span
+              key={i}
+              onClick={() => onVendorClick && onVendorClick(d.label)}
+              style={{
+                cursor: 'pointer',
+                padding: '4px 10px',
+                borderRadius: '6px',
+                background: 'rgba(255,255,255,0.08)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.15s ease'
+              }}
+              title={`Klik untuk melihat profil ${d.label}`}
+            >
               <span className="legend-dot" style={{ background: d.borderColor }}></span>
-              {d.label}
+              {d.label} ({repeatMap[d.label]?.length || 0}x)
             </span>
           ))}
         </div>
@@ -493,7 +758,7 @@ export function ChartsSection({
         <div className="card">
           <div className="card-head">
             <div>
-              <h2>Performance by Vendor Category</h2>
+              <h2>Performa Berdasarkan Kategori Vendor</h2>
               <p>Skor rata-rata dikelompokkan berdasarkan kategori jasa.</p>
             </div>
             <button
@@ -517,7 +782,7 @@ export function ChartsSection({
         <div className="card">
           <div className="card-head">
             <div>
-              <h2>Performance by Location / City</h2>
+              <h2>Performa Berdasarkan Wilayah / Kota</h2>
               <p>Rata-rata skor evaluasi vendor berdasarkan wilayah kota.</p>
             </div>
             <button

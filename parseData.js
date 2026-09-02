@@ -78,18 +78,59 @@ function normalizeMonth(m) {
   return m;
 }
 
+function normalizeLocation(loc) {
+  if (!loc) return 'Lainnya';
+  let l = loc.trim().replace(/^"|"$/g, '');
+  if (/yogyakarta|jogja|yogya|yogayakarta/i.test(l)) return 'Yogyakarta';
+  if (/bandung/i.test(l)) return 'Bandung';
+  if (/jakarta/i.test(l)) return 'Jakarta';
+  if (/surabaya/i.test(l)) return 'Surabaya';
+  if (/magelang/i.test(l)) return 'Magelang';
+  if (/salatiga/i.test(l)) return 'Salatiga';
+  if (/medan/i.test(l)) return 'Medan';
+  if (/bali/i.test(l)) return 'Bali';
+  if (/jawa timur|jatim/i.test(l)) return 'Jawa Timur';
+  return 'Lainnya';
+}
+
 function normalizeCategory(cat) {
   if (!cat) return 'Lainnya';
-  let c = cat.trim().replace(/"/g, '');
-  if (/dokumentasi|documentation/i.test(c)) return 'Dokumentasi';
-  if (/show manage/i.test(c)) return 'Show Management';
-  if (/interpreter|intepreter/i.test(c)) return 'Interpreter';
-  if (/manpower|manpwer/i.test(c)) return 'Manpower';
-  if (/gimmick/i.test(c)) return 'Gimmick & Souvenir';
-  if (/resto|f&b|catering|beverage/i.test(c)) return 'F&B & Resto';
-  if (/transport/i.test(c)) return 'Transport';
-  if (/production|produksian/i.test(c)) return 'Production';
-  if (/equipment/i.test(c)) return 'Equipment';
+  let c = cat.trim().replace(/^"|"$/g, '');
+  const lower = c.toLowerCase();
+
+  if (lower === 'activity') return 'Activity';
+  if (lower === 'akomodasi') return 'Akomodasi';
+  if (lower === 'bali dance') return 'Bali Dance';
+  if (lower === 'beverage') return 'Beverage';
+  if (lower === 'catering') return 'Catering';
+  if (lower === 'decoration' || lower === 'dekorasi') return 'Decoration';
+  if (lower === 'documentation' || lower === 'dokumentasi') return 'Documentation';
+  if (lower === 'equipment') return 'Equipment';
+  if (lower === 'equipment & production') return 'Equipment & Production';
+  if (lower === 'event support') return 'Event Support';
+  if (lower === 'f&b') return 'F&B';
+  if (lower === 'game master') return 'Game Master';
+  if (lower === 'gimmick' || lower === 'gimmick/souvenir') return 'Gimmick';
+  if (lower === 'intepreter' || lower === 'interpreter' || lower === 'interpreter device') return 'Intepreter';
+  if (lower === 'logistik') return 'Logistik';
+  if (lower === 'mc') return 'MC';
+  if (lower === 'manpower' || lower === 'manpwer' || lower === 'manpower vj' || lower.includes('man power')) return 'Manpower';
+  if (lower === 'multimedia') return 'Multimedia';
+  if (lower === 'pengharum ruangan') return 'Pengharum Ruangan';
+  if (lower === 'photobooth') return 'Photobooth';
+  if (lower === 'production' || lower.includes('produksian')) return 'Production';
+  if (lower === 'registration') return 'Registration';
+  if (lower === 'resto') return 'Resto';
+  if (lower === 'show management' || lower === 'show managemnet') return 'Show Management';
+  if (lower === 'talent') return 'Talent';
+  if (lower === 'talent & decoration') return 'Talent & Decoration';
+  if (lower === 'talent interpreter') return 'Talent';
+  if (lower === 'transfer handling') return 'Transfer Handling';
+  if (lower === 'transport' || lower === 'transportasi') return 'Transport';
+  if (lower === 'travel agent') return 'Travel Agent';
+  if (lower === 'usher') return 'Usher';
+  if (lower === 'venue') return 'Venue';
+
   return c;
 }
 
@@ -153,7 +194,7 @@ for (let i = 2; i < dataLines.length; i++) {
   const vendor = normalizeVendorName(rawVendor);
   const categoryRaw = parts[5].replace(/^"|"$/g, '');
   const category = normalizeCategory(categoryRaw);
-  const alamat = parts[6].replace(/^"|"$/g, '');
+  const alamat = normalizeLocation(parts[6]);
   const nilai = parseFloat(parts[7]);
 
   const { huruf, rekomendasi } = getGradeAndRekom(nilai);
