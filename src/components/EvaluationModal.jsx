@@ -117,7 +117,7 @@ export function EvaluationModal({ isOpen, onClose, onSave, initialRecord }) {
           </div>
 
           <div className="form-group">
-            <label>Bulan Evaluasi *</label>
+            <label>Bulan Event *</label>
             <select
               value={formData.bulan}
               onChange={e => setFormData({ ...formData, bulan: e.target.value })}

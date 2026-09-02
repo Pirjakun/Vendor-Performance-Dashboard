@@ -44,7 +44,7 @@ export function Slicers({
 
       {/* 1. MONTH SLICER */}
       <div className="slicer-group">
-        <div className="slicer-label">Bulan Evaluasi:</div>
+        <div className="slicer-label">Bulan Event:</div>
         <div className="slicer-buttons">
           <button
             className={`slicer-btn ${filters.bulan === '' ? 'active' : ''}`}
