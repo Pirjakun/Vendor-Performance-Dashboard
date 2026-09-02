@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { PlusCircle, RotateCcw, ShieldCheck, X, FileSpreadsheet, FileText, Download, LogOut, User } from 'lucide-react';
+import { PlusCircle, RotateCcw, ShieldCheck, X, FileSpreadsheet, FileText, Download } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 
 export function Header({
@@ -8,8 +8,6 @@ export function Header({
   onExportPdf,
   onFullReport,
   onResetData,
-  currentUser,
-  onLogout,
   filters,
   setFilter,
   resetFilters,
@@ -48,28 +46,9 @@ export function Header({
         </div>
 
         <div className="header-badges">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            <div className="period-chip">
-              <ShieldCheck size={14} style={{ color: 'var(--sky-200)' }} />
-              2026
-            </div>
-
-            {/* Logged in user info chip */}
-            {currentUser && (
-              <div style={{
-                display: 'inline-flex', alignItems: 'center', gap: '6px',
-                background: 'rgba(255, 255, 255, 0.12)',
-                color: '#fff',
-                padding: '4px 10px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                fontWeight: 600,
-                border: '1px solid rgba(255, 255, 255, 0.2)'
-              }}>
-                <User size={13} style={{ color: 'var(--sky-400)' }} />
-                <span>{currentUser.email || 'ss@werkudara.com'}</span>
-              </div>
-            )}
+          <div className="period-chip">
+            <ShieldCheck size={14} style={{ color: 'var(--sky-200)' }} />
+            2026
           </div>
 
           <div className="header-actions">
@@ -181,33 +160,6 @@ export function Header({
               <RotateCcw size={13} />
               Reset Data
             </button>
-
-            {/* Logout Button */}
-            {onLogout && (
-              <button
-                onClick={onLogout}
-                style={{
-                  background: 'rgba(239, 68, 68, 0.15)',
-                  color: '#FECACA',
-                  border: '1px solid rgba(239, 68, 68, 0.3)',
-                  padding: '8px 12px',
-                  borderRadius: '10px',
-                  fontWeight: 700,
-                  fontSize: '12px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  transition: 'all 0.2s'
-                }}
-                onMouseEnter={e => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)'}
-                onMouseLeave={e => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)'}
-                title="Keluar dari Akun Dashboard"
-              >
-                <LogOut size={14} />
-                Keluar
-              </button>
-            )}
           </div>
         </div>
       </div>
