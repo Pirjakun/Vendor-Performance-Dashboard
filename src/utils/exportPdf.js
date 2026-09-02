@@ -219,8 +219,8 @@ export async function generateFullReport(data, filters = {}) {
   if (filters.search) activeFilters.push(`Cari: "${filters.search}"`);
 
   const filterSummaryText = activeFilters.length > 0
-    ? `Filter Aktif Dashboard: ${activeFilters.join(' | ')} (${data.length} Data Terfilter)`
-    : `Filter Dashboard: Semua Data (${data.length} Total Data)`;
+    ? `Filter Aktif: ${activeFilters.join(' | ')} (${data.length} Data Terfilter)`
+    : `Filter: Semua Data (${data.length} Total Data)`;
 
   // CAPTURE ACTUAL DASHBOARD UI CARDS & CHARTS EXACTLY AS SHOWN ON WEB SCREEN
   const [
@@ -258,7 +258,7 @@ export async function generateFullReport(data, filters = {}) {
 
     doc.setFontSize(7.5);
     doc.setFont('helvetica', 'normal');
-    doc.text('DASHBOARD REALTIME PERFORMANCE REPORT', 198, 9.5, { align: 'right' });
+    doc.text('EXECUTIVE VENDOR PERFORMANCE REPORT', 198, 9.5, { align: 'right' });
 
     // Footer line & text
     doc.setDrawColor(226, 232, 240);
@@ -266,7 +266,7 @@ export async function generateFullReport(data, filters = {}) {
 
     doc.setTextColor(148, 163, 184);
     doc.setFontSize(8);
-    doc.text('Werkudara Group - Dokumen Laporan Dashboard Resmi', 12, 289);
+    doc.text('Werkudara Group - Dokumen Laporan Eksekutif Resmi', 12, 289);
     doc.text(`Halaman ${pageNum} dari ${totalPages}`, 198, 289, { align: 'right' });
   };
 
@@ -308,7 +308,7 @@ export async function generateFullReport(data, filters = {}) {
     currentY += 4;
   }
 
-  // 2. OVERVIEW CHART CAPTURED IMAGE (Tampilan Web)
+  // 2. OVERVIEW CHART CAPTURED IMAGE
   if (overviewImg) {
     currentY = await drawImageToPdf(doc, overviewImg, 12, currentY, 186, 185);
   }

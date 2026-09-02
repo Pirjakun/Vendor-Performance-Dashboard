@@ -33,7 +33,7 @@ export function KpiCards({ filteredData }) {
         <div className="kpi-value">{avgScore > 0 ? avgScore : '0.0'}</div>
         <div className={`kpi-delta ${isUp ? 'up' : 'down'}`}>
           {isUp ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
-          {isUp ? '▲ Performa Baik / Target Tercapai' : '▼ Perlu Perhatian & Evaluasi'}
+          {isUp ? 'Performa Baik / Target Tercapai' : 'Perlu Perhatian & Evaluasi'}
         </div>
       </div>
     </div>

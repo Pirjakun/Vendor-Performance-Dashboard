@@ -698,7 +698,7 @@ export function ChartsSection({
       <div className="hero-section" id="chart-card-repeat">
         <div className="card-head">
           <div>
-            <h2>Performa Vendor Berulang (Repeat Order) ⭐</h2>
+            <h2>Performa Vendor Berulang (Repeat Order)</h2>
             <p>Konsistensi skor vendor yang digunakan lebih dari 1 kali ({allRepeatVendors.length} Repeat Vendor Terdeteksi).</p>
           </div>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>

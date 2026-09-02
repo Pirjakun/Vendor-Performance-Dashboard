@@ -147,7 +147,7 @@ export function Header({
                     >
                       <FileText size={16} style={{ color: '#7C3AED' }} />
                       <div>
-                        <div style={{ color: '#7C3AED' }}>Full Report PDF ✨</div>
+                        <div style={{ color: '#7C3AED' }}>Full Report PDF</div>
                         <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 400 }}>Grafik + analisis & narasi</div>
                       </div>
                     </button>
