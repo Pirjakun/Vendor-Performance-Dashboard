@@ -1,6 +1,9 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
+/**
+ * Standard Landscape Table PDF Export
+ */
 export function generatePdfReport(data, filters = {}) {
   const doc = new jsPDF({
     orientation: 'landscape',
@@ -18,16 +21,16 @@ export function generatePdfReport(data, filters = {}) {
   const countC = data.filter(d => d.huruf === 'C').length;
   const countD = data.filter(d => d.huruf === 'D').length;
 
-  // Title Banner
+  // Header Banner
   doc.setFillColor(15, 23, 42); // Navy-900
   doc.rect(0, 0, 297, 26, 'F');
 
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(16);
+  doc.setFontSize(15);
   doc.setFont('helvetica', 'bold');
   doc.text('WERKUDARA GROUP', 14, 12);
 
-  doc.setFontSize(11);
+  doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.text('Laporan Evaluasi & Performa Vendor', 14, 19);
 
@@ -39,7 +42,7 @@ export function generatePdfReport(data, filters = {}) {
   doc.setFontSize(9);
   doc.text(`Tanggal Cetak: ${todayStr}`, 283, 19, { align: 'right' });
 
-  // Filter & KPI Summary Card Box
+  // KPI Card Box
   doc.setFillColor(248, 250, 252);
   doc.setDrawColor(226, 232, 240);
   doc.roundedRect(14, 30, 269, 20, 2, 2, 'FD');
@@ -96,15 +99,15 @@ export function generatePdfReport(data, filters = {}) {
       textColor: [30, 41, 59]
     },
     columnStyles: {
-      0: { cellWidth: 50 }, // Event
-      1: { cellWidth: 22 }, // Bulan
-      2: { cellWidth: 26 }, // Tgl
-      3: { cellWidth: 34, fontStyle: 'bold' }, // Vendor
-      4: { cellWidth: 26 }, // Category
-      5: { cellWidth: 20 }, // Alamat
-      6: { cellWidth: 14, halign: 'center', fontStyle: 'bold' }, // Nilai
-      7: { cellWidth: 14, halign: 'center', fontStyle: 'bold' }, // Grade
-      8: { cellWidth: 65 }  // Rekomendasi
+      0: { cellWidth: 50 },
+      1: { cellWidth: 22 },
+      2: { cellWidth: 26 },
+      3: { cellWidth: 34, fontStyle: 'bold' },
+      4: { cellWidth: 26 },
+      5: { cellWidth: 20 },
+      6: { cellWidth: 14, halign: 'center', fontStyle: 'bold' },
+      7: { cellWidth: 14, halign: 'center', fontStyle: 'bold' },
+      8: { cellWidth: 65 }
     },
     didParseCell: (dataCell) => {
       if (dataCell.section === 'body' && dataCell.column.index === 7) {
@@ -125,7 +128,6 @@ export function generatePdfReport(data, filters = {}) {
       }
     },
     didDrawPage: (pageData) => {
-      // Footer page numbering
       const totalPages = doc.internal.getNumberOfPages();
       doc.setFontSize(8);
       doc.setTextColor(148, 163, 184);
@@ -136,7 +138,7 @@ export function generatePdfReport(data, filters = {}) {
         { align: 'right' }
       );
       doc.text(
-        'Werkudara Group — Vendor Performance Monitoring System',
+        'Werkudara Group - Vendor Performance Monitoring System',
         14,
         202
       );
@@ -147,13 +149,7 @@ export function generatePdfReport(data, filters = {}) {
 }
 
 /**
- * Generates a comprehensive multi-page PDF executive report including:
- * - Cover / Executive Summary with KPI stats
- * - Grade distribution chart & analysis narrative
- * - Monthly trend analysis chart & narrative
- * - Top & Bottom vendors comparative analysis chart & narrative
- * - Category & Location breakdown chart & narrative
- * - Detailed evaluation data table
+ * Executive Multi-page PDF Report with ASCII fallbacks for clean standard fonts
  */
 export function generateFullReport(data, filters = {}) {
   const doc = new jsPDF({
@@ -168,7 +164,7 @@ export function generateFullReport(data, filters = {}) {
     year: 'numeric'
   });
 
-  // Calculate Data Aggregations
+  // Aggregations
   const total = data.length;
   const avg = total > 0 ? (data.reduce((a, c) => a + Number(c.nilai || 0), 0) / total).toFixed(1) : 0;
   
@@ -182,7 +178,7 @@ export function generateFullReport(data, filters = {}) {
   const pctC = total > 0 ? ((countC / total) * 100).toFixed(1) : 0;
   const pctD = total > 0 ? ((countD / total) * 100).toFixed(1) : 0;
 
-  // Vendor averages
+  // Vendor map
   const vMap = {};
   data.forEach(d => {
     if (!vMap[d.vendor]) vMap[d.vendor] = { sum: 0, count: 0, category: d.category, alamat: d.alamat };
@@ -201,7 +197,7 @@ export function generateFullReport(data, filters = {}) {
   const top3Vendors = vList.slice(0, 3);
   const bottom3Vendors = vList.slice(-3).reverse();
 
-  // Category stats
+  // Category map
   const catMap = {};
   data.forEach(d => {
     const c = d.category || 'Lainnya';
@@ -219,24 +215,24 @@ export function generateFullReport(data, filters = {}) {
   const addHeaderFooter = (pageNum, totalPages) => {
     // Header
     doc.setFillColor(15, 23, 42); // Navy-900
-    doc.rect(0, 0, 210, 16, 'F');
+    doc.rect(0, 0, 210, 15, 'F');
     
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
-    doc.text('WERKUDARA GROUP', 14, 11);
+    doc.text('WERKUDARA GROUP', 14, 10);
 
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.text('EXECUTIVE VENDOR PERFORMANCE REPORT', 196, 11, { align: 'right' });
+    doc.text('EXECUTIVE VENDOR PERFORMANCE REPORT', 196, 10, { align: 'right' });
 
-    // Footer
+    // Footer line & text
     doc.setDrawColor(226, 232, 240);
     doc.line(14, 283, 196, 283);
 
     doc.setTextColor(148, 163, 184);
     doc.setFontSize(8);
-    doc.text('Werkudara Group — Confidential & Internal Use Only', 14, 289);
+    doc.text('Werkudara Group - Dokumen Rahasia & Internal Operasional', 14, 289);
     doc.text(`Halaman ${pageNum} dari ${totalPages}`, 196, 289, { align: 'right' });
   };
 
@@ -244,43 +240,43 @@ export function generateFullReport(data, filters = {}) {
   // PAGE 1: COVER & EXECUTIVE SUMMARY
   // ==========================================
   
-  // Decorative Accent Top
+  // Decorative Banner Top
   doc.setFillColor(37, 99, 201); // Blue-600
-  doc.rect(0, 0, 210, 8, 'F');
+  doc.rect(0, 0, 210, 6, 'F');
 
   doc.setFillColor(15, 23, 42);
-  doc.rect(0, 8, 210, 48, 'F');
+  doc.rect(0, 6, 210, 46, 'F');
 
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(22);
+  doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
-  doc.text('WERKUDARA GROUP', 16, 28);
+  doc.text('WERKUDARA GROUP', 16, 24);
 
-  doc.setFontSize(14);
+  doc.setFontSize(13);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(201, 226, 250);
-  doc.text('Laporan Eksekutif Evaluasi & Performa Vendor', 16, 37);
+  doc.text('Laporan Eksekutif Evaluasi & Performa Vendor', 16, 33);
 
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setTextColor(148, 163, 184);
-  doc.text(`Dicetak pada: ${todayStr} | Periode Monitoring: 2026`, 16, 46);
+  doc.text(`Tanggal Cetak: ${todayStr}  |  Periode: 2026`, 16, 42);
 
-  // Executive Summary Card
+  // Executive Summary KPI Box
   doc.setFillColor(248, 250, 252);
   doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(14, 64, 182, 38, 3, 3, 'FD');
+  doc.roundedRect(14, 60, 182, 38, 3, 3, 'FD');
 
   doc.setTextColor(15, 23, 42);
-  doc.setFontSize(11);
+  doc.setFontSize(10.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('RINGKASAN UTAMA (EXECUTIVE KPI)', 20, 74);
+  doc.text('RINGKASAN UTAMA (EXECUTIVE KPI)', 20, 70);
 
   // KPI Grid
   const kpis = [
     { label: 'Total Evaluasi', val: `${total} Event` },
     { label: 'Total Vendor', val: `${vList.length} Vendor` },
     { label: 'Rata-Rata Skor', val: `${avg} / 100` },
-    { label: 'Tingkat Kelayakan (A+B)', val: `${(Number(pctA) + Number(pctB)).toFixed(1)}%` }
+    { label: 'Tingkat Kelayakan', val: `${(Number(pctA) + Number(pctB)).toFixed(1)}%` }
   ];
 
   kpis.forEach((kpi, idx) => {
@@ -288,29 +284,29 @@ export function generateFullReport(data, filters = {}) {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(100, 116, 139);
-    doc.text(kpi.label, x, 83);
+    doc.text(kpi.label, x, 79);
 
-    doc.setFontSize(12);
+    doc.setFontSize(11.5);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(15, 23, 42);
-    doc.text(kpi.val, x, 92);
+    doc.text(kpi.val, x, 88);
   });
 
   // Section 1: Breakdown Grade Chart & Narasi
-  doc.setFontSize(12);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
-  doc.text('1. Distribusi Predikat Kualitas Vendor (Grade A - D)', 14, 114);
+  doc.text('1. Distribusi Predikat Kualitas Vendor (Grade A - D)', 14, 110);
 
-  // Draw Horizontal Bar Chart for Grades
+  // Draw Horizontal Bar Chart for Grades (No special unicode symbols)
   const gradeBars = [
-    { label: 'Grade A (Sangat Direkomendasikan ≥85)', count: countA, pct: pctA, color: [15, 42, 87] },
-    { label: 'Grade B (Direkomendasikan 70–84.99)', count: countB, pct: pctB, color: [37, 99, 201] },
-    { label: 'Grade C (Perlu Evaluasi 55–69.99)', count: countC, pct: pctC, color: [214, 154, 37] },
-    { label: 'Grade D (Perlu Perbaikan Serius <55)', count: countD, pct: pctD, color: [208, 85, 47] }
+    { label: 'Grade A (Sangat Direkomendasikan >= 85)', count: countA, pct: pctA, color: [15, 42, 87] },
+    { label: 'Grade B (Direkomendasikan 70 - 84.99)', count: countB, pct: pctB, color: [37, 99, 201] },
+    { label: 'Grade C (Perlu Evaluasi 55 - 69.99)', count: countC, pct: pctC, color: [214, 154, 37] },
+    { label: 'Grade D (Perlu Perbaikan Serius < 55)', count: countD, pct: pctD, color: [208, 85, 47] }
   ];
 
-  let yBar = 122;
+  let yBar = 118;
   gradeBars.forEach(g => {
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'bold');
@@ -319,63 +315,63 @@ export function generateFullReport(data, filters = {}) {
 
     // Bar background
     doc.setFillColor(241, 245, 249);
-    doc.roundedRect(14, yBar + 2, 140, 6, 1, 1, 'F');
+    doc.roundedRect(14, yBar + 2, 138, 5.5, 1, 1, 'F');
 
     // Bar fill
-    const fillW = Math.max(2, (Number(g.pct) / 100) * 140);
+    const fillW = Math.max(2, (Number(g.pct) / 100) * 138);
     doc.setFillColor(g.color[0], g.color[1], g.color[2]);
-    doc.roundedRect(14, yBar + 2, fillW, 6, 1, 1, 'F');
+    doc.roundedRect(14, yBar + 2, fillW, 5.5, 1, 1, 'F');
 
     // Percentage & Count text
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(15, 23, 42);
-    doc.text(`${g.count} data (${g.pct}%)`, 158, yBar + 7);
+    doc.text(`${g.count} data (${g.pct}%)`, 156, yBar + 6.5);
 
-    yBar += 15;
+    yBar += 14;
   });
 
-  // Box Narasi Penjelasan Diagram Grade
+  // Box Narasi Penjelasan Diagram Grade (Clean ASCII bullet '-')
   doc.setFillColor(240, 249, 255);
   doc.setDrawColor(186, 230, 253);
-  doc.roundedRect(14, 182, 182, 36, 2, 2, 'FD');
+  doc.roundedRect(14, 175, 182, 38, 2, 2, 'FD');
 
   doc.setTextColor(12, 74, 110);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
-  doc.text('💡 ANALISIS & PENJELASAN DIAGRAM SEBARAN GRADE:', 18, 190);
+  doc.text('[ANALISIS] DIAGRAM SEBARAN GRADE VENDOR:', 18, 183);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8.5);
+  doc.setFontSize(8);
   doc.setTextColor(30, 41, 59);
   const narrativeGrade = [
-    `• Berdasarkan data dari ${total} evaluasi vendor, sebanyak ${countA} evaluasi (${pctA}%) mencapai Grade A (Sangat Direkomendasikan).`,
-    `• Sebagian besar vendor (${(Number(pctA) + Number(pctB)).toFixed(1)}%) berada pada kategori layak guna (Grade A & B), menunjukkan tingkat kepuasan operasional yang tinggi.`,
-    `• Terdapat ${countC + countD} evaluasi (${(Number(pctC) + Number(pctD)).toFixed(1)}%) pada Grade C & D yang memerlukan catatan khusus atau peninjauan ulang sebelum repeat order.`
+    `- Berdasarkan data dari ${total} evaluasi vendor, sebanyak ${countA} evaluasi (${pctA}%) mencapai Grade A (Sangat Direkomendasikan).`,
+    `- Sebagian besar vendor (${(Number(pctA) + Number(pctB)).toFixed(1)}%) berada pada kategori layak guna (Grade A & B), menunjukkan kepuasan operasional tinggi.`,
+    `- Terdapat ${countC + countD} evaluasi (${(Number(pctC) + Number(pctD)).toFixed(1)}%) pada Grade C & D yang memerlukan catatan khusus atau peninjauan sebelum repeat order.`
   ];
-  let yNar = 196;
+  let yNar = 190;
   narrativeGrade.forEach(line => {
     doc.text(line, 18, yNar);
-    yNar += 5;
+    yNar += 5.5;
   });
 
   // Section 2: Top & Bottom Vendor
-  doc.setFontSize(12);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
-  doc.text('2. Perbandingan Vendor Performa Tertinggi vs Terendah', 14, 230);
+  doc.text('2. Perbandingan Vendor Performa Tertinggi vs Terendah', 14, 224);
 
   // Table Top vs Bottom
   const topBottomRows = [];
   const maxLen = Math.max(top3Vendors.length, bottom3Vendors.length);
   for (let i = 0; i < maxLen; i++) {
-    const topV = top3Vendors[i] ? `${top3Vendors[i].name} (${top3Vendors[i].avg})` : '-';
-    const botV = bottom3Vendors[i] ? `${bottom3Vendors[i].name} (${bottom3Vendors[i].avg})` : '-';
-    topBottomRows.push([`Top #${i+1}: ${topV}`, `Bottom #${i+1}: ${botV}`]);
+    const topV = top3Vendors[i] ? `Top #${i+1}: ${top3Vendors[i].name} (Skor: ${top3Vendors[i].avg})` : '-';
+    const botV = bottom3Vendors[i] ? `Bottom #${i+1}: ${bottom3Vendors[i].name} (Skor: ${bottom3Vendors[i].avg})` : '-';
+    topBottomRows.push([topV, botV]);
   }
 
   autoTable(doc, {
-    startY: 235,
+    startY: 228,
     head: [['Vendor Performa Tertinggi (Top Performers)', 'Vendor Memerlukan Evaluasi (Bottom Performers)']],
     body: topBottomRows,
     theme: 'grid',
@@ -391,14 +387,14 @@ export function generateFullReport(data, filters = {}) {
   // ==========================================
   doc.addPage();
 
-  doc.setFontSize(12);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
   doc.text('3. Performa Rata-Rata Berdasarkan Kategori Jasa', 14, 24);
 
   // Top 6 Categories Bar Chart
   const topCat = catList.slice(0, 6);
-  let yCat = 30;
+  let yCat = 31;
   topCat.forEach(c => {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
@@ -406,15 +402,15 @@ export function generateFullReport(data, filters = {}) {
     doc.text(`${c.name} (${c.count} eval)`, 14, yCat);
 
     doc.setFillColor(241, 245, 249);
-    doc.roundedRect(14, yCat + 2, 140, 5, 1, 1, 'F');
+    doc.roundedRect(14, yCat + 2, 138, 5, 1, 1, 'F');
 
-    const fillW = Math.max(2, (c.avg / 100) * 140);
+    const fillW = Math.max(2, (c.avg / 100) * 138);
     doc.setFillColor(37, 99, 201);
     doc.roundedRect(14, yCat + 2, fillW, 5, 1, 1, 'F');
 
     doc.setFontSize(8);
     doc.setTextColor(15, 23, 42);
-    doc.text(`Skor: ${c.avg}`, 158, yCat + 6);
+    doc.text(`Skor: ${c.avg}`, 156, yCat + 6);
 
     yCat += 13;
   });
@@ -427,17 +423,17 @@ export function generateFullReport(data, filters = {}) {
   doc.setTextColor(15, 23, 42);
   doc.setFontSize(8.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('💡 ANALYSIS NARASI KATEGORI JASA:', 18, 122);
+  doc.text('[ANALISIS] PERFORMA KATEGORI JASA:', 18, 122);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(51, 65, 85);
   const bestCat = topCat[0] ? `${topCat[0].name} dengan skor rata-rata ${topCat[0].avg}` : '-';
-  doc.text(`• Kategori jasa dengan nilai tertinggi adalah ${bestCat}.`, 18, 128);
-  doc.text(`• Secara keseluruhan terdapat ${catList.length} jenis kategori jasa yang telah dievaluasi sepanjang periode ini.`, 18, 134);
+  doc.text(`- Kategori jasa dengan nilai rata-rata tertinggi adalah ${bestCat}.`, 18, 128);
+  doc.text(`- Secara keseluruhan terdapat ${catList.length} jenis kategori jasa yang telah dievaluasi sepanjang periode ini.`, 18, 134);
 
   // Section 4: Rekomendasi Strategis Eksekutif
-  doc.setFontSize(12);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
   doc.text('4. Rekomendasi Strategis & Tindak Lanjut Tim Procurement', 14, 152);
@@ -445,7 +441,7 @@ export function generateFullReport(data, filters = {}) {
   const recommendations = [
     { title: '1. Prioritas Repeat Order (Grade A)', desc: 'Vendor pada kelompok Grade A terbukti konsisten dan sangat direkomendasikan untuk kontrak utama event mendatang.' },
     { title: '2. Pengawasan & Coaching Vendor (Grade B & C)', desc: 'Vendor pada Grade B dan C perlu diberikan feedback konstruktif terkait area perbaikan sebelum pengerjaan event berikutnya.' },
-    { title: '3. Evaluasi Total / Sub-Kontraktor Alternatif (Grade D)', desc: 'Untuk vendor dengan skor Grade D (<55), disarankan pencarian opsi alternatif atau pembekuan sementara repeat order.' }
+    { title: '3. Evaluasi Total / Sub-Kontraktor Alternatif (Grade D)', desc: 'Untuk vendor dengan skor Grade D (< 55), disarankan pencarian opsi alternatif atau pembekuan sementara repeat order.' }
   ];
 
   let yRec = 160;
@@ -453,12 +449,12 @@ export function generateFullReport(data, filters = {}) {
     doc.setFillColor(241, 245, 249);
     doc.roundedRect(14, yRec, 182, 18, 2, 2, 'F');
 
-    doc.setFontSize(9);
+    doc.setFontSize(8.5);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(15, 42, 87);
     doc.text(r.title, 18, yRec + 6);
 
-    doc.setFontSize(8);
+    doc.setFontSize(7.5);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(51, 65, 85);
     doc.text(r.desc, 18, yRec + 12);
@@ -473,10 +469,10 @@ export function generateFullReport(data, filters = {}) {
   // ==========================================
   doc.addPage();
 
-  doc.setFontSize(12);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
-  doc.text('Lampiran: Lampiran Data Evaluasi Vendor Selengkapnya', 14, 24);
+  doc.text('Lampiran: Data Evaluasi Vendor Selengkapnya', 14, 24);
 
   const tableHeaders = ['Nama Event', 'Bulan', 'Tgl Event', 'Nama Vendor', 'Kategori', 'Lokasi', 'Skor', 'Grade'];
   const tableRows = data.map(item => [
