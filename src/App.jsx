@@ -8,6 +8,7 @@ import { DataTable } from './components/DataTable';
 import { EvaluationModal } from './components/EvaluationModal';
 import { VendorDetailModal } from './components/VendorDetailModal';
 import { GradeVendorsModal } from './components/GradeVendorsModal';
+import { ExcelUploadModal } from './components/ExcelUploadModal';
 
 export default function App() {
   const {
@@ -22,6 +23,7 @@ export default function App() {
     addEvaluation,
     updateEvaluation,
     deleteEvaluation,
+    bulkUploadEvaluations,
     resetToInitialData,
     uniqueMonths,
     uniqueVendors,
@@ -38,6 +40,9 @@ export default function App() {
   // State for CRUD Add / Edit Modal
   const [isEvaluationModalOpen, setIsEvaluationModalOpen] = useState(false);
   const [editingRecord, setEditingRecord] = useState(null);
+
+  // State for Excel Bulk Upload Modal
+  const [isExcelModalOpen, setIsExcelModalOpen] = useState(false);
 
   // State for Vendor Inspector Profile Modal
   const [selectedVendorProfile, setSelectedVendorProfile] = useState(null);
@@ -73,9 +78,10 @@ export default function App() {
 
   return (
     <div className="page">
-      {/* 1. Header with integrated sleek compact filter bar (Contoh Terbaru style) */}
+      {/* 1. Header with integrated sleek compact filter bar */}
       <Header
         onOpenAddModal={handleOpenAddModal}
+        onOpenExcelModal={() => setIsExcelModalOpen(true)}
         onResetData={resetToInitialData}
         filters={filters}
         setFilter={setFilter}
@@ -133,7 +139,14 @@ export default function App() {
         initialRecord={editingRecord}
       />
 
-      {/* 7. Vendor Profile Inspector Modal */}
+      {/* 7. Excel Upload Modal */}
+      <ExcelUploadModal
+        isOpen={isExcelModalOpen}
+        onClose={() => setIsExcelModalOpen(false)}
+        onUploadSuccess={(records, mode) => bulkUploadEvaluations(records, mode)}
+      />
+
+      {/* 8. Vendor Profile Inspector Modal */}
       <VendorDetailModal
         vendorName={selectedVendorProfile}
         allEvaluations={evaluations}

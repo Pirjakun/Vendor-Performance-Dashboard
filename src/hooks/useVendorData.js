@@ -82,6 +82,21 @@ export function useVendorData() {
     setEvaluations(prev => prev.filter(e => String(e.id) !== String(id)));
   };
 
+  const bulkUploadEvaluations = (records, mode = 'append') => {
+    let startId = evaluations.length > 0 ? Math.max(...evaluations.map(e => Number(e.id || 0))) + 1 : 1;
+    const formattedRecords = records.map((r, idx) => ({
+      ...r,
+      id: mode === 'replace' ? idx + 1 : startId + idx,
+      nilai: Number(r.nilai) || 0
+    }));
+
+    if (mode === 'replace') {
+      setEvaluations(formattedRecords);
+    } else {
+      setEvaluations(prev => [...formattedRecords, ...prev]);
+    }
+  };
+
   const resetToInitialData = () => {
     if (window.confirm('Apakah Anda yakin ingin mereset seluruh data kembali ke data terbaru? Data tersimpan lama di browser akan dihapus dan diganti.')) {
       setEvaluations(initialData);
@@ -234,6 +249,7 @@ export function useVendorData() {
     addEvaluation,
     updateEvaluation,
     deleteEvaluation,
+    bulkUploadEvaluations,
     resetToInitialData,
     uniqueMonths,
     uniqueVendors,

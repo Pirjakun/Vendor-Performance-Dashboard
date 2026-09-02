@@ -1,9 +1,10 @@
 import React from 'react';
-import { PlusCircle, RotateCcw, ShieldCheck, Filter, X } from 'lucide-react';
+import { PlusCircle, RotateCcw, ShieldCheck, Filter, X, FileSpreadsheet } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 
 export function Header({
   onOpenAddModal,
+  onOpenExcelModal,
   onResetData,
   filters,
   setFilter,
@@ -38,11 +39,33 @@ export function Header({
           <div className="header-actions">
             <button className="btn-crud-add" onClick={onOpenAddModal}>
               <PlusCircle size={15} />
-              Tambah Evaluasi Baru
+              Tambah Evaluasi
+            </button>
+            <button
+              className="btn-crud-excel"
+              onClick={onOpenExcelModal}
+              style={{
+                background: '#0D9488',
+                color: '#fff',
+                border: 'none',
+                padding: '8px 14px',
+                borderRadius: '10px',
+                fontWeight: 700,
+                fontSize: '12.5px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.2s'
+              }}
+              title="Upload file Excel (.xlsx / .csv) untuk menambah atau menimpa data"
+            >
+              <FileSpreadsheet size={15} />
+              Upload Excel
             </button>
             <button className="btn-reset-data" onClick={onResetData} title="Reset dataset ke 151 data asli">
               <RotateCcw size={13} />
-              Reset Data Original
+              Reset Data
             </button>
           </div>
         </div>
