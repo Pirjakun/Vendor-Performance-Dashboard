@@ -12,26 +12,31 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
 
   if (!isOpen) return null;
 
-  const calculateGradeAndRekom = (scoreNum) => {
-    if (scoreNum >= 85) {
-      return { huruf: 'A', rekomendasi: 'Sangat direkomendasikan / prioritas repeat order' };
-    } else if (scoreNum >= 70) {
-      return { huruf: 'B', rekomendasi: 'Direkomendasikan dengan monitoring normal' };
-    } else if (scoreNum >= 55) {
-      return { huruf: 'C', rekomendasi: 'Perlu evaluasi dan catatan perbaikan' };
-    } else {
-      return { huruf: 'D', rekomendasi: 'Perlu perbaikan serius / pertimbangkan alternatif' };
-    }
+  const calculateGrade = (scoreNum) => {
+    if (scoreNum >= 85) return 'A';
+    if (scoreNum >= 70) return 'B';
+    if (scoreNum >= 55) return 'C';
+    return 'D';
   };
 
-  const getHeaderKey = (headers, possibleNames) => {
-    return headers.find(h => {
-      const clean = String(h).trim().toLowerCase().replace(/\s+/g, ' ');
-      return possibleNames.some(p => {
-        const pClean = p.toLowerCase();
-        return clean === pClean || clean.includes(pClean);
-      });
-    });
+  const calculateRekomendasi = (huruf, scoreNum) => {
+    const g = String(huruf || '').trim().toUpperCase();
+    if (g === 'A') return 'Sangat direkomendasikan / prioritas repeat order';
+    if (g === 'B') return 'Direkomendasikan dengan monitoring normal';
+    if (g === 'C') return 'Perlu evaluasi dan catatan perbaikan';
+    if (g === 'D') return 'Perlu perbaikan serius / pertimbangkan alternatif';
+
+    if (scoreNum >= 85) return 'Sangat direkomendasikan / prioritas repeat order';
+    if (scoreNum >= 70) return 'Direkomendasikan dengan monitoring normal';
+    if (scoreNum >= 55) return 'Perlu evaluasi dan catatan perbaikan';
+    return 'Perlu perbaikan serius / pertimbangkan alternatif';
+  };
+
+  const normalizeMonth = (m) => {
+    if (!m) return 'Januari 2026';
+    let str = String(m).trim().replace(/^,\s*/, '');
+    if (str === 'Apr-26' || str === 'Apr 2026' || str === 'April-26') return 'April 2026';
+    return str;
   };
 
   const processFile = (selectedFile) => {
@@ -54,29 +59,60 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
         const workbook = XLSX.read(bstr, { type: 'binary' });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-        const rawJson = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
 
-        if (rawJson.length === 0) {
+        // Convert sheet to 2D Array to handle title lines above the table
+        const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: '' });
+
+        if (rows.length === 0) {
           setErrorMsg('File Excel/CSV tidak memiliki data atau kosong.');
           setParsedData([]);
           setIsProcessing(false);
           return;
         }
 
-        const sampleRow = rawJson[0];
-        const headers = Object.keys(sampleRow);
+        // Find header row index by looking for key words: Vendor, Event, Barang, Nilai, Alamat, etc.
+        let headerRowIdx = -1;
+        for (let i = 0; i < Math.min(15, rows.length); i++) {
+          const lineStr = rows[i].map(c => String(c).toLowerCase().trim()).join(' ');
+          if (lineStr.includes('vendor') || lineStr.includes('barang') || lineStr.includes('nilai')) {
+            headerRowIdx = i;
+            break;
+          }
+        }
 
-        // Exact column matching for: No, Event, BULAN, Tgl Event, Vendor, Barang / Jasa, Alamat, NILAI, HURUF, REKOMENDASI
-        const keyEventNo = getHeaderKey(headers, ['no', 'no event', 'id']);
-        const keyEvent = getHeaderKey(headers, ['event', 'nama event', 'kegiatan']);
-        const keyBulan = getHeaderKey(headers, ['bulan', 'month']);
-        const keyTgl = getHeaderKey(headers, ['tgl event', 'tanggal event', 'tgl', 'tanggal', 'date']);
-        const keyVendor = getHeaderKey(headers, ['vendor', 'nama vendor', 'penyedia']);
-        const keyCat = getHeaderKey(headers, ['barang / jasa', 'barang/jasa', 'kategori', 'kategori jasa', 'jenis']);
-        const keyAlamat = getHeaderKey(headers, ['alamat', 'wilayah', 'kota', 'lokasi']);
-        const keyNilai = getHeaderKey(headers, ['nilai', 'skor', 'score']);
-        const keyHuruf = getHeaderKey(headers, ['huruf', 'grade']);
-        const keyRekom = getHeaderKey(headers, ['rekomendasi', 'rekom']);
+        if (headerRowIdx === -1) {
+          setErrorMsg('Gagal menemukan baris header tabel. Pastikan terdapat kolom Vendor, Event, Barang / Jasa, Alamat, NILAI, dst.');
+          setParsedData([]);
+          setIsProcessing(false);
+          return;
+        }
+
+        const headerRow = rows[headerRowIdx].map(c => String(c).trim());
+
+        const findColIdx = (possibleNames) => {
+          return headerRow.findIndex(h => {
+            const clean = h.toLowerCase().replace(/\s+/g, ' ');
+            return possibleNames.some(p => clean === p.toLowerCase() || clean.includes(p.toLowerCase()));
+          });
+        };
+
+        const colEventNo = findColIdx(['no', 'no event', 'id']);
+        const colEvent = findColIdx(['event', 'nama event', 'kegiatan']);
+        const colBulan = findColIdx(['bulan', 'month']);
+        const colTgl = findColIdx(['tgl event', 'tanggal event', 'tgl', 'tanggal', 'date']);
+        const colVendor = findColIdx(['vendor', 'nama vendor', 'penyedia']);
+        const colCategory = findColIdx(['barang / jasa', 'barang/jasa', 'kategori', 'kategori jasa', 'jenis']);
+        const colAlamat = findColIdx(['alamat', 'wilayah', 'kota', 'lokasi']);
+        const colNilai = findColIdx(['nilai', 'skor', 'score']);
+        const colHuruf = findColIdx(['huruf', 'grade']);
+        const colRekom = findColIdx(['rekomendasi', 'rekom']);
+
+        if (colVendor === -1) {
+          setErrorMsg('Kolom Vendor tidak ditemukan pada file Excel.');
+          setParsedData([]);
+          setIsProcessing(false);
+          return;
+        }
 
         let currentEventNo = '';
         let currentEvent = '';
@@ -85,44 +121,53 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
 
         const normalizedRows = [];
 
-        rawJson.forEach((row, idx) => {
-          const rawEvtNo = keyEventNo ? String(row[keyEventNo]).trim() : '';
-          const rawEvt = keyEvent ? String(row[keyEvent]).trim() : '';
-          const rawBulan = keyBulan ? String(row[keyBulan]).trim() : '';
-          const rawTgl = keyTgl ? String(row[keyTgl]).trim() : '';
-          const rawVendor = keyVendor ? String(row[keyVendor]).trim() : '';
+        for (let i = headerRowIdx + 1; i < rows.length; i++) {
+          const rowData = rows[i];
+          if (!rowData || rowData.every(cell => String(cell).trim() === '')) continue; // Skip empty rows
+
+          const rawVendor = colVendor !== -1 ? String(rowData[colVendor] || '').trim() : '';
+          if (!rawVendor) continue; // Skip rows without vendor
+
+          const rawEvtNo = colEventNo !== -1 ? String(rowData[colEventNo] || '').trim() : '';
+          const rawEvt = colEvent !== -1 ? String(rowData[colEvent] || '').trim() : '';
+          const rawBulan = colBulan !== -1 ? String(rowData[colBulan] || '').trim() : '';
+          const rawTgl = colTgl !== -1 ? String(rowData[colTgl] || '').trim() : '';
 
           if (rawEvtNo) currentEventNo = rawEvtNo;
           if (rawEvt) currentEvent = rawEvt;
           if (rawBulan) currentBulan = rawBulan;
           if (rawTgl) currentTgl = rawTgl;
 
-          if (!rawVendor) return; // Skip empty vendor row
+          const category = colCategory !== -1 && rowData[colCategory] ? String(rowData[colCategory]).trim() : 'Lainnya';
+          const alamat = colAlamat !== -1 && rowData[colAlamat] ? String(rowData[colAlamat]).trim() : 'Lainnya';
+          const nilaiRaw = colNilai !== -1 ? parseFloat(rowData[colNilai]) || 0 : 0;
 
-          const category = keyCat && row[keyCat] ? String(row[keyCat]).trim() : 'Lainnya';
-          const alamat = keyAlamat && row[keyAlamat] ? String(row[keyAlamat]).trim() : 'Lainnya';
-          const nilai = keyNilai ? parseFloat(row[keyNilai]) || 0 : 0;
+          let rawHuruf = colHuruf !== -1 && rowData[colHuruf] ? String(rowData[colHuruf]).trim().toUpperCase() : '';
+          if (!rawHuruf) {
+            rawHuruf = calculateGrade(nilaiRaw);
+          }
 
-          const defaultGrade = calculateGradeAndRekom(nilai);
-          const huruf = keyHuruf && row[keyHuruf] ? String(row[keyHuruf]).trim() : defaultGrade.huruf;
-          const rekomendasi = keyRekom && row[keyRekom] ? String(row[keyRekom]).trim() : defaultGrade.rekomendasi;
+          let rawRekom = colRekom !== -1 && rowData[colRekom] ? String(rowData[colRekom]).trim() : '';
+          if (!rawRekom) {
+            rawRekom = calculateRekomendasi(rawHuruf, nilaiRaw);
+          }
 
           normalizedRows.push({
-            eventNo: rawEvtNo || currentEventNo || `${idx + 1}`,
+            eventNo: rawEvtNo || currentEventNo || `${normalizedRows.length + 1}`,
             event: rawEvt || currentEvent || 'Event Tanpa Nama',
-            bulan: rawBulan || currentBulan || 'Januari 2026',
+            bulan: normalizeMonth(rawBulan || currentBulan),
             tglEvent: rawTgl || currentTgl || '-',
             vendor: rawVendor,
             category: category || 'Lainnya',
             alamat: alamat || 'Lainnya',
-            nilai,
-            huruf: huruf || 'C',
-            rekomendasi: rekomendasi || defaultGrade.rekomendasi
+            nilai: nilaiRaw,
+            huruf: rawHuruf,
+            rekomendasi: rawRekom
           });
-        });
+        }
 
         if (normalizedRows.length === 0) {
-          setErrorMsg('Tidak ditemukan kolom Vendor yang valid dalam file Excel tersebut.');
+          setErrorMsg('Tidak ada baris data vendor yang valid ditemukan pada file tersebut.');
           setParsedData([]);
         } else {
           setParsedData(normalizedRows);
@@ -170,39 +215,39 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
     const templateData = [
       {
         'No': '1',
-        'Event': 'Gath Sinergi 2026',
+        'Event': 'INUS CONGRESS 2026',
         'BULAN': 'Januari 2026',
-        'Tgl Event': '15 Jan 2026',
-        'Vendor': 'O2 Show Management',
-        'Barang / Jasa': 'Show Management',
+        'Tgl Event': '21-24 Januari 2026',
+        'Vendor': 'Adhikari Creation',
+        'Barang / Jasa': 'Gimmick',
         'Alamat': 'Yogyakarta',
-        'NILAI': 92,
+        'NILAI': 86,
         'HURUF': 'A',
-        'REKOMENDASI': 'Sangat direkomendasikan / prioritas repeat order'
+        'REKOMENDASI': 'Sangat Direkomendasikan'
       },
       {
-        'No': '1',
-        'Event': 'Gath Sinergi 2026',
+        'No': '',
+        'Event': 'INUS CONGRESS 2026',
         'BULAN': 'Januari 2026',
-        'Tgl Event': '15 Jan 2026',
-        'Vendor': 'Tekno Event Asia',
-        'Barang / Jasa': 'Equipment & Production',
-        'Alamat': 'Bandung',
-        'NILAI': 88,
+        'Tgl Event': '21-24 Januari 2026',
+        'Vendor': 'Rama Shinta Resto',
+        'Barang / Jasa': 'Resto',
+        'Alamat': 'Yogyakarta',
+        'NILAI': 86,
         'HURUF': 'A',
-        'REKOMENDASI': 'Sangat direkomendasikan / prioritas repeat order'
+        'REKOMENDASI': 'Sangat Direkomendasikan'
       },
       {
         'No': '2',
-        'Event': 'Corporate Gala Dinner',
-        'BULAN': 'Februari 2026',
-        'Tgl Event': '10 Feb 2026',
-        'Vendor': 'Royal Catering Service',
-        'Barang / Jasa': 'Catering',
+        'Event': 'WB HEALTHY FUTURE LAUNCH',
+        'BULAN': 'Januari 2026',
+        'Tgl Event': '22 Januari 2026',
+        'Vendor': 'Akasya Catering',
+        'Barang / Jasa': 'F&B',
         'Alamat': 'Jakarta',
-        'NILAI': 65,
-        'HURUF': 'C',
-        'REKOMENDASI': 'Perlu evaluasi dan catatan perbaikan'
+        'NILAI': 91,
+        'HURUF': 'A',
+        'REKOMENDASI': 'Sangat Direkomendasikan'
       }
     ];
 
@@ -220,12 +265,12 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
 
   return (
     <div className="modal-backdrop">
-      <div className="modal-content" style={{ maxWidth: '760px' }}>
+      <div className="modal-content" style={{ maxWidth: '820px' }}>
         <div className="modal-header">
           <div>
             <h3>Upload Data Evaluasi Vendor (.xlsx / .csv)</h3>
             <p className="modal-subtitle">
-              Format Kolom: <strong>No | Event | BULAN | Tgl Event | Vendor | Barang / Jasa | Alamat | NILAI | HURUF | REKOMENDASI</strong>
+              Format Kolom Resmi: <strong>No | Event | BULAN | Tgl Event | Vendor | Barang / Jasa | Alamat | NILAI | HURUF | REKOMENDASI</strong>
             </p>
           </div>
           <button className="btn-close" onClick={onClose}>
@@ -237,7 +282,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           {/* Action Bar: Download Template */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
             <span style={{ fontSize: '12.5px', color: 'var(--ink-600)' }}>
-              Silakan unduh template jika belum memiliki format file yang sesuai:
+              Unduh template jika ingin mencocokkan format kolom:
             </span>
             <button
               onClick={handleDownloadTemplate}
@@ -269,7 +314,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
               border: isDragging ? '2px dashed var(--blue-600)' : '2px dashed var(--sky-400)',
               background: isDragging ? 'rgba(37, 99, 201, 0.08)' : 'var(--ice-50)',
               borderRadius: '12px',
-              padding: '28px 20px',
+              padding: '26px 20px',
               textAlign: 'center',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
@@ -284,14 +329,14 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
               onChange={handleFileChange}
               style={{ display: 'none' }}
             />
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px', color: isDragging ? 'var(--blue-600)' : 'var(--navy-900)' }}>
-              <Upload size={36} />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px', color: isDragging ? 'var(--blue-600)' : 'var(--navy-900)' }}>
+              <Upload size={34} />
             </div>
             <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--navy-950)', marginBottom: '4px' }}>
               {isDragging ? 'Lepaskan file di sini...' : 'Tarik & Taruh (Drag & Drop) file Excel / CSV di sini'}
             </div>
             <div style={{ fontSize: '12px', color: 'var(--ink-600)' }}>
-              atau <span style={{ color: 'var(--blue-600)', textDecoration: 'underline', fontWeight: 600 }}>Klik untuk memilih file</span> dari komputer Anda (.xlsx, .xls, .csv)
+              atau <span style={{ color: 'var(--blue-600)', textDecoration: 'underline', fontWeight: 600 }}>Klik untuk pilih file</span> dari komputer Anda (.xlsx, .xls, .csv)
             </div>
           </div>
 
@@ -302,7 +347,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
                 File Terpilih: {file.name}
               </span>
               <span style={{ color: 'var(--good)', fontWeight: 700, fontSize: '12px' }}>
-                ✓ {parsedData.length} baris valid terdeteksi
+                ✓ {parsedData.length} evaluasi vendor terdeteksi
               </span>
             </div>
           )}
@@ -318,7 +363,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           {parsedData.length > 0 && (
             <div style={{ background: '#F8FAFC', border: '1px solid var(--line)', borderRadius: '10px', padding: '14px', marginBottom: '16px' }}>
               <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--navy-950)', marginBottom: '8px' }}>
-                Pilih Mode Pembaruan Data:
+                Pilih Mode Pembaruan Data Dashboard:
               </div>
               <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', cursor: 'pointer', fontWeight: importMode === 'append' ? 700 : 400 }}>
@@ -350,21 +395,21 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           {parsedData.length > 0 && (
             <div>
               <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy-950)', marginBottom: '8px' }}>
-                Preview Hasil Pembacaan File ({parsedData.length} Data):
+                Preview Hasil Pembacaan File ({parsedData.length} Evaluasi):
               </div>
-              <div style={{ maxHeight: '220px', overflowY: 'auto', overflowX: 'auto', border: '1px solid var(--line)', borderRadius: '8px' }}>
+              <div style={{ maxHeight: '230px', overflowY: 'auto', overflowX: 'auto', border: '1px solid var(--line)', borderRadius: '8px' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
                   <thead>
                     <tr style={{ background: 'var(--ice-100)', textTransform: 'uppercase', fontSize: '10.5px', color: 'var(--navy-950)' }}>
                       <th style={{ padding: '8px', textAlign: 'left' }}>No</th>
-                      <th style={{ padding: '8px', textAlign: 'left' }}>Event</th>
-                      <th style={{ padding: '8px', textAlign: 'left' }}>BULAN</th>
+                      <th style={{ padding: '8px', textAlign: 'left' }}>Nama Event</th>
+                      <th style={{ padding: '8px', textAlign: 'left' }}>Bulan</th>
                       <th style={{ padding: '8px', textAlign: 'left' }}>Tgl Event</th>
                       <th style={{ padding: '8px', textAlign: 'left' }}>Vendor</th>
                       <th style={{ padding: '8px', textAlign: 'left' }}>Barang / Jasa</th>
                       <th style={{ padding: '8px', textAlign: 'left' }}>Alamat</th>
-                      <th style={{ padding: '8px', textAlign: 'center' }}>NILAI</th>
-                      <th style={{ padding: '8px', textAlign: 'center' }}>HURUF</th>
+                      <th style={{ padding: '8px', textAlign: 'center' }}>Nilai</th>
+                      <th style={{ padding: '8px', textAlign: 'center' }}>Huruf (Grade)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -388,7 +433,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
               </div>
               {parsedData.length > 15 && (
                 <div style={{ fontSize: '11px', color: 'var(--ink-500)', marginTop: '4px', textAlign: 'center' }}>
-                  * Menampilkan 15 data pertama dari total {parsedData.length} baris
+                  * Menampilkan 15 evaluasi pertama dari total {parsedData.length} baris data
                 </div>
               )}
             </div>
