@@ -141,7 +141,7 @@ function InlineGradeVendorDetails({ grade, evaluations, calcMode, onClose, onVen
           Tidak ada vendor dalam <strong>Grade {grade}</strong> untuk filter saat ini.
         </div>
       ) : (
-        <div style={{ maxHeight: '280px', overflowY: 'auto' }}>
+        <div style={{ maxHeight: '280px', overflowY: 'auto', overflowX: 'auto', width: '100%', WebkitOverflowScrolling: 'touch' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12.5px' }}>
             <thead>
               <tr style={{ background: 'var(--surface-50)', textAlign: 'left', borderBottom: '1px solid var(--line)' }}>

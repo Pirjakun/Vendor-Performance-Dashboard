@@ -275,7 +275,9 @@ header.top p {
   border: 1px solid var(--line);
   border-radius: var(--r-card);
   padding: 22px 24px 20px;
-  margin-bottom: 4px;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
   box-shadow: 0 2px 8px rgba(11, 29, 58, 0.03);
 }
 
@@ -319,7 +321,7 @@ header.top p {
 .chart-short{ height: 220px; }
 
 .two-col {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 18px; width: 100%;
 }
 
 .hero-section {
@@ -327,6 +329,9 @@ header.top p {
   border-radius: var(--r-card);
   padding: 24px 26px 20px;
   color: #fff;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-section .card-head h2 { color: #fff; }
@@ -497,16 +502,20 @@ header.top p {
    MOBILE & TABLET RESPONSIVE DESIGN (RWD)
    ========================================== */
 
+/* ==========================================
+   MOBILE & TABLET RESPONSIVE DESIGN (RWD)
+   ========================================== */
+
 /* Tablet & Mobile Landscape (< 992px) */
 @media (max-width: 992px) {
   .page {
-    padding: 16px 16px 48px;
+    padding: 16px;
     gap: 16px;
   }
 
   header.top {
     padding: 22px 20px 18px;
-    border-radius: 16px;
+    border-radius: 14px;
   }
 
   .top-row {
@@ -531,21 +540,41 @@ header.top p {
   }
 
   .two-col {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
   }
 
   .map-wrap {
     flex-direction: column;
     align-items: stretch;
+    gap: 16px;
   }
 
   .map-legend {
     width: 100%;
+    box-sizing: border-box;
   }
 }
 
 /* Mobile Devices (< 768px) */
 @media (max-width: 768px) {
+  .page {
+    padding: 12px;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  header.top {
+    padding: 18px 16px;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   header.top h1 {
     font-size: 20px;
   }
@@ -558,53 +587,79 @@ header.top p {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
   }
 
   .filter {
     min-width: 100%;
     width: 100%;
+    box-sizing: border-box;
   }
 
   .kpi-row {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
   }
 
   .kpi {
-    padding: 16px 18px;
+    padding: 16px;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
   }
 
   .kpi .kpi-value {
     font-size: 28px;
   }
 
-  .card {
+  .card, .hero-section, .slicers-container {
     padding: 16px;
     border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
   }
 
   .card-head {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .card-head > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    width: 100%;
   }
 
   .card-controls {
     width: 100%;
     overflow-x: auto;
     padding-bottom: 4px;
+    display: flex;
+    gap: 6px;
   }
 
-  .chart-tall { height: 260px; }
-  .chart-mid  { height: 220px; }
-  .chart-short{ height: 190px; }
+  .chart-tall { height: 250px; }
+  .chart-mid  { height: 210px; }
+  .chart-short{ height: 180px; }
 
   .table-toolbar {
     flex-direction: column;
     align-items: stretch;
+    gap: 10px;
+    width: 100%;
   }
 
   .search-box {
     width: 100%;
+    box-sizing: border-box;
   }
 
   .btn-export {
@@ -619,29 +674,35 @@ header.top p {
     text-align: center;
   }
 
-  .slicers-container {
-    padding: 14px;
-  }
-
   .slicers-top-bar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 8px;
+  }
+
+  .btn-reset-slicers {
+    width: 100%;
+    justify-content: center;
   }
 
   .slicers-flex-row {
     flex-direction: column;
+    gap: 12px;
   }
 
   .slicer-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+    width: 100%;
   }
 
   .slicer-btn {
     font-size: 11.5px;
     padding: 6px 10px;
+    flex: 1 1 auto;
+    text-align: center;
+    justify-content: center;
   }
 
   /* Modals on Mobile */
@@ -652,6 +713,7 @@ header.top p {
   .modal-content {
     border-radius: 12px;
     max-height: 92vh;
+    width: 100%;
   }
 
   .modal-header {
@@ -669,6 +731,11 @@ header.top p {
 
 /* Small Mobile Screens (< 480px) */
 @media (max-width: 480px) {
+  .page {
+    padding: 10px;
+    gap: 10px;
+  }
+
   .brand-name {
     font-size: 11px;
   }
