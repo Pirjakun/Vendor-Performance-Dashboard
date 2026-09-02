@@ -1,10 +1,11 @@
 import React from 'react';
-import { PlusCircle, RotateCcw, ShieldCheck, Filter, X, FileSpreadsheet } from 'lucide-react';
+import { PlusCircle, RotateCcw, ShieldCheck, Filter, X, FileSpreadsheet, FileText } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 
 export function Header({
   onOpenAddModal,
   onOpenExcelModal,
+  onExportPdf,
   onResetData,
   filters,
   setFilter,
@@ -63,6 +64,30 @@ export function Header({
               <FileSpreadsheet size={15} />
               Upload Excel
             </button>
+            {onExportPdf && (
+              <button
+                className="btn-crud-pdf"
+                onClick={onExportPdf}
+                style={{
+                  background: '#DC2626',
+                  color: '#fff',
+                  border: 'none',
+                  padding: '8px 14px',
+                  borderRadius: '10px',
+                  fontWeight: 700,
+                  fontSize: '12.5px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  transition: 'all 0.2s'
+                }}
+                title="Cetak & Unduh Laporan PDF"
+              >
+                <FileText size={15} />
+                Export PDF
+              </button>
+            )}
             <button className="btn-reset-data" onClick={onResetData} title="Reset dataset ke 151 data asli">
               <RotateCcw size={13} />
               Reset Data

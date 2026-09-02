@@ -9,6 +9,7 @@ import { EvaluationModal } from './components/EvaluationModal';
 import { VendorDetailModal } from './components/VendorDetailModal';
 import { GradeVendorsModal } from './components/GradeVendorsModal';
 import { ExcelUploadModal } from './components/ExcelUploadModal';
+import { generatePdfReport } from './utils/exportPdf';
 
 export default function App() {
   const {
@@ -82,6 +83,7 @@ export default function App() {
       <Header
         onOpenAddModal={handleOpenAddModal}
         onOpenExcelModal={() => setIsExcelModalOpen(true)}
+        onExportPdf={() => generatePdfReport(filteredGeneral, filters)}
         onResetData={resetToInitialData}
         filters={filters}
         setFilter={setFilter}
@@ -129,6 +131,7 @@ export default function App() {
         onVendorClick={handleVendorClick}
         searchQuery={filters.search}
         setSearchQuery={(q) => setFilter('search', q)}
+        onExportPdf={() => generatePdfReport(filteredGeneral, filters)}
       />
 
       {/* 6. Form CRUD Modal for Add/Edit */}

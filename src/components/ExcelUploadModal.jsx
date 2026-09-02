@@ -39,6 +39,62 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
     return str;
   };
 
+  const normalizeLocation = (loc) => {
+    if (!loc) return 'Lainnya';
+    let l = String(loc).trim().replace(/^"|"$/g, '');
+    if (/yogyakarta|jogja|yogya|yogayakarta/i.test(l)) return 'Yogyakarta';
+    if (/bandung/i.test(l)) return 'Bandung';
+    if (/jakarta/i.test(l)) return 'Jakarta';
+    if (/surabaya/i.test(l)) return 'Surabaya';
+    if (/magelang/i.test(l)) return 'Magelang';
+    if (/salatiga/i.test(l)) return 'Salatiga';
+    if (/medan/i.test(l)) return 'Medan';
+    if (/bali/i.test(l)) return 'Bali';
+    if (/jawa timur|jatim/i.test(l)) return 'Jawa Timur';
+    return l;
+  };
+
+  const normalizeCategory = (cat) => {
+    if (!cat) return 'Lainnya';
+    let c = String(cat).trim().replace(/^"|"$/g, '');
+    const lower = c.toLowerCase();
+
+    if (lower === 'activity') return 'Activity';
+    if (lower === 'akomodasi') return 'Akomodasi';
+    if (lower === 'bali dance') return 'Bali Dance';
+    if (lower === 'beverage') return 'Beverage';
+    if (lower === 'catering') return 'Catering';
+    if (lower === 'decoration' || lower === 'dekorasi') return 'Decoration';
+    if (lower === 'documentation' || lower === 'dokumentasi') return 'Documentation';
+    if (lower === 'equipment') return 'Equipment';
+    if (lower === 'equipment & production') return 'Equipment & Production';
+    if (lower === 'event support') return 'Event Support';
+    if (lower === 'f&b') return 'F&B';
+    if (lower === 'game master') return 'Game Master';
+    if (lower === 'gimmick' || lower === 'gimmick/souvenir') return 'Gimmick';
+    if (lower === 'intepreter' || lower === 'interpreter' || lower === 'interpreter device') return 'Intepreter';
+    if (lower === 'logistik') return 'Logistik';
+    if (lower === 'mc') return 'MC';
+    if (lower === 'manpower' || lower === 'manpwer' || lower === 'manpower vj' || lower.includes('man power')) return 'Manpower';
+    if (lower === 'multimedia') return 'Multimedia';
+    if (lower === 'pengharum ruangan') return 'Pengharum Ruangan';
+    if (lower === 'photobooth') return 'Photobooth';
+    if (lower === 'production' || lower.includes('produksian')) return 'Production';
+    if (lower === 'registration') return 'Registration';
+    if (lower === 'resto') return 'Resto';
+    if (lower === 'show management' || lower === 'show managemnet') return 'Show Management';
+    if (lower === 'talent') return 'Talent';
+    if (lower === 'talent & decoration') return 'Talent & Decoration';
+    if (lower === 'talent interpreter') return 'Talent';
+    if (lower === 'transfer handling') return 'Transfer Handling';
+    if (lower === 'transport' || lower === 'transportasi') return 'Transport';
+    if (lower === 'travel agent') return 'Travel Agent';
+    if (lower === 'usher') return 'Usher';
+    if (lower === 'venue') return 'Venue';
+
+    return c;
+  };
+
   const processFile = (selectedFile) => {
     if (!selectedFile) return;
 
@@ -162,9 +218,12 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           if (rawBulan) currentBulan = rawBulan;
           if (rawTgl) currentTgl = rawTgl;
 
-          const category = colCategory !== -1 && rowData[colCategory] ? String(rowData[colCategory]).trim() : 'Lainnya';
-          const alamat = colAlamat !== -1 && rowData[colAlamat] ? String(rowData[colAlamat]).trim() : 'Lainnya';
+          const rawCategory = colCategory !== -1 && rowData[colCategory] ? String(rowData[colCategory]).trim() : 'Lainnya';
+          const rawAlamat = colAlamat !== -1 && rowData[colAlamat] ? String(rowData[colAlamat]).trim() : 'Lainnya';
           const nilaiRaw = colNilai !== -1 ? parseFloat(rowData[colNilai]) || 0 : 0;
+
+          const category = normalizeCategory(rawCategory);
+          const alamat = normalizeLocation(rawAlamat);
 
           let rawHuruf = colHuruf !== -1 && rowData[colHuruf] ? String(rowData[colHuruf]).trim().toUpperCase() : '';
           if (!rawHuruf) {

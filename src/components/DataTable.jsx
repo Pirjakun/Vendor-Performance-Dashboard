@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Download, Pencil, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Download, Pencil, Trash2, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
 
 export function DataTable({
@@ -8,7 +8,8 @@ export function DataTable({
   onDelete,
   onVendorClick,
   searchQuery,
-  setSearchQuery
+  setSearchQuery,
+  onExportPdf
 }) {
   const [sortCol, setSortCol] = useState('id');
   const [sortDir, setSortDir] = useState('desc');
@@ -87,11 +88,34 @@ export function DataTable({
           <h2>Daftar Evaluasi Vendor Detail</h2>
           <p>Daftar seluruh penilaian vendor. Anda dapat menambah, mengedit, atau menghapus data secara langsung.</p>
         </div>
-        <div className="table-actions">
+        <div className="table-actions" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           <button className="btn-export" onClick={handleExportCSV}>
             <Download size={14} />
             Export CSV ({sortedData.length})
           </button>
+          {onExportPdf && (
+            <button
+              className="btn-export-pdf"
+              onClick={onExportPdf}
+              style={{
+                background: '#DC2626',
+                color: '#fff',
+                border: 'none',
+                padding: '6px 12px',
+                borderRadius: '8px',
+                fontWeight: 700,
+                fontSize: '12px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.2s'
+              }}
+            >
+              <FileText size={14} />
+              Export PDF ({sortedData.length})
+            </button>
+          )}
         </div>
       </div>
 
