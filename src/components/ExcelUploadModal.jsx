@@ -8,6 +8,7 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
   const [importMode, setImportMode] = useState('append'); // 'append' | 'replace'
   const [errorMsg, setErrorMsg] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   if (!isOpen) return null;
 
@@ -25,14 +26,22 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
 
   const getHeaderKey = (headers, possibleNames) => {
     return headers.find(h => {
-      const clean = String(h).trim().toLowerCase();
-      return possibleNames.some(p => clean.includes(p));
+      const clean = String(h).trim().toLowerCase().replace(/\s+/g, ' ');
+      return possibleNames.some(p => {
+        const pClean = p.toLowerCase();
+        return clean === pClean || clean.includes(pClean);
+      });
     });
   };
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
+  const processFile = (selectedFile) => {
     if (!selectedFile) return;
+
+    const fileName = selectedFile.name.toLowerCase();
+    if (!fileName.endsWith('.xlsx') && !fileName.endsWith('.xls') && !fileName.endsWith('.csv')) {
+      setErrorMsg('Format file tidak didukung. Harap pilih file .xlsx, .xls, atau .csv');
+      return;
+    }
 
     setFile(selectedFile);
     setErrorMsg('');
@@ -57,14 +66,17 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
         const sampleRow = rawJson[0];
         const headers = Object.keys(sampleRow);
 
-        const keyEventNo = getHeaderKey(headers, ['no event', 'no.', 'no', 'id']);
-        const keyEvent = getHeaderKey(headers, ['nama event', 'event', 'kegiatan']);
-        const keyBulan = getHeaderKey(headers, ['bulan evaluasi', 'bulan', 'month']);
+        // Exact column matching for: No, Event, BULAN, Tgl Event, Vendor, Barang / Jasa, Alamat, NILAI, HURUF, REKOMENDASI
+        const keyEventNo = getHeaderKey(headers, ['no', 'no event', 'id']);
+        const keyEvent = getHeaderKey(headers, ['event', 'nama event', 'kegiatan']);
+        const keyBulan = getHeaderKey(headers, ['bulan', 'month']);
         const keyTgl = getHeaderKey(headers, ['tgl event', 'tanggal event', 'tgl', 'tanggal', 'date']);
-        const keyVendor = getHeaderKey(headers, ['nama vendor', 'vendor', 'penyedia', 'barang/jasa']);
-        const keyCat = getHeaderKey(headers, ['kategori jasa', 'kategori', 'jenis']);
+        const keyVendor = getHeaderKey(headers, ['vendor', 'nama vendor', 'penyedia']);
+        const keyCat = getHeaderKey(headers, ['barang / jasa', 'barang/jasa', 'kategori', 'kategori jasa', 'jenis']);
         const keyAlamat = getHeaderKey(headers, ['alamat', 'wilayah', 'kota', 'lokasi']);
-        const keyNilai = getHeaderKey(headers, ['nilai evaluasi', 'nilai', 'skor', 'score']);
+        const keyNilai = getHeaderKey(headers, ['nilai', 'skor', 'score']);
+        const keyHuruf = getHeaderKey(headers, ['huruf', 'grade']);
+        const keyRekom = getHeaderKey(headers, ['rekomendasi', 'rekom']);
 
         let currentEventNo = '';
         let currentEvent = '';
@@ -91,10 +103,12 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
           const alamat = keyAlamat && row[keyAlamat] ? String(row[keyAlamat]).trim() : 'Lainnya';
           const nilai = keyNilai ? parseFloat(row[keyNilai]) || 0 : 0;
 
-          const { huruf, rekomendasi } = calculateGradeAndRekom(nilai);
+          const defaultGrade = calculateGradeAndRekom(nilai);
+          const huruf = keyHuruf && row[keyHuruf] ? String(row[keyHuruf]).trim() : defaultGrade.huruf;
+          const rekomendasi = keyRekom && row[keyRekom] ? String(row[keyRekom]).trim() : defaultGrade.rekomendasi;
 
           normalizedRows.push({
-            eventNo: rawEvtNo || currentEventNo || `EVT-${idx + 1}`,
+            eventNo: rawEvtNo || currentEventNo || `${idx + 1}`,
             event: rawEvt || currentEvent || 'Event Tanpa Nama',
             bulan: rawBulan || currentBulan || 'Januari 2026',
             tglEvent: rawTgl || currentTgl || '-',
@@ -102,19 +116,21 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
             category: category || 'Lainnya',
             alamat: alamat || 'Lainnya',
             nilai,
-            huruf,
-            rekomendasi
+            huruf: huruf || 'C',
+            rekomendasi: rekomendasi || defaultGrade.rekomendasi
           });
         });
 
         if (normalizedRows.length === 0) {
-          setErrorMsg('Tidak ditemukan kolom vendor yang valid dalam file Excel tersebut.');
+          setErrorMsg('Tidak ditemukan kolom Vendor yang valid dalam file Excel tersebut.');
+          setParsedData([]);
         } else {
           setParsedData(normalizedRows);
         }
       } catch (err) {
         console.error(err);
         setErrorMsg('Gagal membaca file Excel/CSV. Pastikan format file sesuai.');
+        setParsedData([]);
       } finally {
         setIsProcessing(false);
       }
@@ -122,44 +138,78 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
     reader.readAsBinaryString(selectedFile);
   };
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    processFile(selectedFile);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      processFile(files[0]);
+    }
+  };
+
   const handleDownloadTemplate = () => {
     const templateData = [
       {
-        'No Event': '1',
+        'No': '1',
         'Event': 'Gath Sinergi 2026',
-        'Bulan': 'Januari 2026',
-        'Tanggal Event': '15 Jan 2026',
+        'BULAN': 'Januari 2026',
+        'Tgl Event': '15 Jan 2026',
         'Vendor': 'O2 Show Management',
-        'Kategori Jasa': 'Show Management',
+        'Barang / Jasa': 'Show Management',
         'Alamat': 'Yogyakarta',
-        'Nilai Evaluasi': 92
+        'NILAI': 92,
+        'HURUF': 'A',
+        'REKOMENDASI': 'Sangat direkomendasikan / prioritas repeat order'
       },
       {
-        'No Event': '1',
+        'No': '1',
         'Event': 'Gath Sinergi 2026',
-        'Bulan': 'Januari 2026',
-        'Tanggal Event': '15 Jan 2026',
+        'BULAN': 'Januari 2026',
+        'Tgl Event': '15 Jan 2026',
         'Vendor': 'Tekno Event Asia',
-        'Kategori Jasa': 'Equipment & Production',
+        'Barang / Jasa': 'Equipment & Production',
         'Alamat': 'Bandung',
-        'Nilai Evaluasi': 88
+        'NILAI': 88,
+        'HURUF': 'A',
+        'REKOMENDASI': 'Sangat direkomendasikan / prioritas repeat order'
       },
       {
-        'No Event': '2',
+        'No': '2',
         'Event': 'Corporate Gala Dinner',
-        'Bulan': 'Februari 2026',
-        'Tanggal Event': '10 Feb 2026',
+        'BULAN': 'Februari 2026',
+        'Tgl Event': '10 Feb 2026',
         'Vendor': 'Royal Catering Service',
-        'Kategori Jasa': 'Catering',
+        'Barang / Jasa': 'Catering',
         'Alamat': 'Jakarta',
-        'Nilai Evaluasi': 65
+        'NILAI': 65,
+        'HURUF': 'C',
+        'REKOMENDASI': 'Perlu evaluasi dan catatan perbaikan'
       }
     ];
 
     const ws = XLSX.utils.json_to_sheet(templateData);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Data Evaluasi Vendor');
-    XLSX.writeFile(wb, 'Template_Upload_Evaluasi_Vendor.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, 'Evaluasi Vendor');
+    XLSX.writeFile(wb, 'Template_Evaluasi_Vendor.xlsx');
   };
 
   const handleConfirmImport = () => {
@@ -170,11 +220,13 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
 
   return (
     <div className="modal-backdrop">
-      <div className="modal-content" style={{ maxWidth: '750px' }}>
+      <div className="modal-content" style={{ maxWidth: '760px' }}>
         <div className="modal-header">
           <div>
             <h3>Upload Data Evaluasi Vendor (.xlsx / .csv)</h3>
-            <p className="modal-subtitle">Perbarui atau tambahkan data evaluasi vendor secara cepat menggunakan file Excel</p>
+            <p className="modal-subtitle">
+              Format Kolom: <strong>No | Event | BULAN | Tgl Event | Vendor | Barang / Jasa | Alamat | NILAI | HURUF | REKOMENDASI</strong>
+            </p>
           </div>
           <button className="btn-close" onClick={onClose}>
             <X size={18} />
@@ -182,8 +234,11 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
         </div>
 
         <div className="modal-body">
-          {/* Action Bar: Download Template & File Input */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '16px' }}>
+          {/* Action Bar: Download Template */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
+            <span style={{ fontSize: '12.5px', color: 'var(--ink-600)' }}>
+              Silakan unduh template jika belum memiliki format file yang sesuai:
+            </span>
             <button
               onClick={handleDownloadTemplate}
               style={{
@@ -203,39 +258,51 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
               <Download size={14} />
               Download Template Excel (.xlsx)
             </button>
+          </div>
 
-            <label
-              style={{
-                background: 'var(--blue-600)',
-                color: '#fff',
-                padding: '8px 16px',
-                borderRadius: '8px',
-                fontSize: '12.5px',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px'
-              }}
-            >
-              <FileSpreadsheet size={15} />
-              Pilih File Excel / CSV
-              <input
-                type="file"
-                accept=".xlsx, .xls, .csv"
-                onChange={handleFileChange}
-                style={{ display: 'none' }}
-              />
-            </label>
+          {/* Drag and Drop Dropzone */}
+          <div
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            style={{
+              border: isDragging ? '2px dashed var(--blue-600)' : '2px dashed var(--sky-400)',
+              background: isDragging ? 'rgba(37, 99, 201, 0.08)' : 'var(--ice-50)',
+              borderRadius: '12px',
+              padding: '28px 20px',
+              textAlign: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              marginBottom: '16px'
+            }}
+            onClick={() => document.getElementById('excel-file-input').click()}
+          >
+            <input
+              id="excel-file-input"
+              type="file"
+              accept=".xlsx, .xls, .csv"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+            />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px', color: isDragging ? 'var(--blue-600)' : 'var(--navy-900)' }}>
+              <Upload size={36} />
+            </div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--navy-950)', marginBottom: '4px' }}>
+              {isDragging ? 'Lepaskan file di sini...' : 'Tarik & Taruh (Drag & Drop) file Excel / CSV di sini'}
+            </div>
+            <div style={{ fontSize: '12px', color: 'var(--ink-600)' }}>
+              atau <span style={{ color: 'var(--blue-600)', textDecoration: 'underline', fontWeight: 600 }}>Klik untuk memilih file</span> dari komputer Anda (.xlsx, .xls, .csv)
+            </div>
           </div>
 
           {file && (
-            <div style={{ background: 'var(--ice-50)', border: '1px solid var(--line)', borderRadius: '8px', padding: '10px 14px', marginBottom: '16px', fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontWeight: 600, color: 'var(--navy-950)' }}>
-                📁 File Terpilih: {file.name}
+            <div style={{ background: '#F0F9FF', border: '1px solid var(--sky-200)', borderRadius: '8px', padding: '10px 14px', marginBottom: '16px', fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{ fontWeight: 600, color: 'var(--navy-950)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <FileSpreadsheet size={16} style={{ color: 'var(--blue-600)' }} />
+                File Terpilih: {file.name}
               </span>
               <span style={{ color: 'var(--good)', fontWeight: 700, fontSize: '12px' }}>
-                {parsedData.length} baris valid terdeteksi
+                ✓ {parsedData.length} baris valid terdeteksi
               </span>
             </div>
           )}
@@ -285,24 +352,28 @@ export function ExcelUploadModal({ isOpen, onClose, onUploadSuccess }) {
               <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy-950)', marginBottom: '8px' }}>
                 Preview Hasil Pembacaan File ({parsedData.length} Data):
               </div>
-              <div style={{ maxHeight: '240px', overflowY: 'auto', overflowX: 'auto', border: '1px solid var(--line)', borderRadius: '8px' }}>
+              <div style={{ maxHeight: '220px', overflowY: 'auto', overflowX: 'auto', border: '1px solid var(--line)', borderRadius: '8px' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
                   <thead>
                     <tr style={{ background: 'var(--ice-100)', textTransform: 'uppercase', fontSize: '10.5px', color: 'var(--navy-950)' }}>
+                      <th style={{ padding: '8px', textAlign: 'left' }}>No</th>
                       <th style={{ padding: '8px', textAlign: 'left' }}>Event</th>
-                      <th style={{ padding: '8px', textAlign: 'left' }}>Bulan</th>
+                      <th style={{ padding: '8px', textAlign: 'left' }}>BULAN</th>
+                      <th style={{ padding: '8px', textAlign: 'left' }}>Tgl Event</th>
                       <th style={{ padding: '8px', textAlign: 'left' }}>Vendor</th>
-                      <th style={{ padding: '8px', textAlign: 'left' }}>Kategori</th>
-                      <th style={{ padding: '8px', textAlign: 'left' }}>Wilayah</th>
-                      <th style={{ padding: '8px', textAlign: 'center' }}>Nilai</th>
-                      <th style={{ padding: '8px', textAlign: 'center' }}>Grade</th>
+                      <th style={{ padding: '8px', textAlign: 'left' }}>Barang / Jasa</th>
+                      <th style={{ padding: '8px', textAlign: 'left' }}>Alamat</th>
+                      <th style={{ padding: '8px', textAlign: 'center' }}>NILAI</th>
+                      <th style={{ padding: '8px', textAlign: 'center' }}>HURUF</th>
                     </tr>
                   </thead>
                   <tbody>
                     {parsedData.slice(0, 15).map((row, i) => (
                       <tr key={i} style={{ borderBottom: '1px solid var(--line)' }}>
+                        <td style={{ padding: '8px' }}>{row.eventNo}</td>
                         <td style={{ padding: '8px', fontWeight: 600 }}>{row.event}</td>
                         <td style={{ padding: '8px' }}>{row.bulan}</td>
+                        <td style={{ padding: '8px' }}>{row.tglEvent}</td>
                         <td style={{ padding: '8px', fontWeight: 700, color: 'var(--navy-950)' }}>{row.vendor}</td>
                         <td style={{ padding: '8px' }}>{row.category}</td>
                         <td style={{ padding: '8px' }}>{row.alamat}</td>
