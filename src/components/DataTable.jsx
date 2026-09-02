@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Search, Download, Pencil, Trash2, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { Search, Download, Pencil, Trash2, ChevronLeft, ChevronRight, FileText, ChevronDown } from 'lucide-react';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
 
 export function DataTable({
@@ -9,13 +9,26 @@ export function DataTable({
   onVendorClick,
   searchQuery,
   setSearchQuery,
-  onExportPdf
+  onExportPdf,
+  onFullReport
 }) {
   const [sortCol, setSortCol] = useState('id');
   const [sortDir, setSortDir] = useState('desc');
   const [currentPage, setCurrentPage] = useState(1);
   const [deletingRecord, setDeletingRecord] = useState(null);
+  const [exportOpen, setExportOpen] = useState(false);
+  const exportRef = useRef(null);
   const pageSize = 10;
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (exportRef.current && !exportRef.current.contains(e.target)) {
+        setExportOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   // Sorting
   const sortedData = useMemo(() => {
@@ -88,33 +101,100 @@ export function DataTable({
           <p>Daftar seluruh penilaian vendor. Anda dapat menambah, mengedit, atau menghapus data secara langsung.</p>
         </div>
         <div className="table-actions" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <button className="btn-export" onClick={handleExportCSV}>
-            <Download size={14} />
-            Export CSV ({sortedData.length})
-          </button>
-          {onExportPdf && (
+          {/* Single Export Dropdown */}
+          <div ref={exportRef} style={{ position: 'relative' }}>
             <button
-              className="btn-export-pdf"
-              onClick={onExportPdf}
+              onClick={() => setExportOpen(o => !o)}
               style={{
-                background: '#DC2626',
-                color: '#fff',
-                border: 'none',
-                padding: '6px 12px',
-                borderRadius: '8px',
-                fontWeight: 700,
-                fontSize: '12px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                transition: 'all 0.2s'
+                display: 'flex', alignItems: 'center', gap: '6px',
+                background: '#1E293B', color: '#fff',
+                border: 'none', padding: '6px 14px',
+                borderRadius: '8px', fontWeight: 700,
+                fontSize: '12px', cursor: 'pointer',
+                transition: 'background 0.2s'
               }}
+              onMouseEnter={e => e.currentTarget.style.background = '#0F172A'}
+              onMouseLeave={e => e.currentTarget.style.background = '#1E293B'}
             >
-              <FileText size={14} />
-              Export PDF ({sortedData.length})
+              <Download size={14} />
+              Export ({sortedData.length})
+              <ChevronDown size={13} style={{ marginLeft: '2px', transition: 'transform 0.2s', transform: exportOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
             </button>
-          )}
+
+            {exportOpen && (
+              <div style={{
+                position: 'absolute', top: 'calc(100% + 6px)', right: 0,
+                background: '#fff', border: '1px solid #E2E8F0',
+                borderRadius: '10px', boxShadow: '0 8px 24px rgba(15,23,42,0.13)',
+                minWidth: '210px', zIndex: 100, overflow: 'hidden'
+              }}>
+                {/* CSV */}
+                <button
+                  onClick={() => { handleExportCSV(); setExportOpen(false); }}
+                  style={{
+                    width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
+                    padding: '11px 16px', background: 'none', border: 'none',
+                    cursor: 'pointer', fontSize: '13px', fontWeight: 600,
+                    color: '#1E293B', textAlign: 'left', transition: 'background 0.15s'
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = '#F1F5F9'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                >
+                  <Download size={15} style={{ color: '#0D9488' }} />
+                  <div>
+                    <div>Export CSV</div>
+                    <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 400 }}>Data tabel ({sortedData.length} baris)</div>
+                  </div>
+                </button>
+
+                <div style={{ height: '1px', background: '#F1F5F9', margin: '0 12px' }} />
+
+                {/* PDF Tabel */}
+                {onExportPdf && (
+                  <button
+                    onClick={() => { onExportPdf(); setExportOpen(false); }}
+                    style={{
+                      width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
+                      padding: '11px 16px', background: 'none', border: 'none',
+                      cursor: 'pointer', fontSize: '13px', fontWeight: 600,
+                      color: '#1E293B', textAlign: 'left', transition: 'background 0.15s'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#F1F5F9'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                  >
+                    <FileText size={15} style={{ color: '#DC2626' }} />
+                    <div>
+                      <div>Export PDF — Tabel</div>
+                      <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 400 }}>Hanya data tabel evaluasi</div>
+                    </div>
+                  </button>
+                )}
+
+                <div style={{ height: '1px', background: '#F1F5F9', margin: '0 12px' }} />
+
+                {/* Full Report PDF */}
+                {onFullReport && (
+                  <button
+                    onClick={() => { onFullReport(); setExportOpen(false); }}
+                    style={{
+                      width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
+                      padding: '11px 16px', background: 'none', border: 'none',
+                      cursor: 'pointer', fontSize: '13px', fontWeight: 600,
+                      color: '#1E293B', textAlign: 'left', transition: 'background 0.15s'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#EEF4FF'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                  >
+                    <FileText size={15} style={{ color: '#7C3AED' }} />
+                    <div>
+                      <div style={{ color: '#7C3AED' }}>Full Report PDF ✨</div>
+                      <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 400 }}>Grafik + analisis + narasi</div>
+                    </div>
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

@@ -1,11 +1,12 @@
-import React from 'react';
-import { PlusCircle, RotateCcw, ShieldCheck, Filter, X, FileSpreadsheet, FileText } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { PlusCircle, RotateCcw, ShieldCheck, X, FileSpreadsheet, FileText, Download, ChevronDown } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 
 export function Header({
   onOpenAddModal,
   onOpenExcelModal,
   onExportPdf,
+  onFullReport,
   onResetData,
   filters,
   setFilter,
@@ -17,6 +18,18 @@ export function Header({
   uniqueLocations
 }) {
   const activeCount = Object.values(filters).filter(Boolean).length;
+  const [exportOpen, setExportOpen] = useState(false);
+  const exportRef = useRef(null);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (exportRef.current && !exportRef.current.contains(e.target)) {
+        setExportOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   return (
     <header className="top">
@@ -42,6 +55,7 @@ export function Header({
               <PlusCircle size={15} />
               Tambah Evaluasi
             </button>
+
             <button
               className="btn-crud-excel"
               onClick={onOpenExcelModal}
@@ -64,10 +78,11 @@ export function Header({
               <FileSpreadsheet size={15} />
               Upload Excel
             </button>
-            {onExportPdf && (
+
+            {/* Single Unified Export Dropdown Button */}
+            <div ref={exportRef} style={{ position: 'relative' }}>
               <button
-                className="btn-crud-pdf"
-                onClick={onExportPdf}
+                onClick={() => setExportOpen(o => !o)}
                 style={{
                   background: '#DC2626',
                   color: '#fff',
@@ -82,12 +97,64 @@ export function Header({
                   gap: '6px',
                   transition: 'all 0.2s'
                 }}
-                title="Cetak & Unduh Laporan PDF"
+                title="Pilih Format Export Laporan"
               >
-                <FileText size={15} />
-                Export PDF
+                <Download size={15} />
+                Export ▾
               </button>
-            )}
+
+              {exportOpen && (
+                <div style={{
+                  position: 'absolute', top: 'calc(100% + 6px)', right: 0,
+                  background: '#fff', border: '1px solid #E2E8F0',
+                  borderRadius: '10px', boxShadow: '0 8px 24px rgba(15,23,42,0.15)',
+                  minWidth: '220px', zIndex: 100, overflow: 'hidden'
+                }}>
+                  {onExportPdf && (
+                    <button
+                      onClick={() => { onExportPdf(); setExportOpen(false); }}
+                      style={{
+                        width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
+                        padding: '11px 16px', background: 'none', border: 'none',
+                        cursor: 'pointer', fontSize: '13px', fontWeight: 600,
+                        color: '#1E293B', textAlign: 'left', transition: 'background 0.15s'
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.background = '#F1F5F9'}
+                      onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                    >
+                      <FileText size={16} style={{ color: '#DC2626' }} />
+                      <div>
+                        <div>Export PDF (Tabel)</div>
+                        <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 400 }}>Tabel data evaluasi aktif</div>
+                      </div>
+                    </button>
+                  )}
+
+                  <div style={{ height: '1px', background: '#F1F5F9', margin: '0 12px' }} />
+
+                  {onFullReport && (
+                    <button
+                      onClick={() => { onFullReport(); setExportOpen(false); }}
+                      style={{
+                        width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
+                        padding: '11px 16px', background: 'none', border: 'none',
+                        cursor: 'pointer', fontSize: '13px', fontWeight: 600,
+                        color: '#1E293B', textAlign: 'left', transition: 'background 0.15s'
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.background = '#EEF4FF'}
+                      onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                    >
+                      <FileText size={16} style={{ color: '#7C3AED' }} />
+                      <div>
+                        <div style={{ color: '#7C3AED' }}>Full Report PDF ✨</div>
+                        <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 400 }}>Grafik + analisis & narasi</div>
+                      </div>
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+
             <button className="btn-reset-data" onClick={onResetData} title="Reset dataset ke 151 data asli">
               <RotateCcw size={13} />
               Reset Data
@@ -96,7 +163,7 @@ export function Header({
         </div>
       </div>
 
-      {/* COMPACT & SLEEK FILTER BAR MATCHING CONTOH TERBARU.HTML */}
+      {/* COMPACT & SLEEK FILTER BAR */}
       <div className="filters">
         <div className="filter">
           <div className="filter-content">
