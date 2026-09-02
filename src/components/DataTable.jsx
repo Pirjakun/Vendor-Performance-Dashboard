@@ -50,9 +50,8 @@ export function DataTable({
   // CSV Export
   const handleExportCSV = () => {
     if (sortedData.length === 0) return;
-    const headers = ['No Event', 'Event', 'Bulan', 'Tanggal Event', 'Vendor', 'Kategori', 'Alamat', 'Nilai', 'Huruf', 'Rekomendasi'];
+    const headers = ['Event', 'Bulan', 'Tanggal Event', 'Vendor', 'Kategori', 'Alamat', 'Nilai', 'Huruf', 'Rekomendasi'];
     const rows = sortedData.map(d => [
-      `"${d.eventNo || ''}"`,
       `"${(d.event || '').replace(/"/g, '""')}"`,
       `"${d.bulan || ''}"`,
       `"${d.tglEvent || ''}"`,
@@ -136,7 +135,6 @@ export function DataTable({
         <table className="data-table">
           <thead>
             <tr>
-              <th onClick={() => handleSort('eventNo')}>No</th>
               <th onClick={() => handleSort('event')}>Event</th>
               <th onClick={() => handleSort('bulan')}>Bulan</th>
               <th onClick={() => handleSort('vendor')}>Vendor</th>
@@ -151,14 +149,13 @@ export function DataTable({
           <tbody>
             {pageData.length === 0 ? (
               <tr>
-                <td colSpan="10" style={{ textAlign: 'center', padding: '28px', color: 'var(--ink-400)' }}>
+                <td colSpan="9" style={{ textAlign: 'center', padding: '28px', color: 'var(--ink-400)' }}>
                   Tidak ada data evaluasi yang sesuai filter/pencarian.
                 </td>
               </tr>
             ) : (
               pageData.map(row => (
                 <tr key={row.id}>
-                  <td><strong>{row.eventNo}</strong></td>
                   <td>{row.event}</td>
                   <td>{row.bulan}</td>
                   <td>
